@@ -42,9 +42,43 @@ void Ped::Model::setup(std::vector<Ped::Tagent*> agentsInScenario, std::vector<T
 	setupHeatmapSeq();
 }
 
+void Ped::Model::tickThreadable(std::vector<Ped::Tagent*> agents, int t, int s)
+{
+	std::cout << "Test" << std::endl;
+	for (int i = (agents.size()/s)*t; i < min(((agents.size()/s)*(t+1)+1), (agents.size())); i++)
+	{
+		agents.at(i)->computeNextDesiredPosition();
+		agents.at(i)->setX(agents.at(i)->getDesiredX());
+		agents.at(i)->setY(agents.at(i)->getDesiredY());
+	}
+}
+
 void Ped::Model::tick()
 {
 	// EDIT HERE FOR ASSIGNMENT 1
+	// for (int i = 0; i < agents.size(); i++)
+	// {
+	// 	agents.at(i)->computeNextDesiredPosition();
+	// 	agents.at(i)->setX(agents.at(i)->getDesiredX());
+	// 	agents.at(i)->setY(agents.at(i)->getDesiredY());
+	// }
+	
+	// #pragma omp parallel for default(none) shared(agents) schedule(static)
+	// for (int i = 0; i < agents.size(); i++)
+	// {
+	// 	agents.at(i)->computeNextDesiredPosition();
+	// 	agents.at(i)->setX(agents.at(i)->getDesiredX());
+	// 	agents.at(i)->setY(agents.at(i)->getDesiredY());
+	// }
+
+	std::thread threads[16];
+	for (int t = 0; t < sizeof(threads); t++) {
+		threads[t] = std::thread(&Ped::Model::tickThreadable,agents,t,sizeof(threads));
+	}
+
+	for (int t = 0; t < sizeof(threads); t++) {
+		threads[t].join();
+	}
 }
 
 ////////////
