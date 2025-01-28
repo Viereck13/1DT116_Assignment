@@ -45,6 +45,84 @@ void Ped::Model::setup(std::vector<Ped::Tagent*> agentsInScenario, std::vector<T
 void Ped::Model::tick()
 {
 	// EDIT HERE FOR ASSIGNMENT 1
+	// std::cout << "The length of the vector is: " << agents.size() << std::endl;
+    // for (auto agent : agents)
+    // {
+    //     // Find the next position for the agent
+    //     agent->computeNextDesiredPosition();
+
+    //     // Set the agent's position to that position
+    //     agent->setX(agent->getDesiredX());
+    //     agent->setY(agent->getDesiredY());
+    // }
+	// ----------------------------------------------
+	#pragma omp parallel for schedule(static)
+	for (int i = 0; i < agents.size(); i++) {
+		Ped::Tagent* agent = agents[i]; 
+		agent->computeNextDesiredPosition();
+		// printf("Thread %d is processing agent %d\n", omp_get_thread_num(), i);
+		
+		agent->setX(agent->getDesiredX());
+		agent->setY(agent->getDesiredY());
+	}
+	// ----------------------------------------------
+	// std::vector<std::thread> threads;
+
+	// for (auto agent : agents) {
+	// 	threads.emplace_back([agent]() {
+	// 		agent->computeNextDesiredPosition();
+	// 		agent->setX(agent->getDesiredX());
+	// 		agent->setY(agent->getDesiredY());
+	// 	});
+	// }
+
+    // // Join threads
+    // for (std::thread& t : threads) {
+    //     if (t.joinable()) {
+    //         t.join();
+    //     }
+    // }
+
+	// 1 thread per agent
+	// The number of threads can be too high, so it has too much overhead.
+	// ----------------------------------------------
+	// Many agents per thread, distributed equally
+	// Limit the number of threads to the number of (logical) cores 
+
+    // std::vector<std::thread> threads;
+
+    // // Lambda function to update a subset of agents
+    // auto updateAgents = [](std::vector<Ped::Tagent*>::iterator start, std::vector<Ped::Tagent*>::iterator end) {
+    //     for (auto it = start; it != end; it++) {
+    //         Ped::Tagent* agent = *it;
+
+    //         agent->computeNextDesiredPosition();
+    //         agent->setX(agent->getDesiredX());
+    //         agent->setY(agent->getDesiredY());
+    //     }
+    // };
+
+    // // Determine the number of agents per thread, and the number of threads will be limited by the hardware.
+    // const unsigned int numThreads = std::thread::hardware_concurrency(); // Returns the number of concurrent threads supported by the implementation.
+    // const unsigned int agentsPerThread = agents.size() / numThreads;
+	// // cout << "Number of threads: " << numThreads << endl;
+	// // cout << "Number of agents: " << agents.size() << endl;
+	// // cout << "Agents per thread: " << agentsPerThread << endl;
+    
+
+	// auto agentStart = agents.begin();
+    // for (int i = 0; i < numThreads; i++) {
+    //     auto agentEnd = (i == numThreads-1) ? agents.end() : agentStart + agentsPerThread;
+    //     threads.emplace_back(updateAgents, agentStart, agentEnd);
+    //     agentStart = agentEnd; // The first agent of the next thread is the last agent of the current thread
+    // }
+
+    // // Join threads
+    // for (std::thread& t : threads) {
+    //     if (t.joinable()) {
+    //         t.join();
+    //     }
+    // }
 }
 
 ////////////
