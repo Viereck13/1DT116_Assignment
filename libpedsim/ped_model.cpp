@@ -61,6 +61,25 @@ void Ped::Model::tick()
 		agent->setX(agent->getDesiredX());
 		agent->setY(agent->getDesiredY());
 	}
+
+	// -------------C++ threads version--------------------
+  // size_t threads = 8; 
+  // std::vector<std::thread> handles;
+  // size_t quotient = agents.size() / threads;
+  // size_t remainder = agents.size() % threads;
+  // for (int i = 0; i < threads; i++) {
+  //   handles.push_back(std::thread([this](size_t begin, size_t length) {
+  //     for (int i = begin; i < begin + length; i++) {
+  //       agents[i]->computeNextDesiredPosition();
+  //       agents[i]->setX(agents[i]->getDesiredX());
+  //       agents[i]->setY(agents[i]->getDesiredY());
+  //     }
+  //   }, i*quotient, i==threads-1 ? quotient+remainder : quotient));
+  // }
+  //
+  // for (auto& t: handles)
+  //   if (t.joinable())
+  //     t.join();
 }
 
 ////////////
