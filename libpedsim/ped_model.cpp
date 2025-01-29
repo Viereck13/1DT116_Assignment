@@ -45,6 +45,22 @@ void Ped::Model::setup(std::vector<Ped::Tagent*> agentsInScenario, std::vector<T
 void Ped::Model::tick()
 {
 	// EDIT HERE FOR ASSIGNMENT 1
+	// for (auto agent : agents)
+    // {
+    //     agent->computeNextDesiredPosition();
+    //     agent->setX(agent->getDesiredX());
+    //     agent->setY(agent->getDesiredY());
+    // }
+	// ----------------------------------------------------
+	#pragma omp parallel for schedule(dynamic,5) 
+	for (int i = 0; i < agents.size(); i++) {
+		Ped::Tagent* agent = agents[i]; 
+		agent->computeNextDesiredPosition();
+		// printf("Thread %d is processing agent %d\n", omp_get_thread_num(), i);
+		
+		agent->setX(agent->getDesiredX());
+		agent->setY(agent->getDesiredY());
+	}
 }
 
 ////////////
