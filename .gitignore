@@ -40,3 +40,7 @@
 
 # binary file
 demo/demo
+*/*.mk
+*/Makefile
+*/*.bin
+*.bin

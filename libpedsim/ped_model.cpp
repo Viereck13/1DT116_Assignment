@@ -52,7 +52,7 @@ void Ped::Model::tick()
     //     agent->setY(agent->getDesiredY());
     // }
 	// ----------------------------------------------------
-	#pragma omp parallel for schedule(dynamic,5) 
+	#pragma omp parallel for schedule(static) 
 	for (int i = 0; i < agents.size(); i++) {
 		Ped::Tagent* agent = agents[i]; 
 		agent->computeNextDesiredPosition();
