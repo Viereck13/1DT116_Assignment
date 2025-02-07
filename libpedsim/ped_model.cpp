@@ -51,8 +51,14 @@ void Ped::Model::setup(std::vector<Ped::Tagent*> agentsInScenario, std::vector<T
 		y.push_back(agent->getY());
 		// desiredX.push_back(agent->getDesiredX());
 		// desiredY.push_back(agent->getDesiredY());
-		destinationX.push_back(agent->destination->getx());
-		destinationY.push_back(agent->destination->gety());
+		// printf("LOL\n");
+		// if (agent->destination == NULL) {printf("R.I.P\n");};
+		Twaypoint* temp = agent->waypoints.front();
+		destinationX.push_back(temp->getx());
+		destinationY.push_back(temp->gety());
+		destinationR.push_back(temp->getr());
+		agent->destination = temp;
+		agent->waypoints.pop_front();
 	}
 	for (size_t i = 0; i < (4-(agents.size()%4))%4; i++)
 	{
@@ -62,6 +68,7 @@ void Ped::Model::setup(std::vector<Ped::Tagent*> agentsInScenario, std::vector<T
 		// desiredY.push_back(0);
 		destinationX.push_back(0);
 		destinationY.push_back(0);
+		destinationR.push_back(0);
 	}
 	
 	
@@ -97,9 +104,9 @@ void Ped::Model::tick_SIMD()
 			uint64_t agentsFlags[4];
 			_mm256_store_si256((__m256i*)agentsFlags,compare);
 			for (int j = 0; j < 4; j++) {
-				if (agentsFlags[i] != 0 && i+j < agents.size()) {
+				if (agentsFlags[j] != 0 && i+j < agents.size()) {
 					agents.at(i+j)->waypoints.push_back(agents.at(i+j)->destination);
-					Ped::Twaypoint* ptw= agents.at(i+j)->waypoints.front();
+					Ped::Twaypoint* ptw = agents.at(i+j)->waypoints.front();
 					agents.at(i+j)->destination = ptw; // update agent
 					// update your local data vector
 					destinationX.at(i+j) = ptw->getx();
@@ -132,12 +139,12 @@ void Ped::Model::tick_SIMD()
 		__m256d tick_depox_s1 = _mm256_div_pd(delta_x, length);
 		__m256d tick_depox_s2 = _mm256_add_pd(tick_x, tick_depox_s1);
 		__m128i tick_depox_s3 = _mm256_cvtpd_epi32(_mm256_round_pd(tick_depox_s2,_MM_FROUND_TO_NEAREST_INT));
-		_mm_store_si128((__m128i*)x[i], tick_depox_s3);
+		_mm_store_si128((__m128i*)&x[i], tick_depox_s3);
 		// desiredPositionY = (int)round(y + diffY / len);
 		__m256d tick_depoy_s1 = _mm256_div_pd(delta_y, length);
 		__m256d tick_depoy_s2 = _mm256_add_pd(tick_y, tick_depoy_s1);
 		__m128i tick_depoy_s3 = _mm256_cvtpd_epi32(_mm256_round_pd(tick_depoy_s2,_MM_FROUND_TO_NEAREST_INT));
-		_mm_store_si128((__m128i*)y[i], tick_depoy_s3);
+		_mm_store_si128((__m128i*)&y[i], tick_depoy_s3);
 	
 		// write back to agents
 		for (size_t j = 0; j < 4; j++)
