@@ -48,7 +48,10 @@ namespace Ped {
 		// Adds a new waypoint to reach for this agent
 		void addWaypoint(Twaypoint* wp);
 
-	private:
+		// double getDestinationX() { return destination->getx(); };
+		// double getDestinationY() { return destination->gety(); };
+
+	//private:
 		Tagent() {};
 
 		// The agent's current position

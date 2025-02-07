@@ -15,6 +15,8 @@
 #include <map>
 #include <set>
 
+#include <cstdint>
+
 #include "ped_agent.h"
 
 namespace Ped{
@@ -63,6 +65,21 @@ namespace Ped{
 
 		// Moves an agent towards its next position
 		void move(Ped::Tagent *agent);
+
+		//////// Vektoren
+		void tick_SIMD();
+
+		std::vector<int32_t> x;
+		std::vector<int32_t> y;
+		// std::vector<int32_t> desiredX;
+		// std::vector<int32_t> desiredY;
+
+		std::vector<double> destinationX;
+		std::vector<double> destinationY;
+		std::vector<double> destinationR;
+
+		// std::vector<std::vector<Ped::Twaypoint>> waypoints;
+		// std::vector<size_t> waypointsIndex;
 
 		////////////
 		/// Everything below here won't be relevant until Assignment 3

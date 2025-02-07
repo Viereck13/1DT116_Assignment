@@ -14,6 +14,9 @@
 #include <omp.h>
 #include <thread>
 
+#include <emmintrin.h>
+#include <immintrin.h>
+
 #ifndef NOCDUA
 #include "cuda_testkernel.h"
 #endif
@@ -40,10 +43,119 @@ void Ped::Model::setup(std::vector<Ped::Tagent*> agentsInScenario, std::vector<T
 
 	// Set up heatmap (relevant for Assignment 4)
 	setupHeatmapSeq();
+
+	////// Collect all agents and distribute info to vectors
+	for (auto agent : agents)
+	{
+		x.push_back(agent->getX());
+		y.push_back(agent->getY());
+		// desiredX.push_back(agent->getDesiredX());
+		// desiredY.push_back(agent->getDesiredY());
+		destinationX.push_back(agent->destination->getx());
+		destinationY.push_back(agent->destination->gety());
+	}
+	for (size_t i = 0; i < (4-(agents.size()%4))%4; i++)
+	{
+		x.push_back(0);
+		y.push_back(0);
+		// desiredX.push_back(0);
+		// desiredY.push_back(0);
+		destinationX.push_back(0);
+		destinationY.push_back(0);
+	}
+	
+	
+}
+
+// We assume that destionation is not NULL
+void Ped::Model::tick_SIMD()
+{
+	for (size_t i = 0; i < agents.size(); i+=4)
+	{
+		// double diffX = destination->getx() - x;
+		__m256d tick_x = _mm256_cvtepi32_pd(_mm_load_si128((__m128i*)&x[i]));
+		__m256d tick_destination_x = _mm256_load_pd(&destinationX[i]);
+		__m256d delta_x = _mm256_sub_pd(tick_destination_x, tick_x);
+		
+		// double diffY = destination->gety() - y;
+		__m256d tick_y = _mm256_cvtepi32_pd(_mm_load_si128((__m128i*)&y[i]));
+		__m256d tick_destination_y = _mm256_load_pd(&destinationY[i]);
+		__m256d delta_y = _mm256_sub_pd(tick_destination_y, tick_y);
+
+		// double length = sqrt(diffX * diffX + diffY * diffY);
+		__m256d delta_x_sq = _mm256_mul_pd(delta_x, delta_x);
+		__m256d delta_y_sq = _mm256_mul_pd(delta_y, delta_y);
+		__m256d length = _mm256_sqrt_pd(_mm256_add_pd(delta_x_sq, delta_y_sq));
+		
+		// agentReachedDestination = length < destination->getr();
+		__m256d tick_destination_r = _mm256_load_pd(&destinationR[i]);
+		__m256i compare = _mm256_castpd_si256(_mm256_cmp_pd(length,tick_destination_r,_CMP_NGE_UQ));
+		int agentReachedDestination = _mm256_testnzc_si256(compare,_mm256_set1_epi64x(0));
+
+		// check if min one agent needs new destination
+		if (agentReachedDestination) {
+			uint64_t agentsFlags[4];
+			_mm256_store_si256((__m256i*)agentsFlags,compare);
+			for (int j = 0; j < 4; j++) {
+				if (agentsFlags[i] != 0 && i+j < agents.size()) {
+					agents.at(i+j)->waypoints.push_back(agents.at(i+j)->destination);
+					Ped::Twaypoint* ptw= agents.at(i+j)->waypoints.front();
+					agents.at(i+j)->destination = ptw; // update agent
+					// update your local data vector
+					destinationX.at(i+j) = ptw->getx();
+					destinationY.at(i+j) = ptw->gety();
+					destinationR.at(i+j) = ptw->getr();
+					agents.at(i+j)->waypoints.pop_front();
+				}
+			}
+
+			// If new destionation have been choosen -> recalculate!
+			// double diffX = destination->getx() - x;
+			tick_destination_x = _mm256_load_pd(&destinationX[i]);
+			delta_x = _mm256_sub_pd(tick_destination_x, tick_x);
+			
+			// double diffY = destination->gety() - y;
+			tick_destination_y = _mm256_load_pd(&destinationY[i]);
+			delta_y = _mm256_sub_pd(tick_destination_y, tick_y);
+
+			// double length = sqrt(diffX * diffX + diffY * diffY);
+			delta_x_sq = _mm256_mul_pd(delta_x, delta_x);
+			delta_y_sq = _mm256_mul_pd(delta_y, delta_y);
+			length = _mm256_sqrt_pd(_mm256_add_pd(delta_x_sq, delta_y_sq));
+		}
+
+		// double diffX = destination->getx() - x;
+		// double diffY = destination->gety() - y;
+		// double len = sqrt(diffX * diffX + diffY * diffY);
+
+		// desiredPositionX = (int)round(x + diffX / len);
+		__m256d tick_depox_s1 = _mm256_div_pd(delta_x, length);
+		__m256d tick_depox_s2 = _mm256_add_pd(tick_x, tick_depox_s1);
+		__m128i tick_depox_s3 = _mm256_cvtpd_epi32(_mm256_round_pd(tick_depox_s2,_MM_FROUND_TO_NEAREST_INT));
+		_mm_store_si128((__m128i*)x[i], tick_depox_s3);
+		// desiredPositionY = (int)round(y + diffY / len);
+		__m256d tick_depoy_s1 = _mm256_div_pd(delta_y, length);
+		__m256d tick_depoy_s2 = _mm256_add_pd(tick_y, tick_depoy_s1);
+		__m128i tick_depoy_s3 = _mm256_cvtpd_epi32(_mm256_round_pd(tick_depoy_s2,_MM_FROUND_TO_NEAREST_INT));
+		_mm_store_si128((__m128i*)y[i], tick_depoy_s3);
+	
+		// write back to agents
+		for (size_t j = 0; j < 4; j++)
+		{
+			if (i+j < agents.size())
+			{
+				agents.at(i+j)->x = x.at(i+j);
+				agents.at(i+j)->desiredPositionX = x.at(i+j);
+				agents.at(i+j)->y = y.at(i+j);
+				agents.at(i+j)->desiredPositionY = x.at(i+j);
+			}
+		}
+	}
 }
 
 void Ped::Model::tick()
 {
+	tick_SIMD();
 	// EDIT HERE FOR ASSIGNMENT 1
 	// for (auto agent : agents)
     // {
@@ -52,15 +164,15 @@ void Ped::Model::tick()
     //     agent->setY(agent->getDesiredY());
     // }
 	// ----------------------------------------------------
-	#pragma omp parallel for schedule(static) 
-	for (int i = 0; i < agents.size(); i++) {
-		Ped::Tagent* agent = agents[i]; 
-		agent->computeNextDesiredPosition();
-		// printf("Thread %d is processing agent %d\n", omp_get_thread_num(), i);
+	// #pragma omp parallel for schedule(static) 
+	// for (int i = 0; i < agents.size(); i++) {
+	// 	Ped::Tagent* agent = agents[i]; 
+	// 	agent->computeNextDesiredPosition();
+	// 	// printf("Thread %d is processing agent %d\n", omp_get_thread_num(), i);
 		
-		agent->setX(agent->getDesiredX());
-		agent->setY(agent->getDesiredY());
-	}
+	// 	agent->setX(agent->getDesiredX());
+	// 	agent->setY(agent->getDesiredY());
+	// }
 
 	// -------------C++ threads version--------------------
   // size_t threads = 8; 
