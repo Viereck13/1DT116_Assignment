@@ -98,10 +98,10 @@ void Ped::Model::tick_SIMD()
 		// agentReachedDestination = length < destination->getr();
 		__m256d tick_destination_r = _mm256_loadu_pd(&destinationR[i]);
 		__m256i compare = _mm256_castpd_si256(_mm256_cmp_pd(length,tick_destination_r,_CMP_NGE_UQ));
-		int agentReachedDestination = _mm256_testnzc_si256(compare,_mm256_set1_epi64x(1));
+		int agentReachedDestination = _mm256_testz_si256(compare,_mm256_set1_epi64x(1));
 
 		// check if min one agent needs new destination
-		if (agentReachedDestination) {
+		if (agentReachedDestination == 0) {
 			// printf("IFIFIFIFIF\n");
 			uint64_t agentsFlags[4];
 			_mm256_storeu_si256((__m256i*)agentsFlags,compare);
@@ -164,6 +164,7 @@ void Ped::Model::tick_SIMD()
 
 void Ped::Model::tick()
 {
+	// printf("MAKE SIMD GREAT AGAIN!!!");
 	tick_SIMD();
 	// EDIT HERE FOR ASSIGNMENT 1
 	// for (auto agent : agents)
