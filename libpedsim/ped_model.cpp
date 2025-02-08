@@ -66,9 +66,9 @@ void Ped::Model::setup(std::vector<Ped::Tagent*> agentsInScenario, std::vector<T
 		y.push_back(0);
 		// desiredX.push_back(0);
 		// desiredY.push_back(0);
-		destinationX.push_back(0);
-		destinationY.push_back(0);
-		destinationR.push_back(0);
+		destinationX.push_back(0.0);
+		destinationY.push_back(0.0);
+		destinationR.push_back(0.0);
 	}
 	
 	
@@ -77,16 +77,17 @@ void Ped::Model::setup(std::vector<Ped::Tagent*> agentsInScenario, std::vector<T
 // We assume that destionation is not NULL
 void Ped::Model::tick_SIMD()
 {
+	#pragma omp parallel for
 	for (size_t i = 0; i < agents.size(); i+=4)
 	{
 		// double diffX = destination->getx() - x;
 		__m256d tick_x = _mm256_cvtepi32_pd(_mm_load_si128((__m128i*)&x[i]));
-		__m256d tick_destination_x = _mm256_load_pd(&destinationX[i]);
+		__m256d tick_destination_x = _mm256_loadu_pd(&destinationX[i]);
 		__m256d delta_x = _mm256_sub_pd(tick_destination_x, tick_x);
 		
 		// double diffY = destination->gety() - y;
 		__m256d tick_y = _mm256_cvtepi32_pd(_mm_load_si128((__m128i*)&y[i]));
-		__m256d tick_destination_y = _mm256_load_pd(&destinationY[i]);
+		__m256d tick_destination_y = _mm256_loadu_pd(&destinationY[i]);
 		__m256d delta_y = _mm256_sub_pd(tick_destination_y, tick_y);
 
 		// double length = sqrt(diffX * diffX + diffY * diffY);
@@ -95,14 +96,15 @@ void Ped::Model::tick_SIMD()
 		__m256d length = _mm256_sqrt_pd(_mm256_add_pd(delta_x_sq, delta_y_sq));
 		
 		// agentReachedDestination = length < destination->getr();
-		__m256d tick_destination_r = _mm256_load_pd(&destinationR[i]);
+		__m256d tick_destination_r = _mm256_loadu_pd(&destinationR[i]);
 		__m256i compare = _mm256_castpd_si256(_mm256_cmp_pd(length,tick_destination_r,_CMP_NGE_UQ));
-		int agentReachedDestination = _mm256_testnzc_si256(compare,_mm256_set1_epi64x(0));
+		int agentReachedDestination = _mm256_testnzc_si256(compare,_mm256_set1_epi64x(1));
 
 		// check if min one agent needs new destination
 		if (agentReachedDestination) {
+			// printf("IFIFIFIFIF\n");
 			uint64_t agentsFlags[4];
-			_mm256_store_si256((__m256i*)agentsFlags,compare);
+			_mm256_storeu_si256((__m256i*)agentsFlags,compare);
 			for (int j = 0; j < 4; j++) {
 				if (agentsFlags[j] != 0 && i+j < agents.size()) {
 					agents.at(i+j)->waypoints.push_back(agents.at(i+j)->destination);
@@ -118,11 +120,11 @@ void Ped::Model::tick_SIMD()
 
 			// If new destionation have been choosen -> recalculate!
 			// double diffX = destination->getx() - x;
-			tick_destination_x = _mm256_load_pd(&destinationX[i]);
+			tick_destination_x = _mm256_loadu_pd(&destinationX[i]);
 			delta_x = _mm256_sub_pd(tick_destination_x, tick_x);
 			
 			// double diffY = destination->gety() - y;
-			tick_destination_y = _mm256_load_pd(&destinationY[i]);
+			tick_destination_y = _mm256_loadu_pd(&destinationY[i]);
 			delta_y = _mm256_sub_pd(tick_destination_y, tick_y);
 
 			// double length = sqrt(diffX * diffX + diffY * diffY);
