@@ -19,6 +19,14 @@
 
 #include "ped_agent.h"
 
+struct CUDA_Waypoint
+{
+	double x;
+	double y;
+	double r;
+};
+
+
 namespace Ped{
 	class Tagent;
 
@@ -37,7 +45,23 @@ namespace Ped{
 		void tick();
 
 		// Returns the agents of this scenario
-		const std::vector<Tagent*>& getAgents() const { return agents; };
+		const std::vector<Tagent*>& getAgents() const { 
+			//printf("MAKEEE");
+			if (this->implementation == VECTOR) {
+				#pragma omp parallel for // for performance in exporting
+				for (size_t j = 0; j < this->agents.size(); j++)
+				{
+					if (j < this->agents.size())
+					{
+						this->agents.at(j)->x = this->x.at(j);
+						this->agents.at(j)->desiredPositionX = this->x.at(j);
+						this->agents.at(j)->y = this->y.at(j);
+						this->agents.at(j)->desiredPositionY = this->x.at(j);
+					}
+				}
+			}
+			return this->agents;
+		 };
 
 		// Adds an agent to the tree structure
 		void placeAgent(const Ped::Tagent *a);
@@ -66,6 +90,9 @@ namespace Ped{
 		// Moves an agent towards its next position
 		void move(Ped::Tagent *agent);
 
+		void tick_OMP();
+		void tick_CTHREADS();
+		void tick_CUDA();
 		//////// Vektoren
 		void tick_SIMD();
 

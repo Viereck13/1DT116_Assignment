@@ -40,35 +40,42 @@ void Ped::Model::setup(std::vector<Ped::Tagent*> agentsInScenario, std::vector<T
 
 	// Sets the chosen implemenation. Standard in the given code is SEQ
 	this->implementation = implementation;
+	printf("Mode: %d\n", implementation);
 
 	// Set up heatmap (relevant for Assignment 4)
 	setupHeatmapSeq();
 
 	////// Collect all agents and distribute info to vectors
-	for (auto agent : agents)
-	{
-		x.push_back(agent->getX());
-		y.push_back(agent->getY());
-		// desiredX.push_back(agent->getDesiredX());
-		// desiredY.push_back(agent->getDesiredY());
-		// printf("LOL\n");
-		// if (agent->destination == NULL) {printf("R.I.P\n");};
-		Twaypoint* temp = agent->waypoints.front();
-		destinationX.push_back(temp->getx());
-		destinationY.push_back(temp->gety());
-		destinationR.push_back(temp->getr());
-		agent->destination = temp;
-		agent->waypoints.pop_front();
-	}
-	for (size_t i = 0; i < (4-(agents.size()%4))%4; i++)
-	{
-		x.push_back(0);
-		y.push_back(0);
-		// desiredX.push_back(0);
-		// desiredY.push_back(0);
-		destinationX.push_back(0.0);
-		destinationY.push_back(0.0);
-		destinationR.push_back(0.0);
+	if (implementation == CUDA || implementation == VECTOR) {
+		for (auto agent : agents)
+		{
+			x.push_back(agent->getX());
+			y.push_back(agent->getY());
+			// desiredX.push_back(agent->getDesiredX());
+			// desiredY.push_back(agent->getDesiredY());
+			// printf("LOL\n");
+			// if (agent->destination == NULL) {printf("R.I.P\n");};
+			Twaypoint* temp = agent->waypoints.front();
+			destinationX.push_back(temp->getx());
+			destinationY.push_back(temp->gety());
+			destinationR.push_back(temp->getr());
+			agent->destination = temp;
+			agent->waypoints.pop_front();
+		}
+		for (size_t i = 0; i < (4-(agents.size()%4))%4; i++)
+		{
+			x.push_back(0);
+			y.push_back(0);
+			// desiredX.push_back(0);
+			// desiredY.push_back(0);
+			destinationX.push_back(0.0);
+			destinationY.push_back(0.0);
+			destinationR.push_back(0.0);
+		}
+
+		if (implementation == CUDA) {
+
+		}
 	}
 	
 	
@@ -102,7 +109,6 @@ void Ped::Model::tick_SIMD()
 
 		// check if min one agent needs new destination
 		if (agentReachedDestination == 0) {
-			// printf("IFIFIFIFIF\n");
 			uint64_t agentsFlags[4];
 			_mm256_storeu_si256((__m256i*)agentsFlags,compare);
 			for (int j = 0; j < 4; j++) {
@@ -147,61 +153,86 @@ void Ped::Model::tick_SIMD()
 		__m256d tick_depoy_s2 = _mm256_add_pd(tick_y, tick_depoy_s1);
 		__m128i tick_depoy_s3 = _mm256_cvtpd_epi32(_mm256_round_pd(tick_depoy_s2,_MM_FROUND_TO_NEAREST_INT));
 		_mm_store_si128((__m128i*)&y[i], tick_depoy_s3);
-	
-		// write back to agents
-		for (size_t j = 0; j < 4; j++)
-		{
-			if (i+j < agents.size())
-			{
-				agents.at(i+j)->x = x.at(i+j);
-				agents.at(i+j)->desiredPositionX = x.at(i+j);
-				agents.at(i+j)->y = y.at(i+j);
-				agents.at(i+j)->desiredPositionY = x.at(i+j);
-			}
-		}
 	}
+}
+
+void Ped::Model::tick_CUDA() {
+
+}
+
+void Ped::Model::tick_OMP() {
+	#pragma omp parallel for schedule(static) 
+	for (int i = 0; i < agents.size(); i++) {
+		Ped::Tagent* agent = agents[i]; 
+		agent->computeNextDesiredPosition();
+		agent->setX(agent->getDesiredX());
+		agent->setY(agent->getDesiredY());
+	}
+}
+
+void Ped::Model::tick_CTHREADS() {
+	std::vector<std::thread> threads;
+
+    // Lambda function to update a subset of agents
+    auto updateAgents = [](std::vector<Ped::Tagent*>::iterator start, std::vector<Ped::Tagent*>::iterator end) {
+        for (auto it = start; it != end; it++) {
+            Ped::Tagent* agent = *it;
+
+            agent->computeNextDesiredPosition();
+            agent->setX(agent->getDesiredX());
+            agent->setY(agent->getDesiredY());
+        }
+    };
+
+    // Determine the number of agents per thread, and the number of threads will be limited by the hardware.
+    const unsigned int numThreads = std::thread::hardware_concurrency(); // Returns the number of concurrent threads supported by the implementation.
+    const unsigned int agentsPerThread = agents.size() / numThreads;
+	cout << "Number of threads: " << numThreads << endl;
+	cout << "Number of agents: " << agents.size() << endl;
+	cout << "Agents per thread: " << agentsPerThread << endl;
+    
+
+	auto agentStart = agents.begin();
+    for (int i = 0; i < numThreads; i++) {
+        auto agentEnd = (i == numThreads-1) ? agents.end() : agentStart + agentsPerThread;
+        threads.emplace_back(updateAgents, agentStart, agentEnd);
+        agentStart = agentEnd; // The first agent of the next thread is the last agent of the current thread
+    }
+
+    // Join threads
+    for (std::thread& t : threads) {
+        if (t.joinable()) {
+            t.join();
+        }
+    }
 }
 
 void Ped::Model::tick()
 {
-	// printf("MAKE SIMD GREAT AGAIN!!!");
-	tick_SIMD();
-	// EDIT HERE FOR ASSIGNMENT 1
-	// for (auto agent : agents)
-    // {
-    //     agent->computeNextDesiredPosition();
-    //     agent->setX(agent->getDesiredX());
-    //     agent->setY(agent->getDesiredY());
-    // }
-	// ----------------------------------------------------
-	// #pragma omp parallel for schedule(static) 
-	// for (int i = 0; i < agents.size(); i++) {
-	// 	Ped::Tagent* agent = agents[i]; 
-	// 	agent->computeNextDesiredPosition();
-	// 	// printf("Thread %d is processing agent %d\n", omp_get_thread_num(), i);
-		
-	// 	agent->setX(agent->getDesiredX());
-	// 	agent->setY(agent->getDesiredY());
-	// }
-
-	// -------------C++ threads version--------------------
-  // size_t threads = 8; 
-  // std::vector<std::thread> handles;
-  // size_t quotient = agents.size() / threads;
-  // size_t remainder = agents.size() % threads;
-  // for (int i = 0; i < threads; i++) {
-  //   handles.push_back(std::thread([this](size_t begin, size_t length) {
-  //     for (int i = begin; i < begin + length; i++) {
-  //       agents[i]->computeNextDesiredPosition();
-  //       agents[i]->setX(agents[i]->getDesiredX());
-  //       agents[i]->setY(agents[i]->getDesiredY());
-  //     }
-  //   }, i*quotient, i==threads-1 ? quotient+remainder : quotient));
-  // }
-  //
-  // for (auto& t: handles)
-  //   if (t.joinable())
-  //     t.join();
+	switch (implementation)
+	{
+	case OMP:
+		tick_OMP();
+		break;
+	case PTHREAD:
+		tick_CTHREADS();
+		break;
+	case VECTOR:
+		tick_SIMD();
+		break;
+	case CUDA:
+		tick_CUDA();
+		break;
+	
+	default:
+		for (auto agent : agents)
+		{
+			agent->computeNextDesiredPosition();
+			agent->setX(agent->getDesiredX());
+			agent->setY(agent->getDesiredY());
+		}
+		break;
+	}
 }
 
 ////////////
