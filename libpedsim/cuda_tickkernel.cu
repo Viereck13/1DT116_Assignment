@@ -52,16 +52,7 @@ __global__ void agentTickKernel(int32_t *x, int32_t *y, double *destinationX, do
 	}
 }
 
-void tick_CUDA(
-	CUDA_Waypoint* waypoint_device,
-	CUDA_Agent* agent_device,
-	int32_t* x_device,
-	int32_t* y_device,
-	double* destinationX_device,
-	double* destinationY_device,
-	double* destinationR_device,
-    int numElements
-) {
+void cuda_wrapper::tick_CUDA() {
     // Launch the Vector Add CUDA Kernel
     int threadsPerBlock = 256;
     int blocksPerGrid = (numElements + threadsPerBlock - 1) / threadsPerBlock;
@@ -76,4 +67,34 @@ void tick_CUDA(
         waypoint_device,
         agent_device,
         numElements);
+}
+
+void cuda_wrapper::setup_CUDA(
+    std::vector<CUDA_Waypoint> &waypoints,
+    std::vector<CUDA_Agent> &agent_waypoints_indices,
+    std::vector<int32_t> &x,
+    std::vector<int32_t> &y
+) {
+    numElements = agent_waypoints_indices.size();
+    cudaMalloc(&waypoint_device, waypoints.size()*sizeof(CUDA_Waypoint));
+    cudaMemcpy(waypoint_device, waypoints.data(),  waypoints.size()*sizeof(CUDA_Waypoint), cudaMemcpyHostToDevice);
+    cudaMalloc(&agent_device, numElements*sizeof(CUDA_Agent));
+    cudaMemcpy(agent_device, agent_waypoints_indices.data(),  numElements*sizeof(CUDA_Agent), cudaMemcpyHostToDevice);
+
+    cudaMalloc(&x_device, numElements*sizeof(int32_t));
+    cudaMemcpy(x_device, x.data(),  numElements*sizeof(int32_t), cudaMemcpyHostToDevice);
+    cudaMalloc(&y_device, numElements*sizeof(int32_t));
+    cudaMemcpy(y_device, y.data(),  numElements*sizeof(int32_t), cudaMemcpyHostToDevice);
+    
+    cudaMalloc(&destinationX_device, numElements*sizeof(double));
+    // cudaMemcpy(destinationX_device, destinationX.data(),  destinationX.size()*sizeof(double), cudaMemcpyHostToDevice);
+    cudaMalloc(&destinationY_device, numElements*sizeof(double));
+    // cudaMemcpy(destinationY_device, destinationY.data(),  destinationY.size()*sizeof(double), cudaMemcpyHostToDevice);
+    cudaMalloc(&destinationR_device, numElements*sizeof(double));
+    // cudaMemcpy(destinationR_device, destinationR.data(),  destinationR.size()*sizeof(double), cudaMemcpyHostToDevice);
+}
+
+void cuda_wrapper::writeBack_CUDA(int32_t *x, int32_t *y) const {
+    cudaMemcpy((void*)x, x_device, numElements*sizeof(int32_t), cudaMemcpyDeviceToHost);
+	cudaMemcpy((void*)y, y_device, numElements*sizeof(int32_t), cudaMemcpyDeviceToHost);
 }

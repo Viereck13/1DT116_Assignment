@@ -20,7 +20,6 @@
 #ifndef NOCDUA
 #include "cuda_testkernel.h"
 #include "cuda_tickkernel.h"
-#include <cuda_runtime.h>
 #endif
 
 #include <stdlib.h>
@@ -96,26 +95,13 @@ void Ped::Model::setup(std::vector<Ped::Tagent*> agentsInScenario, std::vector<T
 					});
 				}	
 			}
+
+			cuda.setup_CUDA(waypoints, agent_waypoints_indices, x, y);
 			// printf("%d\t%d\n",(int)waypoints.size(),sizeof(CUDA_Waypoint));
 
 			// cudaError_t err = cudaSuccess;
 
-			cudaMalloc(&waypoint_device, waypoints.size()*sizeof(CUDA_Waypoint));
-			cudaMemcpy(waypoint_device, waypoints.data(),  waypoints.size()*sizeof(CUDA_Waypoint), cudaMemcpyHostToDevice);
-			cudaMalloc(&agent_device, agents.size()*sizeof(CUDA_Agent));
-			cudaMemcpy(agent_device, agent_waypoints_indices.data(),  agents.size()*sizeof(CUDA_Agent), cudaMemcpyHostToDevice);
-
-			cudaMalloc(&x_device, agents.size()*sizeof(int32_t));
-			cudaMemcpy(x_device, x.data(),  agents.size()*sizeof(int32_t), cudaMemcpyHostToDevice);
-			cudaMalloc(&y_device, agents.size()*sizeof(int32_t));
-			cudaMemcpy(y_device, y.data(),  agents.size()*sizeof(int32_t), cudaMemcpyHostToDevice);
 			
-			cudaMalloc(&destinationX_device, agents.size()*sizeof(double));
-			// cudaMemcpy(destinationX_device, destinationX.data(),  destinationX.size()*sizeof(double), cudaMemcpyHostToDevice);
-			cudaMalloc(&destinationY_device, agents.size()*sizeof(double));
-			// cudaMemcpy(destinationY_device, destinationY.data(),  destinationY.size()*sizeof(double), cudaMemcpyHostToDevice);
-			cudaMalloc(&destinationR_device, agents.size()*sizeof(double));
-			// cudaMemcpy(destinationR_device, destinationR.data(),  destinationR.size()*sizeof(double), cudaMemcpyHostToDevice);
 		}
 		#endif
 	}
@@ -259,7 +245,7 @@ void Ped::Model::tick()
 		tick_SIMD();
 		break;
 	case CUDA:
-		tick_CUDA(waypoint_device,agent_device,x_device,y_device,destinationX_device,destinationY_device,destinationR_device,agents.size());
+		cuda.tick_CUDA();
 		break;
 	
 	default:

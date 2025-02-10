@@ -18,24 +18,10 @@
 #include <cstdint>
 
 #ifndef NOCDUA
-#include <cuda_runtime.h>
+#include "cuda_tickkernel.h"
 #endif
 
 #include "ped_agent.h"
-
-struct CUDA_Waypoint
-{
-	double x;
-	double y;
-	double r;
-};
-
-struct CUDA_Agent
-{
-	int start;
-	int size;
-	int index;
-};
 
 namespace Ped{
 	class Tagent;
@@ -58,8 +44,9 @@ namespace Ped{
 		const std::vector<Tagent*>& getAgents() const { 
 			if (this->implementation == VECTOR || this->implementation == CUDA) {
 				if (this->implementation == CUDA) {
-					cudaMemcpy((void*)x.data(), x_device, agents.size()*sizeof(int32_t), cudaMemcpyDeviceToHost);
-					cudaMemcpy((void*)y.data(), y_device, agents.size()*sizeof(int32_t), cudaMemcpyDeviceToHost);
+					// cudaMemcpy((void*)x.data(), x_device, agents.size()*sizeof(int32_t), cudaMemcpyDeviceToHost);
+					// cudaMemcpy((void*)y.data(), y_device, agents.size()*sizeof(int32_t), cudaMemcpyDeviceToHost);
+					cuda.writeBack_CUDA((int32_t*)x.data(), (int32_t*)y.data());
 				}
 				#pragma omp parallel for // for performance in exporting
 				for (size_t j = 0; j < this->agents.size(); j++)
@@ -120,15 +107,7 @@ namespace Ped{
 		std::vector<CUDA_Waypoint> waypoints;
 		std::vector<CUDA_Agent> agent_waypoints_indices;
 
-		CUDA_Waypoint* waypoint_device;
-		CUDA_Agent* agent_device;
-
-		int32_t* x_device;
-		int32_t* y_device;
-		
-		double* destinationX_device;
-		double* destinationY_device;
-		double* destinationR_device;
+		cuda_wrapper cuda;
 
 		// std::vector<std::vector<Ped::Twaypoint>> waypoints;
 		// std::vector<size_t> waypointsIndex;
