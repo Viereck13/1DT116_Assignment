@@ -13,12 +13,18 @@
 #include <algorithm>
 #include <omp.h>
 #include <thread>
+#include <emmintrin.h>
+#include <immintrin.h>
+#include <smmintrin.h>
+// #include <xmmintrin.h>
 
 #ifndef NOCDUA
 #include "cuda_testkernel.h"
 #endif
 
 #include <stdlib.h>
+
+int cnt = 1;
 
 void Ped::Model::setup(std::vector<Ped::Tagent*> agentsInScenario, std::vector<Twaypoint*> destinationsInScenario, IMPLEMENTATION implementation)
 {
@@ -29,7 +35,6 @@ void Ped::Model::setup(std::vector<Ped::Tagent*> agentsInScenario, std::vector<T
     std::cout << "Not compiled for CUDA" << std::endl;
 #endif
 
-	// Set 
 	agents = std::vector<Ped::Tagent*>(agentsInScenario.begin(), agentsInScenario.end());
 
 	// Set up destinations
@@ -44,42 +49,212 @@ void Ped::Model::setup(std::vector<Ped::Tagent*> agentsInScenario, std::vector<T
 
 void Ped::Model::tick()
 {
+	// std::cout << "The length of the vector is: " << agents.size() << std::endl;
+	// Size is 453
 	// EDIT HERE FOR ASSIGNMENT 1
-	// for (auto agent : agents)
-    // {
-    //     agent->computeNextDesiredPosition();
-    //     agent->setX(agent->getDesiredX());
-    //     agent->setY(agent->getDesiredY());
-    // }
-	// ----------------------------------------------------
-	#pragma omp parallel for schedule(static) 
-	for (int i = 0; i < agents.size(); i++) {
-		Ped::Tagent* agent = agents[i]; 
-		agent->computeNextDesiredPosition();
-		// printf("Thread %d is processing agent %d\n", omp_get_thread_num(), i);
-		
-		agent->setX(agent->getDesiredX());
-		agent->setY(agent->getDesiredY());
-	}
+    if(implementation == Ped::SEQ) {
+        // printf("Running SEQ version: %d\n", cnt++);
+        for (auto agent : agents) {
+            // Let the agent calculate the desired position based on its destination.
+            agent->computeNextDesiredPosition();
 
-	// -------------C++ threads version--------------------
-  // size_t threads = 8; 
-  // std::vector<std::thread> handles;
-  // size_t quotient = agents.size() / threads;
-  // size_t remainder = agents.size() % threads;
-  // for (int i = 0; i < threads; i++) {
-  //   handles.push_back(std::thread([this](size_t begin, size_t length) {
-  //     for (int i = begin; i < begin + length; i++) {
-  //       agents[i]->computeNextDesiredPosition();
-  //       agents[i]->setX(agents[i]->getDesiredX());
-  //       agents[i]->setY(agents[i]->getDesiredY());
-  //     }
-  //   }, i*quotient, i==threads-1 ? quotient+remainder : quotient));
-  // }
-  //
-  // for (auto& t: handles)
-  //   if (t.joinable())
-  //     t.join();
+            // Retrieve the desired position.
+            int newX = agent->getDesiredX();
+            int newY = agent->getDesiredY();
+
+            // Directly update the agent's current position.
+            agent->setX(newX);
+            agent->setY(newY);
+        }
+    } else if(implementation == Ped::OMP) {
+        // printf("Running OMP version: %d\n", cnt++);
+        #pragma omp parallel for schedule(static,5)
+        for (int i = 0; i < agents.size(); i++) {
+            Ped::Tagent* agent = agents[i]; 
+            agent->computeNextDesiredPosition();
+            // printf("Thread %d is processing agent %d\n", omp_get_thread_num(), i);
+            
+            agent->setX(agent->getDesiredX());
+            agent->setY(agent->getDesiredY());
+        }
+
+    } else if(implementation == Ped::VECTOR){
+        size_t numAgents = agents.size();
+
+        // Update each agent’s destination and compute its desired position.
+        // This ensures that destXs and destYs are up to date.
+        for (size_t i = 0; i < numAgents; i++) {
+            agents[i]->computeNextDesiredPositionSIMD();
+        }
+
+        size_t i = 0;
+        // A small epsilon to avoid division by zero.
+        __m128 epsilon = _mm_set1_ps(1e-6f);
+        __m128 zero = _mm_setzero_ps();
+
+        // Process agents in blocks of 4 using SSE
+        for (; i+3 < numAgents; i+=4) {
+            // Load current positions and convert to float.
+            __m128i curXi = _mm_load_si128((__m128i*)(Tagent::getXsData() + i));
+            __m128 curX = _mm_cvtepi32_ps(curXi);
+            __m128i curYi = _mm_load_si128((__m128i*)(Tagent::getYsData() + i));
+            __m128 curY = _mm_cvtepi32_ps(curYi);
+
+            // Load destination positions and convert to float.
+            __m128i destXi = _mm_load_si128((__m128i*)(Tagent::getDestXsData() + i));
+            __m128 destX = _mm_cvtepi32_ps(destXi);
+            __m128i destYi = _mm_load_si128((__m128i*)(Tagent::getDestYsData() + i));
+            __m128 destY = _mm_cvtepi32_ps(destYi);
+
+            // Compute differences: diff = destination - current.
+            __m128 diffX = _mm_sub_ps(destX, curX);
+            __m128 diffY = _mm_sub_ps(destY, curY);
+
+            // Compute the squares of the differences.
+            __m128 diffX2 = _mm_mul_ps(diffX, diffX);
+            __m128 diffY2 = _mm_mul_ps(diffY, diffY);
+
+            // Compute the sum of squares.
+            __m128 sumSq = _mm_add_ps(diffX2, diffY2);
+
+            // Compute the length.
+            __m128 len = _mm_sqrt_ps(sumSq);
+
+            // Create a mask: mask = (len > epsilon)
+            __m128 mask = _mm_cmpgt_ps(len, epsilon);
+
+            // For lanes where len is too small, substitute epsilon to avoid division by zero.
+            __m128 safeLen = _mm_blendv_ps(epsilon, len, mask);
+
+            // Compute normalized differences (diff / safeLen).
+            __m128 normDiffX = _mm_div_ps(diffX, safeLen);
+            __m128 normDiffY = _mm_div_ps(diffY, safeLen);
+
+            // Now, if the length was below epsilon, normalize step to be zero.
+            normDiffX = _mm_blendv_ps(zero, normDiffX, mask);
+            normDiffY = _mm_blendv_ps(zero, normDiffY, mask);
+
+            // Compute new desired positions: current + normalized difference.
+            __m128 newX = _mm_add_ps(curX, normDiffX);
+            __m128 newY = _mm_add_ps(curY, normDiffY);
+
+            // Convert the computed positions back to integers.
+            __m128i desiredXi = _mm_cvtps_epi32(newX);
+            __m128i desiredYi = _mm_cvtps_epi32(newY);
+
+            // Store the computed desired positions.
+            _mm_store_si128((__m128i*)(Tagent::getDesiredXsData() + i), desiredXi);
+            _mm_store_si128((__m128i*)(Tagent::getDesiredYsData() + i), desiredYi);
+        }
+
+        // Process any remaining agents that are the remaining of a block of 4.
+        for (; i < numAgents; i++) {
+            int cur = Tagent::getXsData()[i];
+            int curYVal = Tagent::getYsData()[i];
+            int dX = Tagent::getDestXsData()[i];
+            int dY = Tagent::getDestYsData()[i];
+            float diffX = dX - cur;
+            float diffY = dY - curYVal;
+            float length = sqrtf(diffX * diffX + diffY * diffY);
+            if (length < 1e-6f) {
+                Tagent::getDesiredXsData()[i] = cur;
+                Tagent::getDesiredYsData()[i] = curYVal;
+            } else {
+                int desiredX = (int)roundf(cur + diffX / length);
+                int desiredY = (int)roundf(curYVal + diffY / length);
+                Tagent::getDesiredXsData()[i] = desiredX;
+                Tagent::getDesiredYsData()[i] = desiredY;
+            }
+        }
+
+        // Update each agent's current position with its computed desired position.
+        for (size_t j = 0; j < numAgents; j++) {
+            Tagent::getXsData()[j] = Tagent::getDesiredXsData()[j];
+            Tagent::getYsData()[j] = Tagent::getDesiredYsData()[j];
+        }
+    } else if(implementation == Ped::OMP_SIMD) {
+        size_t numAgents = agents.size();
+
+        #pragma omp parallel for schedule(static)
+        for (size_t i = 0; i < numAgents; i++) {
+            agents[i]->computeNextDesiredPositionSIMD();
+        }
+
+        // Determine the number of agents that can be processed in blocks of 4.
+        size_t simdLoopEnd = (numAgents / 4) * 4;
+
+        __m128 epsilon = _mm_set1_ps(1e-6f);
+        __m128 zero    = _mm_setzero_ps();
+
+        #pragma omp parallel for schedule(static)
+        for (size_t i = 0; i < simdLoopEnd; i += 4) {
+            __m128i curXi = _mm_load_si128((__m128i*)(Tagent::getXsData() + i));
+            __m128  curX  = _mm_cvtepi32_ps(curXi);
+
+            __m128i curYi = _mm_load_si128((__m128i*)(Tagent::getYsData() + i));
+            __m128  curY  = _mm_cvtepi32_ps(curYi);
+
+            __m128i destXi = _mm_load_si128((__m128i*)(Tagent::getDestXsData() + i));
+            __m128  destX  = _mm_cvtepi32_ps(destXi);
+
+            __m128i destYi = _mm_load_si128((__m128i*)(Tagent::getDestYsData() + i));
+            __m128  destY  = _mm_cvtepi32_ps(destYi);
+
+            __m128 diffX = _mm_sub_ps(destX, curX);
+            __m128 diffY = _mm_sub_ps(destY, curY);
+
+            __m128 diffX2 = _mm_mul_ps(diffX, diffX);
+            __m128 diffY2 = _mm_mul_ps(diffY, diffY);
+
+            __m128 sumSq = _mm_add_ps(diffX2, diffY2);
+            __m128 len   = _mm_sqrt_ps(sumSq);
+
+            __m128 mask = _mm_cmpgt_ps(len, epsilon);
+
+            __m128 safeLen = _mm_blendv_ps(epsilon, len, mask);
+
+            __m128 normDiffX = _mm_div_ps(diffX, safeLen);
+            __m128 normDiffY = _mm_div_ps(diffY, safeLen);
+
+            normDiffX = _mm_blendv_ps(zero, normDiffX, mask);
+            normDiffY = _mm_blendv_ps(zero, normDiffY, mask);
+
+            __m128 newX = _mm_add_ps(curX, normDiffX);
+            __m128 newY = _mm_add_ps(curY, normDiffY);
+
+            __m128i desiredXi = _mm_cvtps_epi32(newX);
+            __m128i desiredYi = _mm_cvtps_epi32(newY);
+
+            _mm_store_si128((__m128i*)(Tagent::getDesiredXsData() + i), desiredXi);
+            _mm_store_si128((__m128i*)(Tagent::getDesiredYsData() + i), desiredYi);
+        }
+
+        #pragma omp parallel for schedule(static)
+        for (size_t i = simdLoopEnd; i < numAgents; i++) {
+            int cur   = Tagent::getXsData()[i];
+            int curYVal = Tagent::getYsData()[i];
+            int dX    = Tagent::getDestXsData()[i];
+            int dY    = Tagent::getDestYsData()[i];
+            float diffX = dX - cur;
+            float diffY = dY - curYVal;
+            float length = sqrtf(diffX * diffX + diffY * diffY);
+            if (length < 1e-6f) {
+                Tagent::getDesiredXsData()[i] = cur;
+                Tagent::getDesiredYsData()[i] = curYVal;
+            } else {
+                int desiredX = (int)roundf(cur + diffX / length);
+                int desiredY = (int)roundf(curYVal + diffY / length);
+                Tagent::getDesiredXsData()[i] = desiredX;
+                Tagent::getDesiredYsData()[i] = desiredY;
+            }
+        }
+
+        #pragma omp parallel for schedule(static)
+        for (size_t j = 0; j < numAgents; j++) {
+            Tagent::getXsData()[j] = Tagent::getDesiredXsData()[j];
+            Tagent::getYsData()[j] = Tagent::getDesiredYsData()[j];
+        }
+    }
 }
 
 ////////////
@@ -91,18 +266,14 @@ void Ped::Model::tick()
 // be moved to a location close to it.
 void Ped::Model::move(Ped::Tagent *agent)
 {
-	// Search for neighboring agents
 	set<const Ped::Tagent *> neighbors = getNeighbors(agent->getX(), agent->getY(), 2);
 
-	// Retrieve their positions
 	std::vector<std::pair<int, int> > takenPositions;
 	for (std::set<const Ped::Tagent*>::iterator neighborIt = neighbors.begin(); neighborIt != neighbors.end(); ++neighborIt) {
 		std::pair<int, int> position((*neighborIt)->getX(), (*neighborIt)->getY());
 		takenPositions.push_back(position);
 	}
 
-	// Compute the three alternative positions that would bring the agent
-	// closer to his desiredPosition, starting with the desiredPosition itself
 	std::vector<std::pair<int, int> > prioritizedAlternatives;
 	std::pair<int, int> pDesired(agent->getDesiredX(), agent->getDesiredY());
 	prioritizedAlternatives.push_back(pDesired);
@@ -112,28 +283,20 @@ void Ped::Model::move(Ped::Tagent *agent)
 	std::pair<int, int> p1, p2;
 	if (diffX == 0 || diffY == 0)
 	{
-		// Agent wants to walk straight to North, South, West or East
 		p1 = std::make_pair(pDesired.first + diffY, pDesired.second + diffX);
 		p2 = std::make_pair(pDesired.first - diffY, pDesired.second - diffX);
 	}
 	else {
-		// Agent wants to walk diagonally
 		p1 = std::make_pair(pDesired.first, agent->getY());
 		p2 = std::make_pair(agent->getX(), pDesired.second);
 	}
 	prioritizedAlternatives.push_back(p1);
 	prioritizedAlternatives.push_back(p2);
 
-	// Find the first empty alternative position
 	for (std::vector<pair<int, int> >::iterator it = prioritizedAlternatives.begin(); it != prioritizedAlternatives.end(); ++it) {
-
-		// If the current position is not yet taken by any neighbor
 		if (std::find(takenPositions.begin(), takenPositions.end(), *it) == takenPositions.end()) {
-
-			// Set the agent's position 
 			agent->setX((*it).first);
 			agent->setY((*it).second);
-
 			break;
 		}
 	}
@@ -159,6 +322,7 @@ void Ped::Model::cleanup() {
 
 Ped::Model::~Model()
 {
+	// std::for_each(agents.begin(), agents.end(), [](Ped::Tagent *agent){cout << "Coordinates: " << agent->getX() << ", " << agent->getY() << endl;});
 	std::for_each(agents.begin(), agents.end(), [](Ped::Tagent *agent){delete agent;});
 	std::for_each(destinations.begin(), destinations.end(), [](Ped::Twaypoint *destination){delete destination; });
 }

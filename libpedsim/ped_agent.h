@@ -4,76 +4,95 @@
 //
 // Adapted for Low Level Parallel Programming 2017
 //
-// TAgent represents an agent in the scenario. Each
-// agent has a position (x,y) and a number of destinations
-// it wants to visit (waypoints). The desired next position
-// represents the position it would like to visit next as it
+// TAgent represents an agent in the scenario. 
+// The desired next position represents the position it would like to visit next as it
 // will bring it closer to its destination.
-// Note: the agent will not move by itself, but the movement
-// is handled in ped_model.cpp. 
-//
+// Note: the agent will not move by itself, but the movement is handled in ped_model.cpp.
 
 #ifndef _ped_agent_h_
 #define _ped_agent_h_ 1
 
 #include <vector>
 #include <deque>
+#include <cmath>
+#include <stdlib.h>
 
 using namespace std;
 
 namespace Ped {
-	class Twaypoint;
 
-	class Tagent {
-	public:
-		Tagent(int posX, int posY);
-		Tagent(double posX, double posY);
+    class Twaypoint;
 
-		// Returns the coordinates of the desired position
-		int getDesiredX() const { return desiredPositionX; }
-		int getDesiredY() const { return desiredPositionY; }
+    class Tagent {
+    public:
+        Tagent(int posX, int posY);
+        Tagent(double posX, double posY);
 
-		// Sets the agent's position
-		void setX(int newX) { x = newX; }
-		void setY(int newY) { y = newY; }
+        // Returns the coordinates of the desired position
+        int getDesiredX() const { return *pDesiredX; }
+        int getDesiredY() const { return *pDesiredY; }
 
-		// Update the position according to get closer
-		// to the current destination
-		void computeNextDesiredPosition();
+        // Sets the agent's position
+        void setX(int newX) { *pX = newX; }
+        void setY(int newY) { *pY = newY; }
 
-		// Position of agent defined by x and y
-		int getX() const { return x; };
-		int getY() const { return y; };
+        // Update the position (move the agents) to get closer to the current destination
+        void computeNextDesiredPosition();
+        void computeNextDesiredPositionSIMD();
 
-		// Adds a new waypoint to reach for this agent
-		void addWaypoint(Twaypoint* wp);
+        // Position of agent defined by x and y
+		int getX() const { return *pX; }
+        int getY() const { return *pY; }
 
-	private:
-		Tagent() {};
+        // Adds a new waypoint to reach this agent
+        void addWaypoint(Twaypoint* wp);
 
-		// The agent's current position
-		int x;
-		int y;
+		// Reserve capacity in the static arrays for a given number of agents.
+		static void reserveAgents(size_t count);
 
-		// The agent's desired next position
-		int desiredPositionX;
-		int desiredPositionY;
+        static int* getXsData() { return xs.data(); }
+        static int* getYsData() { return ys.data(); }
+        static int* getDesiredXsData() { return desiredXs.data(); }
+        static int* getDesiredYsData() { return desiredYs.data(); }
+        static int* getDestXsData() { return destXs.data(); }
+        static int* getDestYsData() { return destYs.data(); }
 
-		// The current destination (may require several steps to reach)
-		Twaypoint* destination;
 
-		// The last destination
-		Twaypoint* lastDestination;
+    private:
+        Tagent() {}  // disallow default construction
 
-		// The queue of all destinations that this agent still has to visit
-		deque<Twaypoint*> waypoints;
+        // Each agent now only stores its coordinate into static arrays through its index.
+        size_t index;
+		// A static counter to track the next index for a new agent.
+        static size_t nextIndex;
 
-		// Internal init function 
-		void init(int posX, int posY);
+        int* pX;
+        int* pY;
+        int* pDesiredX;
+        int* pDesiredY;
+        Twaypoint** pDestination;
 
-		// Returns the next destination to visit
-		Twaypoint* getNextDestination();
-	};
+		// Static arrays (SoA layout) for all agent data.
+        // If these vectors reallocate after initialization, the pointers become invalid! (1 day of debugging)
+        static vector<int> xs;
+        static vector<int> ys;
+        static vector<int> desiredXs;
+        static vector<int> desiredYs;
+        static vector<Twaypoint*> destinations;
+        // static vector<Twaypoint*> lastDestinations;
+        static vector< deque<Twaypoint*> > waypointQueues;
+
+        // ===== New for SIMD destination data =====
+        static vector<int> destXs;   // holds the actual x coordinate of each agent's destination, not a pointer to
+        static vector<int> destYs;   // holds the actual y coordinate of each agent's destination, not a pointer to
+
+        // Internal init function 
+        void init(int posX, int posY);
+
+        // Returns the next destination to visit
+        Twaypoint* getNextDestination();
+    };
+
 }
 
 #endif

@@ -52,8 +52,16 @@ ParseScenario::ParseScenario(std::string filename, bool verbose)
 		waypoints[id] = w;
 	}
 
+	// Before creating any agents, compute total agent count and reserve capacity.
+    int totalAgentCount = 0;
+    for (XMLElement* agent = root->FirstChildElement("agent"); agent; agent = agent->NextSiblingElement("agent")) {
+         totalAgentCount += agent->IntAttribute("n");
+    }
+    Ped::Tagent::reserveAgents(totalAgentCount+1000);
+
 	// Parse agents
 	if (verbose) std::cout << "\nAgents:" << std::endl;
+	// int n_track=0;
 	for (XMLElement* agent = root->FirstChildElement("agent"); agent; agent = agent->NextSiblingElement("agent")) {
 		double x = agent->DoubleAttribute("x");
 		double y = agent->DoubleAttribute("y");
@@ -67,12 +75,16 @@ ParseScenario::ParseScenario(std::string filename, bool verbose)
         }
 
 		tempAgents.clear();
+		// cout << n << endl;
 		for (int i = 0; i < n; ++i)
 		{
 			int xPos = x + rand() / (RAND_MAX / dx) - dx / 2;
 			int yPos = y + rand() / (RAND_MAX / dy) - dy / 2;
 			Ped::Tagent *a = new Ped::Tagent(xPos, yPos);
+			// cout << "Agent " << n_track << " at position " << xPos << ", " << yPos << endl;
+			// cout << "Agent " << n_track << " at position " << a->getX() << ", " << a->getY() << endl;
 			tempAgents.push_back(a);
+			// n_track++;
 		}
 
 		// Parse addwaypoints within each agent
@@ -88,26 +100,26 @@ ParseScenario::ParseScenario(std::string filename, bool verbose)
 	tempAgents.clear();
 
 	// Hack! Do not allow agents to be on the same position. Remove duplicates from scenario and free the memory.
-	bool(*fn_pt)(Ped::Tagent*, Ped::Tagent*) = positionComparator;
-	std::set<Ped::Tagent*, bool(*)(Ped::Tagent*, Ped::Tagent*)> agentsWithUniquePosition(fn_pt);
-	int duplicates = 0;
-	for (auto agent : agents)
-	{
-		if (agentsWithUniquePosition.find(agent) == agentsWithUniquePosition.end())
-		{
-			agentsWithUniquePosition.insert(agent);
-		}
-		else
-		{
-			delete agent;
-			duplicates += 1;
-		}
-	}
-	if (duplicates > 0)
-	{
-		std::cout << "Note: removed " << duplicates << " duplicates from scenario." << std::endl;
-	}
-	agents = std::vector<Ped::Tagent*>(agentsWithUniquePosition.begin(), agentsWithUniquePosition.end());
+	// bool(*fn_pt)(Ped::Tagent*, Ped::Tagent*) = positionComparator;
+	// std::set<Ped::Tagent*, bool(*)(Ped::Tagent*, Ped::Tagent*)> agentsWithUniquePosition(fn_pt);
+	// int duplicates = 0;
+	// for (auto agent : agents)
+	// {
+	// 	if (agentsWithUniquePosition.find(agent) == agentsWithUniquePosition.end())
+	// 	{
+	// 		agentsWithUniquePosition.insert(agent);
+	// 	}
+	// 	else
+	// 	{
+	// 		delete agent;
+	// 		duplicates += 1;
+	// 	}
+	// }
+	// if (duplicates > 0)
+	// {
+	// 	std::cout << "Note: removed " << duplicates << " duplicates from scenario." << std::endl;
+	// }
+	// agents = std::vector<Ped::Tagent*>(agentsWithUniquePosition.begin(), agentsWithUniquePosition.end());
 }
 
 vector<Ped::Tagent*> ParseScenario::getAgents() const
