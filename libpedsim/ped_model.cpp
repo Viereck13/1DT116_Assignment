@@ -13,6 +13,7 @@
 #include <algorithm>
 #include <omp.h>
 #include <thread>
+#include <cmath>
 
 #include <emmintrin.h>
 #include <immintrin.h>
@@ -252,8 +253,9 @@ void Ped::Model::tick()
 		for (auto agent : agents)
 		{
 			agent->computeNextDesiredPosition();
-			agent->setX(agent->getDesiredX());
-			agent->setY(agent->getDesiredY());
+			// agent->setX(agent->getDesiredX());
+			// agent->setY(agent->getDesiredY());
+			move(agent);
 		}
 		break;
 	}
@@ -268,52 +270,94 @@ void Ped::Model::tick()
 // be moved to a location close to it.
 void Ped::Model::move(Ped::Tagent *agent)
 {
-	// Search for neighboring agents
-	set<const Ped::Tagent *> neighbors = getNeighbors(agent->getX(), agent->getY(), 2);
+    int curX = agent->getX();
+    int curY = agent->getY();
+    int desiredX = agent->getDesiredX();
+    int desiredY = agent->getDesiredY();
 
-	// Retrieve their positions
-	std::vector<std::pair<int, int> > takenPositions;
-	for (std::set<const Ped::Tagent*>::iterator neighborIt = neighbors.begin(); neighborIt != neighbors.end(); ++neighborIt) {
-		std::pair<int, int> position((*neighborIt)->getX(), (*neighborIt)->getY());
-		takenPositions.push_back(position);
+	std::set<const Ped::Tagent*> neighbors = getNeighbors(curX, curY, 2);
+	std::vector<std::pair<int, int>> takenPositions;
+	for (auto neighbor : neighbors)
+	{
+		takenPositions.push_back(std::make_pair(neighbor->getX(), neighbor->getY()));
 	}
 
-	// Compute the three alternative positions that would bring the agent
-	// closer to his desiredPosition, starting with the desiredPosition itself
-	std::vector<std::pair<int, int> > prioritizedAlternatives;
+    std::vector<std::pair<int, int>> prioritizedAlternatives;
 	std::pair<int, int> pDesired(agent->getDesiredX(), agent->getDesiredY());
-	prioritizedAlternatives.push_back(pDesired);
+    prioritizedAlternatives.push_back(std::make_pair(desiredX, desiredY));
 
-	int diffX = pDesired.first - agent->getX();
-	int diffY = pDesired.second - agent->getY();
-	std::pair<int, int> p1, p2;
+    int diffX = desiredX-curX;
+    int diffY = desiredY-curY;
+    	std::pair<int, int> p1, p2;
 	if (diffX == 0 || diffY == 0)
 	{
-		// Agent wants to walk straight to North, South, West or East
+		// Agent walks straight to N, S, W or E
 		p1 = std::make_pair(pDesired.first + diffY, pDesired.second + diffX);
 		p2 = std::make_pair(pDesired.first - diffY, pDesired.second - diffX);
 	}
 	else {
-		// Agent wants to walk diagonally
+		// Agent walks diagonally
 		p1 = std::make_pair(pDesired.first, agent->getY());
 		p2 = std::make_pair(agent->getX(), pDesired.second);
 	}
 	prioritizedAlternatives.push_back(p1);
 	prioritizedAlternatives.push_back(p2);
 
-	// Find the first empty alternative position
-	for (std::vector<pair<int, int> >::iterator it = prioritizedAlternatives.begin(); it != prioritizedAlternatives.end(); ++it) {
+    // Check the prioritized candidate positions.
+    for (auto &pos : prioritizedAlternatives)
+    {
+        if (std::find(takenPositions.begin(), takenPositions.end(), pos) == takenPositions.end())
+        {
+            agent->setX(pos.first);
+            agent->setY(pos.second);
+            return;
+        }
+    }
+	// If the code reaches here, it means that all three prioritized moves are not possible.
+    // Examine all 8 adjacent cells. Similar to BFS, find the closest free cell to move to. Not limited by the 3 prioritized moves anymore.
+    std::vector<std::pair<int, int>> adjacent;
+    for (int dx=-1; dx<=1; dx++)
+    {
+        for (int dy=-1; dy<=1; dy++)
+        {
+            // Skip the current cell. You want to move!
+            if (dx == 0 && dy == 0)
+                continue;
+            adjacent.push_back(std::make_pair(curX+dx, curY+dy));
+        }
+    }
 
-		// If the current position is not yet taken by any neighbor
-		if (std::find(takenPositions.begin(), takenPositions.end(), *it) == takenPositions.end()) {
+    // Filter out only the free adjacent cells.
+    std::vector<std::pair<int, int>> freeAdjacent;
+    for (auto &pos : adjacent)
+    {
+        if (std::find(takenPositions.begin(), takenPositions.end(), pos) == takenPositions.end())
+        {
+            freeAdjacent.push_back(pos);
+        }
+    }
 
-			// Set the agent's position 
-			agent->setX((*it).first);
-			agent->setY((*it).second);
+    if (!freeAdjacent.empty())
+    {
+        // Choose the free adjacent cell that minimizes the distance to the desired position.
+        auto best = freeAdjacent.begin();
+        double bestDist = sqrt(pow(best->first - desiredX, 2) + pow(best->second - desiredY, 2));
+        for (auto it = freeAdjacent.begin(); it != freeAdjacent.end(); it++)
+        {
+            double dist = sqrt(pow(it->first - desiredX, 2) + pow(it->second - desiredY, 2));
+            if (dist<bestDist)
+            {
+                bestDist = dist;
+                best = it;
+            }
+        }
+        agent->setX(best->first);
+        agent->setY(best->second);
+        return;
+    }
 
-			break;
-		}
-	}
+    // If no adjacent cell is free, the agent remains in its current position.
+	// Wishing that the deadlock will be resolved in the next time step, which some agents around this agent will move.
 }
 
 /// Returns the list of neighbors within dist of the point x/y. This
