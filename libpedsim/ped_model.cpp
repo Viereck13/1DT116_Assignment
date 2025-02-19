@@ -13,6 +13,7 @@
 #include <algorithm>
 #include <omp.h>
 #include <thread>
+#include <utility>
 
 #ifndef NOCDUA
 #include "cuda_testkernel.h"
@@ -38,54 +39,69 @@ void Ped::Model::setup(std::vector<Ped::Tagent*> agentsInScenario, std::vector<T
 	// Sets the chosen implemenation. Standard in the given code is SEQ
 	this->implementation = implementation;
 
+	regions = {
+		Region(TYPE1, {0, 60}, {80, 120}),
+		Region(TYPE1, {80, 60}, {160, 120}),
+		Region(TYPE1, {0, 0}, {80, 60}),
+		Region(TYPE1, {80, 0}, {160, 60}),
+	};
+
+	for (auto region: regions) {
+		region.initialize_neighbors(regions);
+		region.initialize_agents(agents);
+	}
+
+	// initialize the each position
+    for (int i = 0; i < 160; ++i) {
+        for (int j = 0; j < 120; ++j) {
+            grid[i][j].store(false);
+        }
+	}
+	for (auto agent: agents) {
+		grid[agent->getX()][agent->getY()].store(true);
+	}
+
 	// Set up heatmap (relevant for Assignment 4)
 	setupHeatmapSeq();
 }
 
 void Ped::Model::tick()
 {
-	// EDIT HERE FOR ASSIGNMENT 1
-	// for (auto agent : agents)
-    // {
-    //     agent->computeNextDesiredPosition();
-    //     agent->setX(agent->getDesiredX());
-    //     agent->setY(agent->getDesiredY());
-    // }
-	// ----------------------------------------------------
-	#pragma omp parallel for schedule(static) 
-	for (int i = 0; i < agents.size(); i++) {
-		Ped::Tagent* agent = agents[i]; 
-		agent->computeNextDesiredPosition();
-		// printf("Thread %d is processing agent %d\n", omp_get_thread_num(), i);
-		
-		agent->setX(agent->getDesiredX());
-		agent->setY(agent->getDesiredY());
+	// #pragma omp parallel for schedule(static) 
+	// for (int i = 0; i < agents.size(); i++) {
+	// 	Ped::Tagent* agent = agents[i]; 
+	// 	agent->computeNextDesiredPosition();
+	// 	agent->setX(agent->getDesiredX());
+	// 	agent->setY(agent->getDesiredY());
+	// }
+
+	#pragma omp parallel
+	{
+		auto tid = omp_get_thread_num();
+		if (tid < regions.size()) {
+			// thread tid is responsible for regions[tid]
+			auto region = regions[tid];
+			for (auto agent: region.agents)	{
+				agent->computeNextDesiredPosition();
+				move(agent);
+			}
+		}
 	}
 
-	// -------------C++ threads version--------------------
-  // size_t threads = 8; 
-  // std::vector<std::thread> handles;
-  // size_t quotient = agents.size() / threads;
-  // size_t remainder = agents.size() % threads;
-  // for (int i = 0; i < threads; i++) {
-  //   handles.push_back(std::thread([this](size_t begin, size_t length) {
-  //     for (int i = begin; i < begin + length; i++) {
-  //       agents[i]->computeNextDesiredPosition();
-  //       agents[i]->setX(agents[i]->getDesiredX());
-  //       agents[i]->setY(agents[i]->getDesiredY());
-  //     }
-  //   }, i*quotient, i==threads-1 ? quotient+remainder : quotient));
-  // }
-  //
-  // for (auto& t: handles)
-  //   if (t.joinable())
-  //     t.join();
 }
 
 ////////////
 /// Everything below here relevant for Assignment 3.
 /// Don't use this for Assignment 1!
 ///////////////////////////////////////////////
+
+// My explanation:
+// In move function you need to generate 3 positions, not only the desired position we calculate
+// by calling computeNextDesiredPosition(). Detailed steps are:
+// 1. detect all the neighbors of the agent
+// 2. get all neighbors' position and store them
+// 3. generate 3 possible next position of current agent
+// 4. check one by one whether possible next position is truly available, if yes, pick it
 
 // Moves the agent to the next desired position. If already taken, it will
 // be moved to a location close to it.
@@ -94,7 +110,7 @@ void Ped::Model::move(Ped::Tagent *agent)
 	// Search for neighboring agents
 	set<const Ped::Tagent *> neighbors = getNeighbors(agent->getX(), agent->getY(), 2);
 
-	// Retrieve their positions
+	// Retrieve neighbors' positions, then push each neighbor's position into 'takenPositions' pair
 	std::vector<std::pair<int, int> > takenPositions;
 	for (std::set<const Ped::Tagent*>::iterator neighborIt = neighbors.begin(); neighborIt != neighbors.end(); ++neighborIt) {
 		std::pair<int, int> position((*neighborIt)->getX(), (*neighborIt)->getY());
@@ -124,16 +140,28 @@ void Ped::Model::move(Ped::Tagent *agent)
 	prioritizedAlternatives.push_back(p1);
 	prioritizedAlternatives.push_back(p2);
 
+	///
 	// Find the first empty alternative position
+	// for (std::vector<pair<int, int> >::iterator it = prioritizedAlternatives.begin(); it != prioritizedAlternatives.end(); ++it) {
+
+	// 	// If the current position is not yet taken by any neighbor
+	// 	if (std::find(takenPositions.begin(), takenPositions.end(), *it) == takenPositions.end()) {
+
+	// 		// Set the agent's position 
+	// 		agent->setX((*it).first);
+	// 		agent->setY((*it).second);
+
+	// 		break;
+	// 	}
+	// }
+
+	bool expected = false;
+	bool new_value = true;
 	for (std::vector<pair<int, int> >::iterator it = prioritizedAlternatives.begin(); it != prioritizedAlternatives.end(); ++it) {
-
-		// If the current position is not yet taken by any neighbor
-		if (std::find(takenPositions.begin(), takenPositions.end(), *it) == takenPositions.end()) {
-
-			// Set the agent's position 
+		if (grid[(*it).first][(*it).second].compare_exchange_strong(expected, new_value)) {
+			grid[agent->getX()][agent->getY()].store(false);							
 			agent->setX((*it).first);
 			agent->setY((*it).second);
-
 			break;
 		}
 	}
@@ -141,6 +169,7 @@ void Ped::Model::move(Ped::Tagent *agent)
 
 /// Returns the list of neighbors within dist of the point x/y. This
 /// can be the position of an agent, but it is not limited to this.
+/// At now, it just returns all agents in the space, because now we only have a unique region.
 /// \date    2012-01-29
 /// \return  The list of neighbors
 /// \param   x the x coordinate
