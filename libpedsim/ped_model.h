@@ -16,12 +16,25 @@
 #include <set>
 
 #include <cstdint>
+#include <mutex>
 
 #ifndef NOCDUA
 #include "cuda_tickkernel.h"
 #endif
 
 #include "ped_agent.h"
+
+#define REGION_X_SIZE 160
+#define REGION_Y_SIZE 120
+
+struct Region
+{
+	int leftBorder;
+	int rightBorder;
+	std::vector<int> assignedAgents;
+	std::mutex* changeRegion;
+};
+
 
 namespace Ped{
 	class Tagent;
@@ -89,6 +102,10 @@ namespace Ped{
 
 		// Moves an agent towards its next position
 		void move(Ped::Tagent *agent);
+
+		void moveRegion();
+		void moveAgentRegion(int aT, int regionIndex);
+		std::vector<Region> regions;
 
 		void tick_OMP();
 		void tick_CTHREADS();

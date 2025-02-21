@@ -105,6 +105,17 @@ void Ped::Model::setup(std::vector<Ped::Tagent*> agentsInScenario, std::vector<T
 		}
 		#endif
 	}
+
+	for (size_t i = 0; i < 10; i++)
+	{
+		Region regio;
+		regio.leftBorder = i*(160/ 10);
+		regio.rightBorder = (i+1)*(160/ 10);
+		regio.assignedAgents;// = new std::vector<Ped::Tagent*>();
+		regio.changeRegion = new std::mutex();
+		regions.push_back(regio);
+	}
+	
 }
 
 
@@ -236,7 +247,9 @@ void Ped::Model::tick()
 	switch (implementation)
 	{
 	case OMP:
-		tick_OMP();
+		// tick_OMP();;
+		omp_set_num_threads(16);
+		moveRegion();
 		break;
 	case PTHREAD:
 		tick_CTHREADS();
@@ -249,12 +262,15 @@ void Ped::Model::tick()
 		break;
 	
 	default:
-		for (auto agent : agents)
-		{
-			agent->computeNextDesiredPosition();
-			agent->setX(agent->getDesiredX());
-			agent->setY(agent->getDesiredY());
-		}
+		// for (auto agent : agents)
+		// {
+		// 	agent->computeNextDesiredPosition();
+		// 	// agent->setX(agent->getDesiredX());
+		// 	// agent->setY(agent->getDesiredY());
+		// 	//move(agent);
+		// }
+		omp_set_num_threads(1);
+		moveRegion();
 		break;
 	}
 }
@@ -314,6 +330,128 @@ void Ped::Model::move(Ped::Tagent *agent)
 			break;
 		}
 	}
+}
+
+void Ped::Model::moveRegion()
+{
+	for (size_t i = 0; i < regions.size(); i++)
+	{
+		regions.at(i).assignedAgents.clear();
+	}
+	for (size_t aT = 0; aT < agents.size(); aT++)
+	{
+		if (aT == 60)
+		{
+			// std::cout << "60 IN A REGION: " << aT << " " << agents.at(aT)->getX() << " " << agents.at(aT)->getY() << endl;
+		}
+		bool inR = false;
+		for (size_t i = 0; i < regions.size(); i++)
+		{
+			if (agents.at(aT)->getX() >= regions.at(i).leftBorder && agents.at(aT)->getX() < regions.at(i).rightBorder) {
+				regions.at(i).assignedAgents.push_back(aT);
+				inR = true;
+			}
+		}
+		if (!inR)
+		{
+			// std::cout << "NOT IN A REGION: " << aT << " " << agents.at(aT)->getX() << endl;
+		}
+		
+	}
+	// std::cout << "ITER" << endl;
+	// std::cout << "R_SIZE " << regions.size() << " AGTENS: " << agents.size() << endl;
+	#pragma omp parallel for
+	for (size_t i = 0; i < regions.size(); i++)
+	{
+		// std::cout << "RA_SIZE " << regions.at(i).assignedAgents.size() << endl;
+		for (size_t j = 0; j < regions.at(i).assignedAgents.size(); j++)
+		{
+			agents.at(regions.at(i).assignedAgents.at(j))->computeNextDesiredPosition();
+			moveAgentRegion(regions.at(i).assignedAgents.at(j), i);
+		}
+	}
+}
+
+void Ped::Model::moveAgentRegion(int aT, int regionIndex)
+{
+	// std::cout << "\tMOVEA" << endl;
+	
+	// Search for neighboring agents
+	set<const Ped::Tagent *> neighbors = getNeighbors(agents.at(aT)->getX(), agents.at(aT)->getY(), 2);
+
+	// Retrieve their positions
+	std::vector<std::pair<int, int> > takenPositions;
+	for (std::set<const Ped::Tagent*>::iterator neighborIt = neighbors.begin(); neighborIt != neighbors.end(); ++neighborIt) {
+		std::pair<int, int> position((*neighborIt)->getX(), (*neighborIt)->getY());
+		takenPositions.push_back(position);
+	}
+
+	// Compute the three alternative positions that would bring the agent
+	// closer to his desiredPosition, starting with the desiredPosition itself
+	std::vector<std::pair<int, int> > prioritizedAlternatives;
+	std::pair<int, int> pDesired(agents.at(aT)->getDesiredX(), agents.at(aT)->getDesiredY());
+	prioritizedAlternatives.push_back(pDesired);
+
+	int diffX = pDesired.first - agents.at(aT)->getX();
+	int diffY = pDesired.second - agents.at(aT)->getY();
+	std::pair<int, int> p1, p2;
+	if (diffX == 0 || diffY == 0)
+	{
+		// Agent wants to walk straight to North, South, West or East
+		p1 = std::make_pair(pDesired.first + diffY, pDesired.second + diffX);
+		p2 = std::make_pair(pDesired.first - diffY, pDesired.second - diffX);
+	}
+	else {
+		// Agent wants to walk diagonally
+		p1 = std::make_pair(pDesired.first, agents.at(aT)->getY());
+		p2 = std::make_pair(agents.at(aT)->getX(), pDesired.second);
+	}
+	prioritizedAlternatives.push_back(p1);
+	prioritizedAlternatives.push_back(p2);
+
+	// Find the first empty alternative position
+	// std::cout << "\tMY" << endl;
+	bool retry = true;
+	while (retry)
+	{
+		if (regions.at(regionIndex).changeRegion->try_lock()) {
+			// std::cout << "\t\tL1" << endl;
+			int borderRegion = 0;
+			if (agents.at(aT)->getX() < regions.at(regionIndex).leftBorder+3 && agents.at(aT)->getX() > 0) {
+				borderRegion--;
+			} else if (agents.at(aT)->getX() > regions.at(regionIndex).rightBorder-3 && agents.at(aT)->getX() < 160) {
+				borderRegion++;
+			}
+			if (borderRegion == 0 || regions.at(regionIndex+borderRegion).changeRegion->try_lock()) {
+				// std::cout << "\t\tLOCKED IN" << endl;
+				retry = false;
+
+				for (std::vector<pair<int, int> >::iterator it = prioritizedAlternatives.begin(); it != prioritizedAlternatives.end(); ++it) {
+			
+					// std::cout << "\t\t\tPRE-MOVED" << endl;
+					// If the current position is not yet taken by any neighbor
+					if (std::find(takenPositions.begin(), takenPositions.end(), *it) == takenPositions.end()) {
+						// Set the agent's position 
+						if (aT == 60)
+						{
+							// std::cout << "SET 60: " << (*it).first << endl;
+							// std::cout << "ALL ALT 60: " << prioritizedAlternatives.at(0).first << endl;
+							// std::cout << "ALL ALT 60: " << prioritizedAlternatives.at(1).first << endl;
+							// std::cout << "ALL ALT 60: " << prioritizedAlternatives.at(2).first << endl;
+						}
+
+						agents.at(aT)->setX((*it).first);
+						agents.at(aT)->setY((*it).second);
+						// std::cout << "\t\t\tMOVED" << endl;
+						break;
+					}
+				}
+				regions.at(regionIndex+borderRegion).changeRegion->unlock();
+			}
+			regions.at(regionIndex).changeRegion->unlock();
+		}
+	}
+	
 }
 
 /// Returns the list of neighbors within dist of the point x/y. This
