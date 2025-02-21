@@ -18,6 +18,14 @@ is_ubuntu() {
     fi
 }
 
+is_archlinux() {
+    if [[ -f /etc/os-release ]] && grep -q "Arch Linux" /etc/os-release; then
+        return 0  # True
+    else
+        return 1  # False
+    fi
+}
+
 # Function to create or overwrite a symbolic link
 create_symlink() {
     local target_file=$1
@@ -34,7 +42,7 @@ create_symlink() {
 
 # Check for QT5 installation
 check_qt5() {
-    if pkg-config --exists Qt5Core; then
+    if pkg-config --exists Qt5Core && !is_ubuntu && !is_archlinux; then
         return 0  # QT5 is installed
     else
         return 1  # QT5 is not installed
@@ -70,8 +78,9 @@ if is_macos; then
     echo "CUDA_AVAILABLE=" > "$demo_dir/config.mk"
     echo "Created config.mk with CUDA_AVAILABLE unset."
 
-elif is_ubuntu; then
-    echo "Running on an Ubuntu system."
+elif is_ubuntu || is_archlinux; then
+    echo "Running on a Linux system."
+
 
     # Define directories
     demo_dir="./demo"

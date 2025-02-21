@@ -18,6 +18,7 @@
 
 #include <vector>
 #include <deque>
+#include <assert.h>
 
 using namespace std;
 
@@ -50,7 +51,7 @@ namespace Ped {
 
 		// For assignment 3: record whether this agent has been owned by some region
 		// avoid agents on the boundary are owned by multiple regions
-		bool is_owned = false;
+		bool is_owned;
 
 	private:
 		Tagent() {};

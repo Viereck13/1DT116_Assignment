@@ -10,6 +10,7 @@
 #include <math.h>
 
 #include <stdlib.h>
+#include <stdio.h>
 
 Ped::Tagent::Tagent(int posX, int posY) {
 	Ped::Tagent::init(posX, posY);
@@ -24,6 +25,7 @@ void Ped::Tagent::init(int posX, int posY) {
 	y = posY;
 	destination = NULL;
 	lastDestination = NULL;
+  is_owned = false;
 }
 
 void Ped::Tagent::computeNextDesiredPosition() {
@@ -34,6 +36,12 @@ void Ped::Tagent::computeNextDesiredPosition() {
 		return;
 	}
 
+  // double check
+  if (destination->getx() - x <= destination->getr()
+   && destination->gety() - y <= destination->getr()) {
+    destination = getNextDestination();
+  }
+  
 	double diffX = destination->getx() - x;
 	double diffY = destination->gety() - y;
 	double len = sqrt(diffX * diffX + diffY * diffY);

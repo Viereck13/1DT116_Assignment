@@ -11,10 +11,14 @@
 #ifndef _ped_model_h_
 #define _ped_model_h_
 
+#include <unordered_map>
 #include <vector>
 #include <map>
 #include <set>
+#include <unordered_set>
 #include <atomic>
+#include <assert.h>
+#include <iostream>
 
 #include "ped_agent.h"
 
@@ -64,7 +68,9 @@ namespace Ped{
 		std::vector<Twaypoint*> destinations;
 
 		// Moves an agent towards its next position
-		void move(Ped::Tagent *agent);
+		void move(Ped::Tagent *agent);  // original move method 
+		void move_trivial(Ped::Tagent *agent, Ped::Region &region);  // my trivial move method
+    std::vector<std::pair<int, int>> find_alternatives(Ped::Tagent *agent);
 
 		////////////
 		/// Everything below here won't be relevant until Assignment 3
@@ -76,9 +82,9 @@ namespace Ped{
 		// All the regions
 		std::vector<Region> regions;
 		// each pixel of the space is an atomic boolean value
-		std::vector<std::vector<std::atomic<bool>>> grid;
+    std::atomic<bool> **grid;
 
-		
+  Ped::Region* get_target_region(Ped::Tagent *agent);
 
 		////////////
 		/// Everything below here won't be relevant until Assignment 4
@@ -105,19 +111,30 @@ namespace Ped{
 		public:
 			enum TYPE type;
 			std::pair<int, int> min, max;	// (x_min, y_min) and (x_max, y_max) can define a rectangle region	
-			std::vector<Tagent*> agents;
+			std::unordered_set<Tagent*> agents;
 			std::vector<Region*> neighbors;
+      
+      std::atomic<bool> *in_use;
+      std::deque<Tagent*> inqueue;
+      std::deque<Tagent*> outqueue;
 			
-			Region(enum TYPE type, std::pair<int, int> min, std::pair<int, int> max) :type(type), min(min), max(max) {}
-			~Region() {}
+			Region(enum TYPE type, std::pair<int, int> min, std::pair<int, int> max) :type(type), min(min), max(max){
+        in_use[0].store(false, std::memory_order_relaxed);
+        in_use = (std::atomic<bool>*)malloc(sizeof(std::atomic<bool>));
+        in_use->store(false, std::memory_order_relaxed);
+      }
 
 			// For a given region, initialize its adjacents
 			// For each region in the space, check if any corner position of current region is in that region
-			void initialize_neighbors(std::vector<Region> const &regions_in_space) {
-				for (auto region: regions_in_space) {
-					for (auto x: {min.first, min.second}) {
-						for (auto y: {max.first, max.second}) {
-							if (pos_in_region({x, y}) && &region != this) {
+			void initialize_neighbors(std::vector<Region> &regions_in_space) {
+        int flag = 0; // When a region detects a neighbor region, can skip detection for the same neighbor region
+				for (auto &region: regions_in_space) {
+          flag = 0;
+					for (auto x: {min.first, max.first}) {
+						for (auto y: {min.second, max.second}) {
+							if (region.pos_in_region({x, y}) && &region != this) {
+                if (flag) break;
+                flag = 1;
 								neighbors.push_back(&region);	
 							}
 						}
@@ -126,11 +143,11 @@ namespace Ped{
 			}
 
 			// Record all the agents in this region at the beginning
-			void initialize_agents(std::vector<Tagent*> const &agents) {
+			void initialize_agents(std::vector<Tagent*> &agents) {
 				for (auto agent: agents) {
 					if (pos_in_region({agent->getX(), agent->getY()}) && !agent->is_owned) {
-						this->agents.push_back(agent);
 						agent->is_owned = true;
+						this->agents.insert(agent);
 					}
 				}
 			}
@@ -142,6 +159,24 @@ namespace Ped{
 					&& pos.second >= min.second
 					&& pos.second <= max.second;
 			}
+
+      // Each time at the beginning of the tick, update agents in every region
+      void update_agents() {
+        // remove agents which are not in this region any more
+        while (!outqueue.empty()) {
+          agents.erase(outqueue.front());
+          outqueue.pop_front();
+        }
+        // insert new agents
+        bool expected = false;
+        bool new_value = true;
+        while (!in_use->compare_exchange_strong(expected, new_value)) {}
+        while (!inqueue.empty()) {
+          agents.insert(inqueue.front());  
+          inqueue.pop_front();
+        }
+        in_use->store(false);
+      }
 	};
 }
 #endif
