@@ -36,6 +36,9 @@ void Ped::Model::setup(std::vector<Ped::Tagent*> agentsInScenario, std::vector<T
 
 	// Set 
 	agents = std::vector<Ped::Tagent*>(agentsInScenario.begin(), agentsInScenario.end());
+	// for (auto agent : agents) {
+	// 	cout << "Agent: x: " << agent->getX() << ", y: " << agent->getY() << endl;
+	// }
 
 	// Set up destinations
 	destinations = std::vector<Ped::Twaypoint*>(destinationsInScenario.begin(), destinationsInScenario.end());
@@ -106,6 +109,10 @@ void Ped::Model::setup(std::vector<Ped::Tagent*> agentsInScenario, std::vector<T
 		}
 		#endif
 	}
+	if(implementation == OMP){
+		initRegions();
+	}
+	
 }
 
 
@@ -185,14 +192,44 @@ void Ped::Model::tick_SIMD()
 	}
 }
 
-void Ped::Model::tick_OMP() {
-	#pragma omp parallel for schedule(static) 
-	for (int i = 0; i < agents.size(); i++) {
-		Ped::Tagent* agent = agents[i]; 
-		agent->computeNextDesiredPosition();
-		agent->setX(agent->getDesiredX());
-		agent->setY(agent->getDesiredY());
-	}
+// void Ped::Model::tick_OMP() {
+// 	#pragma omp parallel for schedule(static) 
+// 	for (int i = 0; i < agents.size(); i++) {
+// 		Ped::Tagent* agent = agents[i]; 
+// 		agent->computeNextDesiredPosition();
+// 		agent->setX(agent->getDesiredX());
+// 		agent->setY(agent->getDesiredY());
+// 	}
+// }
+
+void Ped::Model::tick_OMP()
+{
+
+    #pragma omp parallel for schedule(dynamic)
+    for (int i=0; i<agents.size(); i++)
+    {
+		// cout << "Agent: " << i << " " << agents[i]->getX() << " " << agents[i]->getY() << endl;
+        agents[i]->computeNextDesiredPosition();
+		// cout << "Desired: " << agents[i]->getDesiredX() << " " << agents[i]->getDesiredY() << endl;
+    }
+
+    #pragma omp parallel for schedule(static, 1) num_threads(regions.size())
+    for (int r=0; r<regions.size(); r++)
+    {
+		// if(omp_get_thread_num() == 0){
+		// 	printf("Number of threads: %d\n", omp_get_num_threads());
+		// }
+        omp_set_lock(&regions[r]->lock);
+        std::vector<Tagent*> localAgents = regions[r]->agents;
+        omp_unset_lock(&regions[r]->lock);
+
+        // Process each agent in the local copy.
+        for (auto agent : localAgents)
+        {
+			move_OMP(agent);
+        }
+    }
+	
 }
 
 void Ped::Model::tick_CTHREADS() {
@@ -248,8 +285,7 @@ void Ped::Model::tick()
 	case CUDA:
 		cuda.tick_CUDA();
 		break;
-	
-	default:
+	case SEQ:
 		for (auto agent : agents)
 		{
 			agent->computeNextDesiredPosition();
@@ -266,15 +302,215 @@ void Ped::Model::tick()
 /// Don't use this for Assignment 1!
 ///////////////////////////////////////////////
 
-// Moves the agent to the next desired position. If already taken, it will
-// be moved to a location close to it.
-void Ped::Model::move(Ped::Tagent *agent)
+// New helper: initialize regions
+void Ped::Model::initRegions()
+{
+    int regionWidth = worldWidth / regionsX;
+    int regionHeight = worldHeight / regionsY;
+    int idCounter = 0;
+    for (int i = 0; i < regionsY; i++) {
+        for (int j = 0; j < regionsX; j++) {
+            int minX = j * regionWidth;
+            int maxX = (j+1) * regionWidth;
+            int minY = i * regionHeight;
+            int maxY = (i+1) * regionHeight;
+			// cout << "Region " << idCounter << ": " << minX << " " << maxX << " " << minY << " " << maxY << endl;
+            regions.push_back(new Region(idCounter++, minX, maxX, minY, maxY));
+        }
+    }
+	// cout << "Regions: " << regions.size() << endl;
+    // After setting up regions, distribute agents into regions
+    for (auto agent : agents) {
+		// cout << "Agent " << agent->getX() << " " << agent->getY() << endl;
+        Region* r = getRegionForPosition(agent->getX(), agent->getY());
+		// std::cout << "Agent " << agent->getX() << " " << agent->getY() << " in region " << r->id << std::endl;
+        r->agents.push_back(agent);
+    }
+}
+
+// Get a region for a given position
+Ped::Region* Ped::Model::getRegionForPosition(int x, int y)
+{
+	if (x<0) x = 0;
+	else if (x>=worldWidth) x = worldWidth-1;
+	if (y<0) y = 0;
+	else if (y>=worldHeight) y = worldHeight-1;
+    for (auto r : regions) {
+        if (x >= r->minX && x < r->maxX &&
+            y >= r->minY && y < r->maxY)
+        {
+            return r;
+        }
+    }
+	// cout << "--------getRegionForPosition--------" << endl;
+	// cout << x << " " << y << endl;
+	// cout << "Region not found" << endl;
+    return nullptr; // should not happen if regions cover the entire world.
+}
+
+void Ped::Model::move_OMP(Ped::Tagent *agent)
 {
     int curX = agent->getX();
     int curY = agent->getY();
     int desiredX = agent->getDesiredX();
     int desiredY = agent->getDesiredY();
 
+    // Get positions of neighboring agents
+    std::set<const Ped::Tagent*> neighbors = getNeighbors(curX, curY, 2);
+    std::vector<std::pair<int, int>> takenPositions;
+    for (auto neighbor : neighbors) {
+        takenPositions.push_back(std::make_pair(neighbor->getX(), neighbor->getY()));
+    }
+
+    // Create a prioritized list of candidate moves.
+    std::vector<std::pair<int, int>> prioritizedAlternatives;
+    std::pair<int, int> pDesired(desiredX, desiredY);
+    prioritizedAlternatives.push_back(pDesired);
+
+    int diffX = desiredX - curX;
+    int diffY = desiredY - curY;
+    std::pair<int, int> p1, p2;
+    if (diffX == 0 || diffY == 0) {
+        // Agent walks straight: N, S, E, or W
+        p1 = std::make_pair(pDesired.first + diffY, pDesired.second + diffX);
+        p2 = std::make_pair(pDesired.first - diffY, pDesired.second - diffX);
+    }
+    else {
+        // Agent walks diagonally: try horizontal and vertical alternatives.
+        p1 = std::make_pair(pDesired.first, curY);
+        p2 = std::make_pair(curX, pDesired.second);
+    }
+    prioritizedAlternatives.push_back(p1);
+    prioritizedAlternatives.push_back(p2);
+
+    // Choose a move from the prioritized list.
+    std::pair<int, int> chosenPos = std::make_pair(curX, curY);
+    bool candidateFound = false;
+    for (auto &pos : prioritizedAlternatives) {
+        if (std::find(takenPositions.begin(), takenPositions.end(), pos) == takenPositions.end()) {
+            chosenPos = pos;
+            candidateFound = true;
+            break;
+        }
+    }
+    if (!candidateFound) {
+        // Check all adjacent cells.
+        std::vector<std::pair<int, int>> adjacent;
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dy = -1; dy <= 1; dy++) {
+                if (dx == 0 && dy == 0)
+                    continue;
+                adjacent.push_back(std::make_pair(curX + dx, curY + dy));
+            }
+        }
+        std::vector<std::pair<int, int>> freeAdjacent;
+        for (auto &pos : adjacent) {
+            if (std::find(takenPositions.begin(), takenPositions.end(), pos) == takenPositions.end())
+                freeAdjacent.push_back(pos);
+        }
+        if (!freeAdjacent.empty()) {
+            auto best = freeAdjacent.begin();
+            double bestDist = sqrt(pow(best->first - desiredX, 2) + pow(best->second - desiredY, 2));
+            for (auto it = freeAdjacent.begin(); it != freeAdjacent.end(); ++it) {
+                double dist = sqrt(pow(it->first - desiredX, 2) + pow(it->second - desiredY, 2));
+                if (dist < bestDist) {
+                    bestDist = dist;
+                    best = it;
+                }
+            }
+            chosenPos = *best;
+            candidateFound = true;
+        }
+        // If no free adjacent cell is found, the agent remains in place.
+    }
+
+    // Determine region membership before and after the move.
+    Region* curRegion = getRegionForPosition(agent->getX(), agent->getY());
+    Region* targetRegion = getRegionForPosition(chosenPos.first, chosenPos.second);
+
+    if (curRegion == targetRegion) {
+        // Even for an intraregion move, we lock the region
+        omp_set_lock(&curRegion->lock);
+        {
+            // Recheck that the candidate cell is still free
+            bool conflict = false;
+            for (auto otherAgent : curRegion->agents) {
+                if (otherAgent != agent && otherAgent->getX() == chosenPos.first && otherAgent->getY() == chosenPos.second) {
+                    conflict = true;
+                    break;
+                }
+            }
+            if (!conflict) {
+                // Update the agent's position.
+                agent->setX(chosenPos.first);
+                agent->setY(chosenPos.second);
+            }
+            // If there’s a conflict, leave the agent in place
+        }
+        omp_unset_lock(&curRegion->lock);
+    }
+    else {
+        // Border move: lock both regions in consistent order
+        if (curRegion->id < targetRegion->id) {
+            omp_set_lock(&curRegion->lock);
+            omp_set_lock(&targetRegion->lock);
+        } else {
+            omp_set_lock(&targetRegion->lock);
+            omp_set_lock(&curRegion->lock);
+        }
+
+        // Re-check that chosenPos is still free in both regions.
+        bool conflict = false;
+        for (auto otherAgent : curRegion->agents) {
+            if (otherAgent != agent && otherAgent->getX() == chosenPos.first && otherAgent->getY() == chosenPos.second) {
+                conflict = true;
+                break;
+            }
+        }
+        if (!conflict) {
+            for (auto otherAgent : targetRegion->agents) {
+                if (otherAgent->getX() == chosenPos.first && otherAgent->getY() == chosenPos.second) {
+                    conflict = true;
+                    break;
+                }
+            }
+        }
+
+        if (!conflict) {
+            // Remove agent from the source region’s list.
+            auto &srcAgents = curRegion->agents;
+            srcAgents.erase(std::remove(srcAgents.begin(), srcAgents.end(), agent), srcAgents.end());
+
+            // Update agent’s coordinates.
+            agent->setX(chosenPos.first);
+            agent->setY(chosenPos.second);
+
+            // Add agent to the target region’s list.
+            targetRegion->agents.push_back(agent);
+        }
+        // Otherwise, leave the agent in place
+
+        // Unlock in reverse order.
+        if (curRegion->id < targetRegion->id) {
+            omp_unset_lock(&targetRegion->lock);
+            omp_unset_lock(&curRegion->lock);
+        } else {
+            omp_unset_lock(&curRegion->lock);
+            omp_unset_lock(&targetRegion->lock);
+        }
+    }
+}
+
+
+void Ped::Model::move(Ped::Tagent *agent)
+{
+
+    int curX = agent->getX();
+    int curY = agent->getY();
+    int desiredX = agent->getDesiredX();
+    int desiredY = agent->getDesiredY();
+
+	// Gather positions of neighboring agents.
 	std::set<const Ped::Tagent*> neighbors = getNeighbors(curX, curY, 2);
 	std::vector<std::pair<int, int>> takenPositions;
 	for (auto neighbor : neighbors)
@@ -282,6 +518,7 @@ void Ped::Model::move(Ped::Tagent *agent)
 		takenPositions.push_back(std::make_pair(neighbor->getX(), neighbor->getY()));
 	}
 
+    // Create a prioritized list of candidate moves.
     std::vector<std::pair<int, int>> prioritizedAlternatives;
 	std::pair<int, int> pDesired(agent->getDesiredX(), agent->getDesiredY());
     prioritizedAlternatives.push_back(std::make_pair(desiredX, desiredY));
@@ -367,11 +604,25 @@ void Ped::Model::move(Ped::Tagent *agent)
 /// \param   x the x coordinate
 /// \param   y the y coordinate
 /// \param   dist the distance around x/y that will be searched for agents (search field is a square in the current implementation)
-set<const Ped::Tagent*> Ped::Model::getNeighbors(int x, int y, int dist) const {
+// set<const Ped::Tagent*> Ped::Model::getNeighbors(int x, int y, int dist) const {
 
-	// create the output list
-	// ( It would be better to include only the agents close by, but this programmer is lazy.)	
-	return set<const Ped::Tagent*>(agents.begin(), agents.end());
+// 	// create the output list
+// 	// ( It would be better to include only the agents close by, but this programmer is lazy.)	
+// 	return set<const Ped::Tagent*>(agents.begin(), agents.end());
+// }
+
+// 
+// Only returns agents within the specified distance (square area)
+set<const Ped::Tagent*> Ped::Model::getNeighbors(int x, int y, int dist) const {
+    set<const Ped::Tagent*> result;
+    for (auto agent : agents) {
+         int dx = agent->getX() - x;
+         int dy = agent->getY() - y;
+         if (abs(dx) <= dist && abs(dy) <= dist) {
+              result.insert(agent);
+         }
+    }
+    return result;
 }
 
 void Ped::Model::cleanup() {

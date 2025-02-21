@@ -8,7 +8,7 @@
 #include "ped_agent.h"
 #include "ped_waypoint.h"
 #include <math.h>
-
+#include <iostream>
 #include <stdlib.h>
 
 Ped::Tagent::Tagent(int posX, int posY) {
@@ -33,12 +33,22 @@ void Ped::Tagent::computeNextDesiredPosition() {
 		// compute where to move to
 		return;
 	}
+	// std::cout << "Destination: " << destination->getx() << " " << destination->gety() << endl;
 
 	double diffX = destination->getx() - x;
 	double diffY = destination->gety() - y;
-	double len = sqrt(diffX * diffX + diffY * diffY);
-	desiredPositionX = (int)round(x + diffX / len);
-	desiredPositionY = (int)round(y + diffY / len);
+	if (diffX == 0 && diffY == 0) {
+		desiredPositionX = x;
+		desiredPositionY = y;
+	}
+	else{
+		double len = sqrt(diffX * diffX + diffY * diffY);
+		desiredPositionX = (int)round(x + diffX / len);
+		desiredPositionY = (int)round(y + diffY / len);
+	}
+	// double len = sqrt(diffX * diffX + diffY * diffY);
+	// desiredPositionX = (int)round(x + diffX / len);
+	// desiredPositionY = (int)round(y + diffY / len);
 }
 
 void Ped::Tagent::addWaypoint(Twaypoint* wp) {
