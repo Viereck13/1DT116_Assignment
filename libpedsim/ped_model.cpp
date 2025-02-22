@@ -18,6 +18,8 @@
 #include "cuda_testkernel.h"
 #endif
 
+#define NUM_THREADS 16
+
 
 
 void Ped::Model::setup(std::vector<Ped::Tagent*> agentsInScenario, std::vector<Twaypoint*> destinationsInScenario, IMPLEMENTATION implementation)
@@ -37,10 +39,14 @@ void Ped::Model::setup(std::vector<Ped::Tagent*> agentsInScenario, std::vector<T
 	// Sets the chosen implemenation. Standard in the given code is SEQ
 	this->implementation = implementation;
 
-  regions.push_back(new Region(TYPE1, {0, 0}, {40, 120}));
-  regions.push_back(new Region(TYPE1, {40, 0}, {80, 120}));
-  regions.push_back(new Region(TYPE1, {80, 0}, {120, 120}));
-  regions.push_back(new Region(TYPE1, {120, 0}, {160, 120}));
+  // At start we have four regions and three borders 
+  regions.push_back(new Region({0, 0}, {40, 120}));
+  regions.push_back(new Region({40, 0}, {80, 120}));
+  regions.push_back(new Region({80, 0}, {120, 120}));
+  regions.push_back(new Region({120, 0}, {160, 120}));
+  borders.insert(40);
+  borders.insert(80);
+  borders.insert(120);
 
   for (auto &region: regions) {
 		region->initialize_neighbors(regions);
@@ -89,6 +95,7 @@ void Ped::Model::tick()
           }
         }
       }
+      split();
       break;
     case CUDA:
     case VECTOR:
@@ -205,6 +212,86 @@ void Ped::Model::move_trivial(Ped::Tagent *agent, Ped::Region *region)
 set<const Ped::Tagent*> Ped::Model::getNeighbors(int x, int y, int dist, Region *region) const {
 	return region == NULL ? set<const Ped::Tagent*>(agents.begin(), agents.end()) : 
                           set<const Ped::Tagent*>(region->agents.begin(), region->agents.end());
+}
+
+// Load Balance
+void Ped::Model::split() {
+  // if # of regions is bigger than # of threads
+  // Or # the width of the region is less than or equal to 10 or the width cannot be divided by 2
+  // does do split
+  if (regions.size() >= NUM_THREADS)
+    return;
+
+  int threshold = agents.size() / regions.size() * 2;
+
+  // avoid iterator invalidation
+  std::deque<Region*> temp_regions;
+
+  for (auto old_region: regions) {
+    if (old_region->agents.size() >= threshold) {
+      int width = old_region->max.first - old_region->min.first;
+      if (width <= 10 || width % 2 != 0)
+        return;
+
+      int new_border = (old_region->max.first + old_region->min.first)/2;
+      temp_regions.push_back(new Region({new_border, 0}, old_region->max));
+      old_region->max = {new_border, 120};  
+
+      // record new border and set all agents' position around the border as occupied
+      borders.insert(new_border);
+      for (auto agent: old_region->agents) {
+        int x = agent->getX();
+        int y = agent->getY();
+        if (new_border - 1 <= x && x <= new_border + 1)
+          grid[y][x].store(true);
+      }
+    }
+  }
+
+  while (!temp_regions.empty()) {
+    regions.push_back(temp_regions.front());
+    temp_regions.pop_front();
+  }
+}
+
+void Ped::Model::merge() {
+  int threshold = 100;
+
+
+  for (auto old_region: regions) {
+    if (old_region->agents.size() < threshold) {
+      // if the region to merge is the leftmost one
+      // can only merge with the region on right hand side
+      if (old_region->min.first == 0) {
+        int border = old_region->max.first;    
+        borders.erase(border);
+        Region *container = NULL;
+        for (auto region: regions)
+          if (region->pos_in_region(old_region->max) && region != old_region)
+            container = region;  
+        
+        assert(container != NULL);
+        container->min = old_region->min;
+      } else {
+        // otherwise old region merge with its left hand side one
+        int border = old_region->min.first;
+        borders.erase(border);
+        Region *container = NULL;
+        for (auto region: regions)
+          if (region->pos_in_region(old_region->min) && region != old_region)
+            container = region;  
+        
+        assert(container != NULL);
+        container->max = old_region->max;
+      }
+
+      for (auto it = regions.begin(); it != regions.end(); it++)
+        if (*it == old_region)
+          regions.erase(it);
+
+      break;
+    }
+  }
 }
 
 void Ped::Model::cleanup() {

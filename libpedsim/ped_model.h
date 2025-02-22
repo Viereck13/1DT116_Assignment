@@ -32,7 +32,6 @@ namespace Ped{
 	// The implementation modes for Assignment 1 + 2:
 	// chooses which implementation to use for tick()
 	enum IMPLEMENTATION { CUDA, VECTOR, OMP, PTHREAD, SEQ };
-	enum TYPE {TYPE1, TYPE2, TYPE3};
 
 	class Model
 	{
@@ -40,7 +39,7 @@ namespace Ped{
 
 		// Sets everything up
 		void setup(std::vector<Tagent*> agentsInScenario, std::vector<Twaypoint*> destinationsInScenario,IMPLEMENTATION implementation);
-		
+
 		// Coordinates a time step in the scenario: move all agents by one step (if applicable).
 		void tick();
 
@@ -75,7 +74,11 @@ namespace Ped{
 		void move(Ped::Tagent *agent);  // original move method 
 		void move_trivial(Ped::Tagent *agent, Ped::Region *region);  // my trivial move method
     std::vector<std::pair<int, int>> find_alternatives(Ped::Tagent *agent);
-
+    void split();
+    void merge();
+    
+    // record all the borders in space
+    std::unordered_set<int> borders;
 		////////////
 		/// Everything below here won't be relevant until Assignment 3
 		///////////////////////////////////////////////
@@ -92,9 +95,12 @@ namespace Ped{
 
     // For a given pair (destination) detect whether it's around the border
     bool desired_around_border(std::pair<int, int> dest) {
-      return (39 <= dest.first && dest.first <= 41) 
-          || (79 <= dest.first && dest.first <= 81)
-          || (119 <= dest.first && dest.first <= 121);
+      for (int line: borders) {
+        if ((line - 1) <= dest.first && dest.first <= (line + 1))
+          return true;
+      }
+
+      return false;
     }
 
 		////////////
@@ -120,12 +126,11 @@ namespace Ped{
 
 	class Region {
 		public:
-			enum TYPE type;
 			std::pair<int, int> min, max;	// (x_min, y_min) and (x_max, y_max) can define a rectangle region
 			std::vector<Tagent*> agents;
 			std::vector<Region*> neighbors;
 			
-			Region(enum TYPE type, std::pair<int, int> min, std::pair<int, int> max) :type(type), min(min), max(max){}
+			Region(std::pair<int, int> min, std::pair<int, int> max) :min(min), max(max){}
 
       // Record all the neighbors of a region
 			void initialize_neighbors(std::vector<Region*> &regions_in_space) {
@@ -137,7 +142,7 @@ namespace Ped{
 							if (region->pos_in_region({x, y}) && region != this) {
                 if (flag) break;
                 flag = 1;
-								neighbors.push_back(region);	
+								neighbors.push_back(region);
 							}
 						}
 					}
