@@ -45,25 +45,14 @@ void Ped::Model::setup(std::vector<Ped::Tagent*> agentsInScenario, std::vector<T
   for (auto &region: regions) {
 		region->initialize_neighbors(regions);
 		region->initialize_agents(agents);
-    /*std::cout << "region has : " << region.agents.size() << std::endl;*/
-    /*std::cout << "region has : " << region.neighbors.size() << std::endl;*/
 	}
 
   // Initialize cas array
-  {
-    int row = 121;
-    int col = 161;
-    grid = (std::atomic<bool> **)malloc(row * sizeof(void*));
-
-    for (int i = 0; i < row; i++)
-      grid[i] = (std::atomic<bool> *)malloc(col * sizeof(std::atomic<bool>));
-
-    for (int i = 0; i < row; i++)
-      for (int j = 0; j < col; j++)
-        grid[i][j].store(false, std::memory_order_relaxed);
-
-    for (auto const &agent: agents)
-      grid[agent->getY()][agent->getX()].store(true);
+  for (auto agent: agents) {
+    int x = agent->getX();
+    int y = agent->getY();
+    if (x < COL && y < ROW)
+      grid[y][x].store(true);
   }
 
 	// Set up heatmap (relevant for Assignment 4)
@@ -96,7 +85,7 @@ void Ped::Model::tick()
           Ped::Region *region = regions[tid];
           for (auto agent: region->agents)	{
             agent->computeNextDesiredPosition();
-            move_trivial(agent, *region);
+            move_trivial(agent, region);
           }
         }
       }
@@ -140,7 +129,7 @@ std::vector<std::pair<int, int>> Ped::Model::find_alternatives(Ped::Tagent *agen
 void Ped::Model::move(Ped::Tagent *agent)
 {
 	// Search for neighboring agents
-	set<const Ped::Tagent *> neighbors = getNeighbors(agent->getX(), agent->getY(), 2);
+	set<const Ped::Tagent *> neighbors = getNeighbors(agent->getX(), agent->getY(), 2, NULL);
 
 	// Retrieve neighbors' positions, then push each neighbor's position into 'takenPositions' pair
 	std::vector<std::pair<int, int> > takenPositions;
@@ -163,11 +152,21 @@ void Ped::Model::move(Ped::Tagent *agent)
 	     agent->setY((*it).second);
 	     break;
 	   }
-	 }
+	}
 }
 
-void Ped::Model::move_trivial(Ped::Tagent *agent, Ped::Region &region)
+void Ped::Model::move_trivial(Ped::Tagent *agent, Ped::Region *region)
 {
+  // Search for neighboring agents
+	set<const Ped::Tagent *> neighbors = getNeighbors(agent->getX(), agent->getY(), 2, region);
+
+	// Retrieve neighbors' positions, then push each neighbor's position into 'takenPositions' pair
+	std::vector<std::pair<int, int> > takenPositions;
+	for (std::set<const Ped::Tagent*>::iterator neighborIt = neighbors.begin(); neighborIt != neighbors.end(); ++neighborIt) {
+		std::pair<int, int> position((*neighborIt)->getX(), (*neighborIt)->getY());
+		takenPositions.push_back(position);
+	}
+
 	// Compute the three alternative positions that would bring the agent
 	// closer to his desiredPosition, starting with the desiredPosition itself
 	std::vector<std::pair<int, int> > prioritizedAlternatives = find_alternatives(agent);
@@ -176,29 +175,21 @@ void Ped::Model::move_trivial(Ped::Tagent *agent, Ped::Region &region)
 	bool new_value = true;
 	for (std::vector<pair<int, int> >::iterator it = prioritizedAlternatives.begin(); it != prioritizedAlternatives.end(); ++it) {
     // Two cases: agents in the inner region or agents near border
-    if (dest_around_border(*it)) {
+    if (desired_around_border(*it)) {
       if (grid[(*it).second][(*it).first].compare_exchange_strong(expected, new_value)) {
+         grid[agent->getY()][agent->getX()].store(false);
+         agent->setX((*it).first);
+         agent->setY((*it).second);
+         break;
+			}
+      expected = false;
+		} else {
+	    if (std::find(takenPositions.begin(), takenPositions.end(), *it) == takenPositions.end()) {
         grid[agent->getY()][agent->getX()].store(false);
         agent->setX((*it).first);
         agent->setY((*it).second);
-			  break;
+        break;
       }
-
-      /*// If after updating this agent is no longer in current region*/
-      /*if (!region.pos_in_region({agent->getX(), agent->getY()})) {*/
-      /*  region.outqueue.push_back(agent);*/
-      /**/
-      /*  // Where this agent goes*/
-      /*  Ped::Region *region = get_target_region(agent);*/
-      /*  while (!region->in_use->compare_exchange_strong(expected, new_value)) {}*/
-      /*    region->inqueue.push_back(agent); */
-      /*}*/
-      
-		} else {
-      grid[agent->getY()][agent->getX()].store(false);
-      agent->setX((*it).first);
-      agent->setY((*it).second);
-      break;
     }
 	}
 }
@@ -211,26 +202,10 @@ void Ped::Model::move_trivial(Ped::Tagent *agent, Ped::Region &region)
 /// \param   x the x coordinate
 /// \param   y the y coordinate
 /// \param   dist the distance around x/y that will be searched for agents (search field is a square in the current implementation)
-set<const Ped::Tagent*> Ped::Model::getNeighbors(int x, int y, int dist) const {
-
-	// create the output list
-	// ( It would be better to include only the agents close by, but this programmer is lazy.)	
-	return set<const Ped::Tagent*>(agents.begin(), agents.end());
+set<const Ped::Tagent*> Ped::Model::getNeighbors(int x, int y, int dist, Region *region) const {
+	return region == NULL ? set<const Ped::Tagent*>(agents.begin(), agents.end()) : 
+                          set<const Ped::Tagent*>(region->agents.begin(), region->agents.end());
 }
-
-/*Ped::Region* Ped::Model::get_target_region(Ped::Tagent *agent)	{*/
-/*  Ped::Region *res = NULL;*/
-/*  int x = agent->getX();*/
-/*  int y = agent->getY();*/
-/*  for (int i = 0; i < regions.size(); i++) {*/
-/*    if (regions[i].pos_in_region({x, y})) {*/
-/*      res = &regions[i];*/
-/*    }*/
-/*  }*/
-/**/
-/*  assert(res != NULL);*/
-/*  return res;*/
-/*}*/
 
 void Ped::Model::cleanup() {
 	// Nothing to do here right now. 

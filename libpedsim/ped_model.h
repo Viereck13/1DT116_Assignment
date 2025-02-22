@@ -19,8 +19,12 @@
 #include <atomic>
 #include <assert.h>
 #include <iostream>
+#include <mutex>  
 
 #include "ped_agent.h"
+
+#define ROW 120 + 1
+#define COL 160 + 1
 
 namespace Ped{
 	class Tagent;
@@ -69,7 +73,7 @@ namespace Ped{
 
 		// Moves an agent towards its next position
 		void move(Ped::Tagent *agent);  // original move method 
-		void move_trivial(Ped::Tagent *agent, Ped::Region &region);  // my trivial move method
+		void move_trivial(Ped::Tagent *agent, Ped::Region *region);  // my trivial move method
     std::vector<std::pair<int, int>> find_alternatives(Ped::Tagent *agent);
 
 		////////////
@@ -77,17 +81,17 @@ namespace Ped{
 		///////////////////////////////////////////////
 
 		// Returns the set of neighboring agents for the specified position
-		set<const Ped::Tagent*> getNeighbors(int x, int y, int dist) const;
+		set<const Ped::Tagent*> getNeighbors(int x, int y, int dist, Ped::Region *region) const;
 
 		// All the regions
 		std::vector<Region*> regions;
 		// each pixel of the space is an atomic boolean value
-    std::atomic<bool> **grid;
+    std::atomic<bool> grid[ROW][COL] = {false};
 
     Ped::Region* get_target_region(Ped::Tagent *agent);
 
     // For a given pair (destination) detect whether it's around the border
-    bool dest_around_border(std::pair<int, int> dest) {
+    bool desired_around_border(std::pair<int, int> dest) {
       return (39 <= dest.first && dest.first <= 41) 
           || (79 <= dest.first && dest.first <= 81)
           || (119 <= dest.first && dest.first <= 121);
@@ -120,8 +124,6 @@ namespace Ped{
 			std::pair<int, int> min, max;	// (x_min, y_min) and (x_max, y_max) can define a rectangle region
 			std::vector<Tagent*> agents;
 			std::vector<Region*> neighbors;
-      /*std::deque<Tagent*> inqueue;*/
-      /*std::deque<Tagent*> outqueue;*/
 			
 			Region(enum TYPE type, std::pair<int, int> min, std::pair<int, int> max) :type(type), min(min), max(max){}
 
@@ -159,24 +161,6 @@ namespace Ped{
 					&& pos.second >= min.second
 					&& pos.second <= max.second;
 			}
-
-      // Each time at the beginning of the tick, update agents in every region
-      /*void update_agents() {*/
-      /*  // remove agents which are not in this region any more*/
-      /*  while (!outqueue.empty()) {*/
-      /*    agents.erase(outqueue.front());*/
-      /*    outqueue.pop_front();*/
-      /*  }*/
-      /*  // insert new agents*/
-      /*  bool expected = false;*/
-      /*  bool new_value = true;*/
-      /*  while (!in_use->compare_exchange_strong(expected, new_value)) {}*/
-      /*  while (!inqueue.empty()) {*/
-      /*    agents.insert(inqueue.front());  */
-      /*    inqueue.pop_front();*/
-      /*  }*/
-      /*  in_use->store(false);*/
-      /*}*/
 	};
 }
 #endif
