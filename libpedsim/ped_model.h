@@ -80,11 +80,18 @@ namespace Ped{
 		set<const Ped::Tagent*> getNeighbors(int x, int y, int dist) const;
 
 		// All the regions
-		std::vector<Region> regions;
+		std::vector<Region*> regions;
 		// each pixel of the space is an atomic boolean value
     std::atomic<bool> **grid;
 
-  Ped::Region* get_target_region(Ped::Tagent *agent);
+    Ped::Region* get_target_region(Ped::Tagent *agent);
+
+    // For a given pair (destination) detect whether it's around the border
+    bool dest_around_border(std::pair<int, int> dest) {
+      return (39 <= dest.first && dest.first <= 41) 
+          || (79 <= dest.first && dest.first <= 81)
+          || (119 <= dest.first && dest.first <= 121);
+    }
 
 		////////////
 		/// Everything below here won't be relevant until Assignment 4
@@ -110,32 +117,25 @@ namespace Ped{
 	class Region {
 		public:
 			enum TYPE type;
-			std::pair<int, int> min, max;	// (x_min, y_min) and (x_max, y_max) can define a rectangle region	
-			std::unordered_set<Tagent*> agents;
+			std::pair<int, int> min, max;	// (x_min, y_min) and (x_max, y_max) can define a rectangle region
+			std::vector<Tagent*> agents;
 			std::vector<Region*> neighbors;
-      
-      std::atomic<bool> *in_use;
-      std::deque<Tagent*> inqueue;
-      std::deque<Tagent*> outqueue;
+      /*std::deque<Tagent*> inqueue;*/
+      /*std::deque<Tagent*> outqueue;*/
 			
-			Region(enum TYPE type, std::pair<int, int> min, std::pair<int, int> max) :type(type), min(min), max(max){
-        in_use[0].store(false, std::memory_order_relaxed);
-        in_use = (std::atomic<bool>*)malloc(sizeof(std::atomic<bool>));
-        in_use->store(false, std::memory_order_relaxed);
-      }
+			Region(enum TYPE type, std::pair<int, int> min, std::pair<int, int> max) :type(type), min(min), max(max){}
 
-			// For a given region, initialize its adjacents
-			// For each region in the space, check if any corner position of current region is in that region
-			void initialize_neighbors(std::vector<Region> &regions_in_space) {
+      // Record all the neighbors of a region
+			void initialize_neighbors(std::vector<Region*> &regions_in_space) {
         int flag = 0; // When a region detects a neighbor region, can skip detection for the same neighbor region
-				for (auto &region: regions_in_space) {
+				for (auto region: regions_in_space) {
           flag = 0;
 					for (auto x: {min.first, max.first}) {
 						for (auto y: {min.second, max.second}) {
-							if (region.pos_in_region({x, y}) && &region != this) {
+							if (region->pos_in_region({x, y}) && region != this) {
                 if (flag) break;
                 flag = 1;
-								neighbors.push_back(&region);	
+								neighbors.push_back(region);	
 							}
 						}
 					}
@@ -147,7 +147,7 @@ namespace Ped{
 				for (auto agent: agents) {
 					if (pos_in_region({agent->getX(), agent->getY()}) && !agent->is_owned) {
 						agent->is_owned = true;
-						this->agents.insert(agent);
+						this->agents.push_back(agent);
 					}
 				}
 			}
@@ -161,22 +161,22 @@ namespace Ped{
 			}
 
       // Each time at the beginning of the tick, update agents in every region
-      void update_agents() {
-        // remove agents which are not in this region any more
-        while (!outqueue.empty()) {
-          agents.erase(outqueue.front());
-          outqueue.pop_front();
-        }
-        // insert new agents
-        bool expected = false;
-        bool new_value = true;
-        while (!in_use->compare_exchange_strong(expected, new_value)) {}
-        while (!inqueue.empty()) {
-          agents.insert(inqueue.front());  
-          inqueue.pop_front();
-        }
-        in_use->store(false);
-      }
+      /*void update_agents() {*/
+      /*  // remove agents which are not in this region any more*/
+      /*  while (!outqueue.empty()) {*/
+      /*    agents.erase(outqueue.front());*/
+      /*    outqueue.pop_front();*/
+      /*  }*/
+      /*  // insert new agents*/
+      /*  bool expected = false;*/
+      /*  bool new_value = true;*/
+      /*  while (!in_use->compare_exchange_strong(expected, new_value)) {}*/
+      /*  while (!inqueue.empty()) {*/
+      /*    agents.insert(inqueue.front());  */
+      /*    inqueue.pop_front();*/
+      /*  }*/
+      /*  in_use->store(false);*/
+      /*}*/
 	};
 }
 #endif

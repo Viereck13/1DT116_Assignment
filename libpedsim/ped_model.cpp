@@ -31,42 +31,40 @@ void Ped::Model::setup(std::vector<Ped::Tagent*> agentsInScenario, std::vector<T
 
 	// Set 
 	agents = std::vector<Ped::Tagent*>(agentsInScenario.begin(), agentsInScenario.end());
-
 	// Set up destinations
 	destinations = std::vector<Ped::Twaypoint*>(destinationsInScenario.begin(), destinationsInScenario.end());
 
 	// Sets the chosen implemenation. Standard in the given code is SEQ
 	this->implementation = implementation;
 
-	regions = {
-		Region(TYPE1, {0, 60}, {80, 120}),
-		Region(TYPE1, {80, 60}, {160, 120}),
-		Region(TYPE1, {0, 0}, {80, 60}),
-		Region(TYPE1, {80, 0}, {160, 60}),
-	};
+  regions.push_back(new Region(TYPE1, {0, 0}, {40, 120}));
+  regions.push_back(new Region(TYPE1, {40, 0}, {80, 120}));
+  regions.push_back(new Region(TYPE1, {80, 0}, {120, 120}));
+  regions.push_back(new Region(TYPE1, {120, 0}, {160, 120}));
 
   for (auto &region: regions) {
-		region.initialize_neighbors(regions);
-		region.initialize_agents(agents);
+		region->initialize_neighbors(regions);
+		region->initialize_agents(agents);
     /*std::cout << "region has : " << region.agents.size() << std::endl;*/
     /*std::cout << "region has : " << region.neighbors.size() << std::endl;*/
 	}
 
   // Initialize cas array
-  int row = 121;
-  int col = 200;
-	grid = (std::atomic<bool> **)malloc(row * sizeof(void*));
-  for (int i = 0; i < row; i++) {
-    grid[i] = (std::atomic<bool> *)malloc(col * sizeof(std::atomic<bool>));
+  {
+    int row = 121;
+    int col = 161;
+    grid = (std::atomic<bool> **)malloc(row * sizeof(void*));
+
+    for (int i = 0; i < row; i++)
+      grid[i] = (std::atomic<bool> *)malloc(col * sizeof(std::atomic<bool>));
+
+    for (int i = 0; i < row; i++)
+      for (int j = 0; j < col; j++)
+        grid[i][j].store(false, std::memory_order_relaxed);
+
+    for (auto const &agent: agents)
+      grid[agent->getY()][agent->getX()].store(true);
   }
-  for (int i = 0; i < row; i++) {
-    for (int j = 0; j < col; j++) {
-      grid[i][j].store(false, std::memory_order_relaxed);
-    }
-  }
-	for (auto const &agent: agents) {
-		grid[agent->getY()][agent->getX()].store(true);
-	}
 
 	// Set up heatmap (relevant for Assignment 4)
 	setupHeatmapSeq();
@@ -78,19 +76,24 @@ void Ped::Model::tick()
     case SEQ:
 	    for (int i = 0; i < agents.size(); i++) {
         agents[i]->computeNextDesiredPosition();
-        /*agents[i]->setX(agents[i]->getDesiredX());*/
-        /*agents[i]->setY(agents[i]->getDesiredY());*/
         move(agents[i]);
       }
       break;
-    case PTHREAD:
+    case OMP:
+      // Reallocate agents into different regions after each tick
+      for (auto agent: agents) {
+        agent->is_owned = false;
+      }
+      for (auto region: regions) {
+        region->agents.clear();
+        region->initialize_agents(agents);
+      }
       #pragma omp parallel
       {
         auto tid = omp_get_thread_num();
         if (tid < regions.size()) {
           // thread tid is responsible for regions[tid]
-          Ped::Region *region = &regions[tid];
-          region->update_agents();
+          Ped::Region *region = regions[tid];
           for (auto agent: region->agents)	{
             agent->computeNextDesiredPosition();
             move_trivial(agent, *region);
@@ -100,13 +103,7 @@ void Ped::Model::tick()
       break;
     case CUDA:
     case VECTOR:
-    case OMP:
-      for (auto agent : agents) {
-        agent->computeNextDesiredPosition();
-        /*agent->setX(agent->getDesiredX());*/
-        /*agent->setY(agent->getDesiredY());*/
-        move(agent);
-		  }
+    case PTHREAD:
 		  break;
   }
 }
@@ -178,23 +175,31 @@ void Ped::Model::move_trivial(Ped::Tagent *agent, Ped::Region &region)
 	bool expected = false;
 	bool new_value = true;
 	for (std::vector<pair<int, int> >::iterator it = prioritizedAlternatives.begin(); it != prioritizedAlternatives.end(); ++it) {
-		if (grid[(*it).second][(*it).first].compare_exchange_strong(expected, new_value)) {
-			grid[agent->getY()][agent->getX()].store(false);
-			agent->setX((*it).first);
-			agent->setY((*it).second);
-
-      // If after updating this agent is no longer in current region
-      if (!region.pos_in_region({agent->getX(), agent->getY()})) {
-        region.outqueue.push_back(agent);
-        
-        // Where this agent goes
-        Ped::Region *region = get_target_region(agent);
-        while (!region->in_use->compare_exchange_strong(expected, new_value)) {}
-          region->inqueue.push_back(agent); 
+    // Two cases: agents in the inner region or agents near border
+    if (dest_around_border(*it)) {
+      if (grid[(*it).second][(*it).first].compare_exchange_strong(expected, new_value)) {
+        grid[agent->getY()][agent->getX()].store(false);
+        agent->setX((*it).first);
+        agent->setY((*it).second);
+			  break;
       }
+
+      /*// If after updating this agent is no longer in current region*/
+      /*if (!region.pos_in_region({agent->getX(), agent->getY()})) {*/
+      /*  region.outqueue.push_back(agent);*/
+      /**/
+      /*  // Where this agent goes*/
+      /*  Ped::Region *region = get_target_region(agent);*/
+      /*  while (!region->in_use->compare_exchange_strong(expected, new_value)) {}*/
+      /*    region->inqueue.push_back(agent); */
+      /*}*/
       
-			break;
-		}
+		} else {
+      grid[agent->getY()][agent->getX()].store(false);
+      agent->setX((*it).first);
+      agent->setY((*it).second);
+      break;
+    }
 	}
 }
 
@@ -213,19 +218,19 @@ set<const Ped::Tagent*> Ped::Model::getNeighbors(int x, int y, int dist) const {
 	return set<const Ped::Tagent*>(agents.begin(), agents.end());
 }
 
-Ped::Region* Ped::Model::get_target_region(Ped::Tagent *agent)	{
-  Ped::Region *res = NULL;
-  int x = agent->getX();
-  int y = agent->getY();
-  for (int i = 0; i < regions.size(); i++) {
-    if (regions[i].pos_in_region({x, y})) {
-      res = &regions[i];
-    }
-  }
-
-  assert(res != NULL);
-  return res;
-}
+/*Ped::Region* Ped::Model::get_target_region(Ped::Tagent *agent)	{*/
+/*  Ped::Region *res = NULL;*/
+/*  int x = agent->getX();*/
+/*  int y = agent->getY();*/
+/*  for (int i = 0; i < regions.size(); i++) {*/
+/*    if (regions[i].pos_in_region({x, y})) {*/
+/*      res = &regions[i];*/
+/*    }*/
+/*  }*/
+/**/
+/*  assert(res != NULL);*/
+/*  return res;*/
+/*}*/
 
 void Ped::Model::cleanup() {
 	// Nothing to do here right now. 
