@@ -151,20 +151,25 @@ namespace Ped{
 
 			// Record all the agents in this region at the beginning
 			void initialize_agents(std::vector<Tagent*> &agents) {
-				for (auto agent: agents) {
-					if (pos_in_region({agent->getX(), agent->getY()}) && !agent->is_owned) {
-						agent->is_owned = true;
+				for (auto agent: agents)
+					if (pos_in_region({agent->getX(), agent->getY()}))
 						this->agents.push_back(agent);
-					}
-				}
 			}
 
 			// Check if a position is in this region
+      // [left_border, right_border), except for the last region
 			bool pos_in_region(std::pair<int, int> pos) {
-				return pos.first >= min.first
-					&& pos.first <= max.first
-					&& pos.second >= min.second
-					&& pos.second <= max.second;
+        if (max.first != 160) {
+          return pos.first >= min.first
+            && pos.first < max.first
+            && pos.second >= min.second
+            && pos.second <= max.second;
+        } else {
+          return pos.first >= min.first
+            && pos.first <= max.first
+            && pos.second >= min.second
+            && pos.second <= max.second;
+        }
 			}
 	};
 }

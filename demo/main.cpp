@@ -152,10 +152,10 @@ int main(int argc, char*argv[]) {
     }
 
     if (export_trace) {
-        if (max_steps > 200) {
+        if (max_steps > 500) {
             std::cout << "Reducing the maximum number of steps to 200 for the tracing run." << std::endl;
             std::cout << "The trace files can become really large!" << std::endl;
-            max_steps = 200;
+            max_steps = 500;
         }
     }
 

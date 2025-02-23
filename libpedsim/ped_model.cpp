@@ -20,6 +20,7 @@
 
 #define NUM_THREADS 16
 
+static int cnt = 0;
 
 
 void Ped::Model::setup(std::vector<Ped::Tagent*> agentsInScenario, std::vector<Twaypoint*> destinationsInScenario, IMPLEMENTATION implementation)
@@ -67,6 +68,7 @@ void Ped::Model::setup(std::vector<Ped::Tagent*> agentsInScenario, std::vector<T
 
 void Ped::Model::tick()
 {
+  cnt++;
   switch (implementation) {
     case SEQ:
 	    for (int i = 0; i < agents.size(); i++) {
@@ -76,9 +78,6 @@ void Ped::Model::tick()
       break;
     case OMP:
       // Reallocate agents into different regions after each tick
-      for (auto agent: agents) {
-        agent->is_owned = false;
-      }
       for (auto region: regions) {
         region->agents.clear();
         region->initialize_agents(agents);
@@ -95,7 +94,10 @@ void Ped::Model::tick()
           }
         }
       }
-      split();
+      if (cnt % 10 == 0)
+        split();
+      if (cnt % 20 == 0)
+        merge();
       break;
     case CUDA:
     case VECTOR:
@@ -180,14 +182,16 @@ void Ped::Model::move_trivial(Ped::Tagent *agent, Ped::Region *region)
 	
 	bool expected = false;
 	bool new_value = true;
+
 	for (std::vector<pair<int, int> >::iterator it = prioritizedAlternatives.begin(); it != prioritizedAlternatives.end(); ++it) {
     // Two cases: agents in the inner region or agents near border
     if (desired_around_border(*it)) {
       if (grid[(*it).second][(*it).first].compare_exchange_strong(expected, new_value)) {
-         grid[agent->getY()][agent->getX()].store(false);
-         agent->setX((*it).first);
-         agent->setY((*it).second);
-         break;
+        grid[agent->getY()][agent->getX()].store(false);
+        agent->setX((*it).first);
+        agent->setY((*it).second);
+
+        break;
 			}
       expected = false;
 		} else {
@@ -195,6 +199,7 @@ void Ped::Model::move_trivial(Ped::Tagent *agent, Ped::Region *region)
         grid[agent->getY()][agent->getX()].store(false);
         agent->setX((*it).first);
         agent->setY((*it).second);
+
         break;
       }
     }
@@ -222,20 +227,21 @@ void Ped::Model::split() {
   if (regions.size() >= NUM_THREADS)
     return;
 
-  int threshold = agents.size() / regions.size() * 2;
-
+  int threshold = agents.size() / regions.size() * 3 / 2;
+  /*printf("num of agents: %ld, num of region: %ld, threshold: %d\n", agents.size(), regions.size(), threshold);*/
+  
   // avoid iterator invalidation
   std::deque<Region*> temp_regions;
 
   for (auto old_region: regions) {
     if (old_region->agents.size() >= threshold) {
       int width = old_region->max.first - old_region->min.first;
-      if (width <= 10 || width % 2 != 0)
-        return;
+      if (width <= 10)
+        continue;
 
       int new_border = (old_region->max.first + old_region->min.first)/2;
       temp_regions.push_back(new Region({new_border, 0}, old_region->max));
-      old_region->max = {new_border, 120};  
+      old_region->max = {new_border, 120};
 
       // record new border and set all agents' position around the border as occupied
       borders.insert(new_border);
@@ -250,16 +256,18 @@ void Ped::Model::split() {
 
   while (!temp_regions.empty()) {
     regions.push_back(temp_regions.front());
+    /*printf("What is inserted into regions: {%d, %d}\n", temp_regions.front()->min.first, temp_regions.front()->min.second);*/
+    /*printf("Now the num of regions is %d\n", regions.size());*/
     temp_regions.pop_front();
   }
 }
 
 void Ped::Model::merge() {
-  int threshold = 100;
-
+  int threshold = agents.size() / regions.size() / 2;
 
   for (auto old_region: regions) {
     if (old_region->agents.size() < threshold) {
+      /*printf("Running merge, threshold is: %d\n", threshold);*/
       // if the region to merge is the leftmost one
       // can only merge with the region on right hand side
       if (old_region->min.first == 0) {
@@ -268,7 +276,7 @@ void Ped::Model::merge() {
         Region *container = NULL;
         for (auto region: regions)
           if (region->pos_in_region(old_region->max) && region != old_region)
-            container = region;  
+            container = region;
         
         assert(container != NULL);
         container->min = old_region->min;
@@ -278,7 +286,8 @@ void Ped::Model::merge() {
         borders.erase(border);
         Region *container = NULL;
         for (auto region: regions)
-          if (region->pos_in_region(old_region->min) && region != old_region)
+          // Because the particularity of pos_in_region(), we need to have min.first - 1 here
+          if (region->pos_in_region({old_region->min.first - 1, 0}) && region != old_region)
             container = region;  
         
         assert(container != NULL);
@@ -286,8 +295,10 @@ void Ped::Model::merge() {
       }
 
       for (auto it = regions.begin(); it != regions.end(); it++)
-        if (*it == old_region)
+        if (*it == old_region) {
           regions.erase(it);
+          break;
+        }
 
       break;
     }

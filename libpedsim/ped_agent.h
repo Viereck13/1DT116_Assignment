@@ -49,10 +49,6 @@ namespace Ped {
 		// Adds a new waypoint to reach for this agent
 		void addWaypoint(Twaypoint* wp);
 
-		// For assignment 3: record whether this agent has been owned by some region
-		// avoid agents on the boundary are owned by multiple regions
-		bool is_owned;
-
 	private:
 		Tagent() {};
 
