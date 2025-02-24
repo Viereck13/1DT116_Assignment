@@ -114,14 +114,14 @@ void Ped::Model::setup(std::vector<Ped::Tagent*> agentsInScenario, std::vector<T
 		regio.leftBorder = i*(REGION_X_SIZE/ 8);
 		for (size_t j = 0; j < REGION_Y_SIZE; j++)
 			{
-				//std::atomic<int>* atom = new std::atomic(-1);
-				regio.leftBorderGates[j]->store(-1);
+				std::atomic<int>* atom = new std::atomic(-1);
+				regio.leftBorderGates[j] = atom;
 			}
 		regio.rightBorder = (i+1)*(REGION_X_SIZE/ 8);
 		for (size_t j = 0; j < REGION_Y_SIZE; j++)
 			{
-				//std::atomic<int>* atom = new std::atomic(-1);
-				regio.rightBorderGates[j]->store(-1);
+				std::atomic<int>* atom = new std::atomic(-1);
+				regio.rightBorderGates[j] = atom;
 			}
 		regio.assignedAgents;// = new std::vector<Ped::Tagent*>();
 		// regio.changeRegion = new std::mutex();
