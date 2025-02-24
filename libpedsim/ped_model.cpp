@@ -23,6 +23,7 @@
 #endif
 
 #include <stdlib.h>
+#include <atomic>
 
 void Ped::Model::setup(std::vector<Ped::Tagent*> agentsInScenario, std::vector<Twaypoint*> destinationsInScenario, IMPLEMENTATION implementation)
 {
@@ -106,16 +107,34 @@ void Ped::Model::setup(std::vector<Ped::Tagent*> agentsInScenario, std::vector<T
 		#endif
 	}
 
-	for (size_t i = 0; i < 10; i++)
+	for (size_t i = 0; i < 8; i++)
 	{
 		Region regio;
-		regio.leftBorder = i*(160/ 10);
-		regio.rightBorder = (i+1)*(160/ 10);
+		regio.leftBorder = i*(REGION_X_SIZE/ 8);
+		for (size_t j = 0; j < REGION_Y_SIZE; j++)
+			{
+				std::atomic<int>* atom = new std::atomic(-1);
+				regio.leftBorderGates[j] = atom;
+			}
+		regio.rightBorder = (i+1)*(REGION_X_SIZE/ 8);
+		for (size_t j = 0; j < REGION_Y_SIZE; j++)
+			{
+				std::atomic<int>* atom = new std::atomic(-1);
+				regio.rightBorderGates[j] = atom;
+			}
 		regio.assignedAgents;// = new std::vector<Ped::Tagent*>();
-		regio.changeRegion = new std::mutex();
+		// regio.changeRegion = new std::mutex();
 		regions.push_back(regio);
 	}
-	
+	for (size_t aT = 0; aT < agents.size(); aT++)
+	{
+		for (size_t i = 0; i < regions.size(); i++)
+		{
+			if (agents.at(aT)->getX() >= regions.at(i).leftBorder && agents.at(aT)->getX() < regions.at(i).rightBorder) {
+				regions.at(i).assignedAgents.push_back(aT);
+			}
+		}
+	}
 }
 
 
@@ -248,7 +267,7 @@ void Ped::Model::tick()
 	{
 	case OMP:
 		// tick_OMP();;
-		omp_set_num_threads(16);
+		omp_set_num_threads(12);
 		moveRegion();
 		break;
 	case PTHREAD:
@@ -363,13 +382,113 @@ void Ped::Model::moveRegion()
 	#pragma omp parallel for
 	for (size_t i = 0; i < regions.size(); i++)
 	{
-		// std::cout << "RA_SIZE " << regions.at(i).assignedAgents.size() << endl;
 		for (size_t j = 0; j < regions.at(i).assignedAgents.size(); j++)
 		{
 			agents.at(regions.at(i).assignedAgents.at(j))->computeNextDesiredPosition();
 			moveAgentRegion(regions.at(i).assignedAgents.at(j), i);
 		}
 	}
+
+	#pragma omp parallel for
+	for (size_t i = 0; i < regions.size(); i++)
+	{
+		// for (size_t j = 0; j < regions.at(i).assignedAgents.size(); j++)
+		// {
+		// 	agents.at(regions.at(i).assignedAgents.at(j))->computeNextDesiredPosition();
+		// 	moveAgentRegion(regions.at(i).assignedAgents.at(j), i);
+		// }
+		for (size_t j = 0; j < regions.at(i).removeFromList.size(); j++)
+		{
+			// auto index = find(v.begin(), v.end(), 5) - v.begin();
+			// regions.at(i).assignedAgents.erase(regions.at(i).assignedAgents.at(j));
+			// Use std::remove to move the elements to be removed to the end
+			auto newEnd = std::remove(regions.at(i).assignedAgents.begin(), regions.at(i).assignedAgents.end(), regions.at(i).removeFromList.at(j));
+
+			// Erase the "removed" elements from the vector
+			regions.at(i).assignedAgents.erase(newEnd, regions.at(i).assignedAgents.end());
+		}
+		regions.at(i).removeFromList.clear();
+		for (size_t j = 0; j < REGION_Y_SIZE; j++)
+		{
+			int valueL = regions.at(i).leftBorderGates.at(j)->exchange(-1);
+			if (valueL != -1)
+			{
+				regions.at(i).assignedAgents.push_back(valueL);
+			}
+			int valueR = regions.at(i).rightBorderGates.at(j)->exchange(-1);
+			if (valueR != -1)
+			{
+				regions.at(i).assignedAgents.push_back(valueR);
+			}
+		}
+	}
+
+	// manageRegions();
+}
+
+void Ped::Model::manageRegions()
+{
+	// #pragma omp parallel for
+	for (size_t i = 0; i < regions.size(); i++)
+	{
+		std::cout << i << ": " << regions.at(i).leftBorder << " " << regions.at(i).assignedAgents.size() << " " << regions.at(i).rightBorder << std::endl;
+		if (regions.at(i).assignedAgents.size() > 50) {
+			int lB = regions.at(i).leftBorder;
+			int rB = regions.at(i).rightBorder;
+			int nB = regions.at(i).leftBorder+(regions.at(i).rightBorder-regions.at(i).leftBorder)/2;
+			regions.at(i).rightBorder = nB;
+
+			Region regio;
+			regio.leftBorder = nB;
+			for (size_t j = 0; j < REGION_Y_SIZE; j++)
+			{
+				std::atomic<int>* atom = new std::atomic(-1);
+				regio.leftBorderGates[j] = atom;
+			}
+			regio.rightBorder = rB;
+			for (size_t j = 0; j < REGION_Y_SIZE; j++)
+			{
+				std::atomic<int>* atom = new std::atomic(-1);
+				regio.rightBorderGates[j] = atom;
+			}
+
+			std::vector<int> oldVec = regions.at(i).assignedAgents;
+			regions.at(i).assignedAgents.clear();
+			for (size_t j = 0; j < oldVec.size(); j++)
+			{
+				if (agents.at(oldVec.at(j))->getX() <= nB)
+				{
+					regions.at(i).assignedAgents.push_back(oldVec.at(j));
+				} else {
+					regio.assignedAgents.push_back(oldVec.at(j));
+				}
+				
+			}
+			
+			// regio.assignedAgents;
+
+			regions.insert(regions.begin() + i+1, regio);
+		}
+	}
+
+	// #pragma omp parallel for
+	for (size_t i = 0; i < regions.size()-1; i++)
+	{
+		// std::cout << i << ": " << regions.at(i).leftBorder << " " << regions.at(i).assignedAgents.size() << " " << regions.at(i).rightBorder << std::endl;
+		if (regions.at(i).assignedAgents.size()+regions.at(i+1).assignedAgents.size() < 50) {
+			regions.at(i).rightBorder = regions.at(i+1).rightBorder;
+
+			regions.at(i).assignedAgents.insert(regions.at(i).assignedAgents.end(), regions.at(i+1).assignedAgents.begin(), regions.at(i+1).assignedAgents.end());
+
+			// regions.insert(regions.begin() + i+1, regio);
+			regions.erase(regions.begin() + i+1);
+		}
+	}
+
+	// for (size_t i = 0; i < regions.size(); i++)
+	// {
+	// 	std::cout << i << ": " << regions.at(i).leftBorder << " " << regions.at(i).assignedAgents.size() << " " << regions.at(i).rightBorder << std::endl;
+	// }
 }
 
 void Ped::Model::moveAgentRegion(int aT, int regionIndex)
@@ -411,46 +530,102 @@ void Ped::Model::moveAgentRegion(int aT, int regionIndex)
 
 	// Find the first empty alternative position
 	// std::cout << "\tMY" << endl;
-	bool retry = true;
-	while (retry)
-	{
-		if (regions.at(regionIndex).changeRegion->try_lock()) {
-			// std::cout << "\t\tL1" << endl;
-			int borderRegion = 0;
-			if (agents.at(aT)->getX() < regions.at(regionIndex).leftBorder+3 && agents.at(aT)->getX() > 0) {
-				borderRegion--;
-			} else if (agents.at(aT)->getX() > regions.at(regionIndex).rightBorder-3 && agents.at(aT)->getX() < 160) {
-				borderRegion++;
-			}
-			if (borderRegion == 0 || regions.at(regionIndex+borderRegion).changeRegion->try_lock()) {
-				// std::cout << "\t\tLOCKED IN" << endl;
-				retry = false;
+	
+	for (std::vector<pair<int, int> >::iterator it = prioritizedAlternatives.begin(); it != prioritizedAlternatives.end(); ++it) {
+		if (std::find(takenPositions.begin(), takenPositions.end(), *it) == takenPositions.end()) {
+			// Set the agent's position 
+			int lx = (*it).first;
+			int ly = (*it).second;
+			int32_t ex = -1;
 
-				for (std::vector<pair<int, int> >::iterator it = prioritizedAlternatives.begin(); it != prioritizedAlternatives.end(); ++it) {
-			
-					// std::cout << "\t\t\tPRE-MOVED" << endl;
-					// If the current position is not yet taken by any neighbor
-					if (std::find(takenPositions.begin(), takenPositions.end(), *it) == takenPositions.end()) {
-						// Set the agent's position 
-						if (aT == 60)
-						{
-							// std::cout << "SET 60: " << (*it).first << endl;
-							// std::cout << "ALL ALT 60: " << prioritizedAlternatives.at(0).first << endl;
-							// std::cout << "ALL ALT 60: " << prioritizedAlternatives.at(1).first << endl;
-							// std::cout << "ALL ALT 60: " << prioritizedAlternatives.at(2).first << endl;
-						}
-
-						agents.at(aT)->setX((*it).first);
-						agents.at(aT)->setY((*it).second);
-						// std::cout << "\t\t\tMOVED" << endl;
-						break;
-					}
+			if (lx < regions.at(regionIndex).leftBorder && lx >= 0)
+			{
+				if (atomic_compare_exchange_strong(regions.at(regionIndex-1).leftBorderGates.at(ly), &ex, aT))
+				{
+					agents.at(aT)->setX((*it).first);
+					agents.at(aT)->setY((*it).second);
+					regions.at(regionIndex).removeFromList.push_back(aT);
+					break;
 				}
-				regions.at(regionIndex+borderRegion).changeRegion->unlock();
 			}
-			regions.at(regionIndex).changeRegion->unlock();
+			else if (lx >= regions.at(regionIndex).rightBorder && lx < REGION_X_SIZE)
+			{
+				if (atomic_compare_exchange_strong(regions.at(regionIndex+1).rightBorderGates.at(ly), &ex, aT))
+				{
+					agents.at(aT)->setX((*it).first);
+					agents.at(aT)->setY((*it).second);
+					regions.at(regionIndex).removeFromList.push_back(aT);
+					break;
+				}
+			}
+			else if (lx == regions.at(regionIndex).leftBorder && lx > 0)
+			{
+				if (atomic_compare_exchange_strong(regions.at(regionIndex).rightBorderGates.at(ly), &ex, aT))
+				{
+					agents.at(aT)->setX((*it).first);
+					agents.at(aT)->setY((*it).second);
+					regions.at(regionIndex).removeFromList.push_back(aT);
+					break;
+				}
+			}
+			else if (lx == regions.at(regionIndex).rightBorder-1 && lx <= REGION_X_SIZE)
+			{
+				if (atomic_compare_exchange_strong(regions.at(regionIndex).rightBorderGates.at(ly), &ex, aT))
+				{
+					agents.at(aT)->setX((*it).first);
+					agents.at(aT)->setY((*it).second);
+					regions.at(regionIndex).removeFromList.push_back(aT);
+					break;
+				}
+			}
+			else {
+				agents.at(aT)->setX((*it).first);
+				agents.at(aT)->setY((*it).second);
+				break;
+			}
 		}
 	}
+	
+	// bool retry = true;
+	// while (retry)
+	// {
+	// 	if (regions.at(regionIndex).changeRegion->try_lock()) {
+	// 		// std::cout << "\t\tL1" << endl;
+	// 		int borderRegion = 0;
+	// 		if (agents.at(aT)->getX() < regions.at(regionIndex).leftBorder+3 && agents.at(aT)->getX() > 0) {
+	// 			borderRegion--;
+	// 		} else if (agents.at(aT)->getX() > regions.at(regionIndex).rightBorder-3 && agents.at(aT)->getX() < 160) {
+	// 			borderRegion++;
+	// 		}
+	// 		if (borderRegion == 0 || regions.at(regionIndex+borderRegion).changeRegion->try_lock()) {
+	// 			// std::cout << "\t\tLOCKED IN" << endl;
+	// 			retry = false;
+
+	// 			for (std::vector<pair<int, int> >::iterator it = prioritizedAlternatives.begin(); it != prioritizedAlternatives.end(); ++it) {
+			
+	// 				// std::cout << "\t\t\tPRE-MOVED" << endl;
+	// 				// If the current position is not yet taken by any neighbor
+	// 				if (std::find(takenPositions.begin(), takenPositions.end(), *it) == takenPositions.end()) {
+	// 					// Set the agent's position 
+	// 					if (aT == 60)
+	// 					{
+	// 						// std::cout << "SET 60: " << (*it).first << endl;
+	// 						// std::cout << "ALL ALT 60: " << prioritizedAlternatives.at(0).first << endl;
+	// 						// std::cout << "ALL ALT 60: " << prioritizedAlternatives.at(1).first << endl;
+	// 						// std::cout << "ALL ALT 60: " << prioritizedAlternatives.at(2).first << endl;
+	// 					}
+
+	// 					agents.at(aT)->setX((*it).first);
+	// 					agents.at(aT)->setY((*it).second);
+	// 					// std::cout << "\t\t\tMOVED" << endl;
+	// 					break;
+	// 				}
+	// 			}
+	// 			regions.at(regionIndex+borderRegion).changeRegion->unlock();
+	// 		}
+	// 		regions.at(regionIndex).changeRegion->unlock();
+	// 	}
+	// }
 	
 }
 

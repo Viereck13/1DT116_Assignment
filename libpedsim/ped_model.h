@@ -17,6 +17,7 @@
 
 #include <cstdint>
 #include <mutex>
+#include <atomic>
 
 #ifndef NOCDUA
 #include "cuda_tickkernel.h"
@@ -30,9 +31,16 @@
 struct Region
 {
 	int leftBorder;
+	// std::vector<std::mutex*> leftBorderGates;
+	// std::vector<std::atomic<int32_t>> leftBorderGates;
+	std::array<std::atomic<int>*, REGION_Y_SIZE> leftBorderGates;
 	int rightBorder;
+	// std::vector<std::mutex*> rightBorderGates;
+	// std::vector<std::atomic<int32_t>> rightBorderGates;
+	std::array<std::atomic<int>*, REGION_Y_SIZE> rightBorderGates;
 	std::vector<int> assignedAgents;
-	std::mutex* changeRegion;
+	// std::mutex* changeRegion;
+	std::vector<int> removeFromList;
 };
 
 
@@ -106,6 +114,7 @@ namespace Ped{
 		void moveRegion();
 		void moveAgentRegion(int aT, int regionIndex);
 		std::vector<Region> regions;
+		void manageRegions();
 
 		void tick_OMP();
 		void tick_CTHREADS();
