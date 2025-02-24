@@ -24,6 +24,7 @@
 
 #include <stdlib.h>
 #include <atomic>
+#include <array>
 
 void Ped::Model::setup(std::vector<Ped::Tagent*> agentsInScenario, std::vector<Twaypoint*> destinationsInScenario, IMPLEMENTATION implementation)
 {
@@ -113,14 +114,14 @@ void Ped::Model::setup(std::vector<Ped::Tagent*> agentsInScenario, std::vector<T
 		regio.leftBorder = i*(REGION_X_SIZE/ 8);
 		for (size_t j = 0; j < REGION_Y_SIZE; j++)
 			{
-				std::atomic<int>* atom = new std::atomic(-1);
-				regio.leftBorderGates[j] = atom;
+				//std::atomic<int>* atom = new std::atomic(-1);
+				regio.leftBorderGates[j]->store(-1);
 			}
 		regio.rightBorder = (i+1)*(REGION_X_SIZE/ 8);
 		for (size_t j = 0; j < REGION_Y_SIZE; j++)
 			{
-				std::atomic<int>* atom = new std::atomic(-1);
-				regio.rightBorderGates[j] = atom;
+				//std::atomic<int>* atom = new std::atomic(-1);
+				regio.rightBorderGates[j]->store(-1);
 			}
 		regio.assignedAgents;// = new std::vector<Ped::Tagent*>();
 		// regio.changeRegion = new std::mutex();
@@ -410,12 +411,12 @@ void Ped::Model::moveRegion()
 		regions.at(i).removeFromList.clear();
 		for (size_t j = 0; j < REGION_Y_SIZE; j++)
 		{
-			int valueL = regions.at(i).leftBorderGates.at(j)->exchange(-1);
+			int valueL = regions.at(i).leftBorderGates[j]->exchange(-1);
 			if (valueL != -1)
 			{
 				regions.at(i).assignedAgents.push_back(valueL);
 			}
-			int valueR = regions.at(i).rightBorderGates.at(j)->exchange(-1);
+			int valueR = regions.at(i).rightBorderGates[j]->exchange(-1);
 			if (valueR != -1)
 			{
 				regions.at(i).assignedAgents.push_back(valueR);
@@ -540,7 +541,7 @@ void Ped::Model::moveAgentRegion(int aT, int regionIndex)
 
 			if (lx < regions.at(regionIndex).leftBorder && lx >= 0)
 			{
-				if (atomic_compare_exchange_strong(regions.at(regionIndex-1).leftBorderGates.at(ly), &ex, aT))
+				if (atomic_compare_exchange_strong(regions.at(regionIndex-1).rightBorderGates[ly], &ex, aT))
 				{
 					agents.at(aT)->setX((*it).first);
 					agents.at(aT)->setY((*it).second);
@@ -550,7 +551,7 @@ void Ped::Model::moveAgentRegion(int aT, int regionIndex)
 			}
 			else if (lx >= regions.at(regionIndex).rightBorder && lx < REGION_X_SIZE)
 			{
-				if (atomic_compare_exchange_strong(regions.at(regionIndex+1).rightBorderGates.at(ly), &ex, aT))
+				if (atomic_compare_exchange_strong(regions.at(regionIndex+1).leftBorderGates[ly], &ex, aT))
 				{
 					agents.at(aT)->setX((*it).first);
 					agents.at(aT)->setY((*it).second);
@@ -560,7 +561,7 @@ void Ped::Model::moveAgentRegion(int aT, int regionIndex)
 			}
 			else if (lx == regions.at(regionIndex).leftBorder && lx > 0)
 			{
-				if (atomic_compare_exchange_strong(regions.at(regionIndex).rightBorderGates.at(ly), &ex, aT))
+				if (atomic_compare_exchange_strong(regions.at(regionIndex).leftBorderGates[ly], &ex, aT))
 				{
 					agents.at(aT)->setX((*it).first);
 					agents.at(aT)->setY((*it).second);
@@ -570,7 +571,7 @@ void Ped::Model::moveAgentRegion(int aT, int regionIndex)
 			}
 			else if (lx == regions.at(regionIndex).rightBorder-1 && lx <= REGION_X_SIZE)
 			{
-				if (atomic_compare_exchange_strong(regions.at(regionIndex).rightBorderGates.at(ly), &ex, aT))
+				if (atomic_compare_exchange_strong(regions.at(regionIndex).rightBorderGates[ly], &ex, aT))
 				{
 					agents.at(aT)->setX((*it).first);
 					agents.at(aT)->setY((*it).second);

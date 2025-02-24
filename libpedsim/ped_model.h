@@ -33,11 +33,11 @@ struct Region
 	int leftBorder;
 	// std::vector<std::mutex*> leftBorderGates;
 	// std::vector<std::atomic<int32_t>> leftBorderGates;
-	std::array<std::atomic<int>*, REGION_Y_SIZE> leftBorderGates;
+	std::atomic<int>* leftBorderGates[REGION_Y_SIZE];
 	int rightBorder;
 	// std::vector<std::mutex*> rightBorderGates;
 	// std::vector<std::atomic<int32_t>> rightBorderGates;
-	std::array<std::atomic<int>*, REGION_Y_SIZE> rightBorderGates;
+	std::atomic<int>* rightBorderGates[REGION_Y_SIZE];
 	std::vector<int> assignedAgents;
 	// std::mutex* changeRegion;
 	std::vector<int> removeFromList;
