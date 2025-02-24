@@ -348,6 +348,25 @@ Ped::Region* Ped::Model::getRegionForPosition(int x, int y)
     return nullptr; // should not happen if regions cover the entire world.
 }
 
+bool Ped::Model::withinRegion(int x, int y)
+{
+	if (x<0) x = 0;
+	else if (x>=worldWidth) x = worldWidth-1;
+	if (y<0) y = 0;
+	else if (y>=worldHeight) y = worldHeight-1;
+    for (auto r : regions) {
+        if (x >= r->minX+1 && x < r->maxX-1 &&
+            y >= r->minY+1 && y < r->maxY-1)
+        {
+            return true;
+        }
+    }
+	// cout << "--------getRegionForPosition--------" << endl;
+	// cout << x << " " << y << endl;
+	// cout << "Region not found" << endl;
+    return false; // should not happen if regions cover the entire world.
+}
+
 void Ped::Model::move_OMP(Ped::Tagent *agent)
 {
     int curX = agent->getX();
@@ -428,7 +447,28 @@ void Ped::Model::move_OMP(Ped::Tagent *agent)
     Region* curRegion = getRegionForPosition(agent->getX(), agent->getY());
     Region* targetRegion = getRegionForPosition(chosenPos.first, chosenPos.second);
 
-    if (curRegion == targetRegion) {
+    if (withinRegion(chosenPos.first, chosenPos.second)) {
+        // Even for an intraregion move, we lock the region
+        // omp_set_lock(&curRegion->lock);
+        // {
+            // Re-check that the candidate cell is still free
+            bool conflict = false;
+            for (auto otherAgent : curRegion->agents) {
+                if (otherAgent != agent && otherAgent->getX() == chosenPos.first && otherAgent->getY() == chosenPos.second) {
+                    conflict = true;
+                    break;
+                }
+            }
+            if (!conflict) {
+                // Update the agent's position.
+                agent->setX(chosenPos.first);
+                agent->setY(chosenPos.second);
+            }
+            // If there’s a conflict, leave the agent in place
+        // }
+        // omp_unset_lock(&curRegion->lock);
+    }
+    else if (curRegion == targetRegion) {
         // Even for an intraregion move, we lock the region
         omp_set_lock(&curRegion->lock);
         {

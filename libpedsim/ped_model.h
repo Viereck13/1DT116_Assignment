@@ -55,6 +55,7 @@ namespace Ped{
 		void setup(std::vector<Tagent*> agentsInScenario, std::vector<Twaypoint*> destinationsInScenario,IMPLEMENTATION implementation);
 		
 		Region* getRegionForPosition(int x, int y);
+		bool withinRegion(int x, int y);
 
 		// Coordinates a time step in the scenario: move all agents by one step (if applicable).
 		void tick();
