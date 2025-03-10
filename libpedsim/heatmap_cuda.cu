@@ -174,8 +174,8 @@ __global__ void blurFilterKernel(const int* d_scaledHeatmap, int* d_blurredHeatm
 }
 
 void updateHeatmapCUDAAsync(int* h_heatmap, int* h_scaledHeatmap, int* h_blurredHeatmap,
-                            const int* h_agentDesiredX, const int* h_agentDesiredY, int numAgents,
-                            cudaStream_t stream)
+    const int* h_agentDesiredX, const int* h_agentDesiredY, int numAgents,
+    cudaStream_t stream)
 {
     int totalPixels = SIZE * SIZE;
     size_t heatmapSizeBytes = totalPixels * sizeof(int);
@@ -195,186 +195,67 @@ void updateHeatmapCUDAAsync(int* h_heatmap, int* h_scaledHeatmap, int* h_blurred
     cudaMalloc((void**)&d_agentDesiredX, numAgents * sizeof(int));
     cudaMalloc((void**)&d_agentDesiredY, numAgents * sizeof(int));
 
-    cudaEvent_t start, stop;
-    cudaEvent_t start_first, stop_first;
-    cudaEvent_t start_second, stop_second;
-    cudaEvent_t start_third, stop_third;
 
-    cudaStream_t stream1, stream2, stream3, stream0;
-    cudaStreamCreate(&stream1);
-    cudaStreamCreate(&stream2);
-    cudaStreamCreate(&stream3);
-    cudaStreamCreate(&stream0);
-
-    cudaEventCreate(&start);
-    cudaEventCreate(&stop);
-    cudaEventCreate(&start_first);
-    cudaEventCreate(&stop_first);
-    cudaEventCreate(&start_second);
-    cudaEventCreate(&stop_second);
-    cudaEventCreate(&start_third);
-    cudaEventCreate(&stop_third);
-
-    cudaEventRecord(start, stream0);
     // Copy initial heatmap to device memory asynchronously.
-    cudaEventRecord(start_first, stream1);
-    cudaMemcpyAsync(d_heatmap, h_heatmap, heatmapSizeBytes, cudaMemcpyHostToDevice, stream1);
-    cudaEventRecord(stop_first, stream1);
-
-    cudaEventRecord(start_second, stream2);
-    cudaMemcpyAsync(d_agentDesiredX, h_agentDesiredX, numAgents * sizeof(int), cudaMemcpyHostToDevice, stream2);
-    cudaEventRecord(stop_second, stream2);
-
-    cudaEventRecord(start_third, stream3);
-    cudaMemcpyAsync(d_agentDesiredY, h_agentDesiredY, numAgents * sizeof(int), cudaMemcpyHostToDevice, stream3);
-    cudaEventRecord(stop_third, stream3);
-
-    cudaEventRecord(stop, stream0);
-
-    cudaEventSynchronize(stop_first);
-    cudaEventSynchronize(stop_second);
-    cudaEventSynchronize(stop_third);
-    cudaEventSynchronize(stop);
-    
-    float timeHeatmap = 0, timeAgentX = 0, timeAgentY = 0;
-    cudaEventElapsedTime(&timeHeatmap, start_first, stop_first);
-    cudaEventElapsedTime(&timeAgentX, start_second, stop_second);
-    cudaEventElapsedTime(&timeAgentY, start_third, stop_third);
-
-    // printf("Copy heatmap time: %f ms\n", timeHeatmap);
-    // printf("Copy agentDesiredX time: %f ms\n", timeAgentX);
-    // printf("Copy agentDesiredY time: %f ms\n", timeAgentY);
-
-    // Measure overall elapsed time.
-    float overallTime = 0;
-    cudaEventElapsedTime(&overallTime, start, stop);
-    // printf("Overall async copy time (using separate streams): %f ms\n", overallTime);
-
-    cudaEventDestroy(start);
-    cudaEventDestroy(stop);
-    cudaEventDestroy(start_first);
-    cudaEventDestroy(stop_first);
-    cudaEventDestroy(start_second);
-    cudaEventDestroy(stop_second);
-    cudaEventDestroy(start_third);
-    cudaEventDestroy(stop_third);
-    cudaStreamDestroy(stream1);
-    cudaStreamDestroy(stream2);
-    cudaStreamDestroy(stream3);
-    cudaStreamDestroy(stream0);
+    cudaMemcpyAsync(d_heatmap, h_heatmap, heatmapSizeBytes, cudaMemcpyHostToDevice, stream);
+    cudaMemcpyAsync(d_agentDesiredX, h_agentDesiredX, numAgents * sizeof(int), cudaMemcpyHostToDevice, stream);
+    cudaMemcpyAsync(d_agentDesiredY, h_agentDesiredY, numAgents * sizeof(int), cudaMemcpyHostToDevice, stream);
+    // cudaMemcpy(d_heatmap, h_heatmap, heatmapSizeBytes, cudaMemcpyHostToDevice);
+    // cudaMemcpy(d_agentDesiredX, h_agentDesiredX, numAgents * sizeof(int), cudaMemcpyHostToDevice);
+    // cudaMemcpy(d_agentDesiredY, h_agentDesiredY, numAgents * sizeof(int), cudaMemcpyHostToDevice);
 
     int threadsPerBlock = 256; // divisible by 32 (warp size)
     int blocksForFade = (totalPixels+threadsPerBlock-1) / threadsPerBlock;
     int blocksForAgents = (numAgents+threadsPerBlock-1) / threadsPerBlock;
     dim3 blockDim2D(16, 16); 
     dim3 gridDim2D((SCALED_SIZE+blockDim2D.x -1) / blockDim2D.x,
-                   (SCALED_SIZE+blockDim2D.y -1) / blockDim2D.y);
+    (SCALED_SIZE+blockDim2D.y -1) / blockDim2D.y);
     // determine the number of grids by SCALED_SIZE/blockDim2D.x and SCALED_SIZE/blockDim2D.y
     // (SCALED_SIZE + blockDim2D.x - 1) / blockDim2D.x to allow for partial blocks
     size_t sharedMemSize = (blockDim2D.x + 4) * (blockDim2D.y + 4) * sizeof(int); // +4 for halo, 2 on each side
-
-    cudaEvent_t startTotal, stopTotal;
-    cudaEvent_t startFade, stopFade;
-    cudaEvent_t startHeatmapAdd, stopHeatmapAdd;
-    cudaEvent_t startLimit, stopLimit;
-    cudaEvent_t startScale, stopScale;
-    cudaEvent_t startBlur, stopBlur;
-    cudaEventCreate(&startTotal);
-    cudaEventCreate(&stopTotal);
-    cudaEventCreate(&startFade);
-    cudaEventCreate(&stopFade);
-    cudaEventCreate(&startHeatmapAdd);
-    cudaEventCreate(&stopHeatmapAdd);
-    cudaEventCreate(&startLimit);
-    cudaEventCreate(&stopLimit);
-    cudaEventCreate(&startScale);
-    cudaEventCreate(&stopScale);
-    cudaEventCreate(&startBlur);
-    cudaEventCreate(&stopBlur);
-
-    cudaEventRecord(startTotal, stream);
 
     // Multiple kernels added to the stream will be executed in order of their addition.
     // No need of cudaDeviceSynchronize() after each kernel launch.
 
     // Launch Kernel 1
-    cudaEventRecord(startFade, stream);
     fadeHeatmapKernel<<<blocksForFade, threadsPerBlock, 0, stream>>>(d_heatmap, totalPixels);
-    cudaEventRecord(stopFade, stream);
-    cudaEventSynchronize(stopFade);
-    float msFade = 0;
-    cudaEventElapsedTime(&msFade, startFade, stopFade);
-    // printf("Async Fade kernel time: %f ms\n", msFade);
 
     // Launch Kernel 2
-    cudaEventRecord(startHeatmapAdd, stream);
     addAgentHeatKernel<<<blocksForAgents, threadsPerBlock, 0, stream>>>(d_heatmap, SIZE, d_agentDesiredX, d_agentDesiredY, numAgents);
-    cudaEventRecord(stopHeatmapAdd, stream);
-    cudaEventSynchronize(stopHeatmapAdd);
-    float msHeatmapAdd = 0;
-    cudaEventElapsedTime(&msHeatmapAdd, startHeatmapAdd, stopHeatmapAdd);
-    // printf("Async Heatmap Add kernel time: %f ms\n", msHeatmapAdd);
 
     // Launch Kernel 3
-    cudaEventRecord(startLimit, stream);
     limitHeatmapValueKernel<<<blocksForFade, threadsPerBlock, 0, stream>>>(d_heatmap, totalPixels);
-    cudaEventRecord(stopLimit, stream);
-    cudaEventSynchronize(stopLimit);
-    float msLimit = 0;
-    cudaEventElapsedTime(&msLimit, startLimit, stopLimit);
-    // printf("Async Limit kernel time: %f ms\n", msLimit);
 
     // Launch Kernel 4
-    cudaEventRecord(startScale, stream);
     scaleHeatmapKernel<<<gridDim2D, blockDim2D, 0, stream>>>(d_heatmap, d_scaledHeatmap, SIZE, CELLSIZE);
     // dim3 blockDim2D(16, 16) tells CUDA that each block should have 16 threads along the x-dimension, 
     // 16 threads along the y-dimension, and 1 thread along the z-dimension
     // resulting in a total of 256 threads per block. These values are used
     // inside the kernel to determine each thread’s unique indices via threadIdx.x, threadIdx.y, and threadIdx.z.
-    cudaEventRecord(stopScale, stream);
-    cudaEventSynchronize(stopScale);
-    float msScale = 0;
-    cudaEventElapsedTime(&msScale, startScale, stopScale);
-    // printf("Async Scale kernel time: %f ms\n", msScale);
-    
-    // Launch Kernel 5
-    cudaEventRecord(startBlur, stream);
-    blurFilterKernel<<<gridDim2D, blockDim2D, sharedMemSize, stream>>>(d_scaledHeatmap, d_blurredHeatmap, SCALED_SIZE);
-    cudaEventRecord(stopBlur, stream);
-    cudaEventSynchronize(stopBlur);
-    float msBlur = 0;
-    cudaEventElapsedTime(&msBlur, startBlur, stopBlur);
-    // printf("Async Blur kernel time: %f ms\n", msBlur);
 
-    cudaEventRecord(stopTotal, stream);
-    cudaEventSynchronize(stopTotal);
-    float msTotal = 0;
-    cudaEventElapsedTime(&msTotal, startTotal, stopTotal);
-    // printf("Async Total time: %f ms\n", msTotal);
+    // Launch Kernel 5
+    blurFilterKernel<<<gridDim2D, blockDim2D, sharedMemSize, stream>>>(d_scaledHeatmap, d_blurredHeatmap, SCALED_SIZE);
+
+    // // Launch Artificial Workload Kernel
+    // int numElements = 1024;  // You can adjust this size if needed.
+    // int *d_dummyData = nullptr;
+    // cudaMalloc(&d_dummyData, numElements * sizeof(int));
+    // int iterations = 1000000; // Adjust this number to increase the workload.
+    // int blocks = (SIZE + threadsPerBlock - 1) / threadsPerBlock;
+    // artificialWorkloadKernel<<<blocks, threadsPerBlock, 0, stream>>>(d_dummyData, iterations);
 
     // Copy the final heatmap and blurred heatmap back to host memory asynchronously.
     cudaMemcpyAsync(h_blurredHeatmap, d_blurredHeatmap, scaledSizeBytes, cudaMemcpyDeviceToHost, stream);
     cudaMemcpyAsync(h_heatmap, d_heatmap, heatmapSizeBytes, cudaMemcpyDeviceToHost, stream);
+    // cudaMemcpy(h_blurredHeatmap, d_blurredHeatmap, scaledSizeBytes, cudaMemcpyDeviceToHost);
+    // cudaMemcpy(h_heatmap, d_heatmap, heatmapSizeBytes, cudaMemcpyDeviceToHost);
 
     // Free device memory.
-    cudaStreamSynchronize(stream);
+    // cudaStreamSynchronize(stream); // CPU waits for GPU to finish before CPU moves on to the next step.
     // printf("---------Async kernel execution complete-----------------\n");
     cudaFree(d_heatmap);
     cudaFree(d_scaledHeatmap);
     cudaFree(d_blurredHeatmap);
     cudaFree(d_agentDesiredX);
     cudaFree(d_agentDesiredY);
-
-    cudaEventDestroy(startTotal);
-    cudaEventDestroy(stopTotal);
-    cudaEventDestroy(startFade);
-    cudaEventDestroy(stopFade);
-    cudaEventDestroy(startHeatmapAdd);
-    cudaEventDestroy(stopHeatmapAdd);
-    cudaEventDestroy(startLimit);
-    cudaEventDestroy(stopLimit);
-    cudaEventDestroy(startScale);
-    cudaEventDestroy(stopScale);
-    cudaEventDestroy(startBlur);
-    cudaEventDestroy(stopBlur);
 }
