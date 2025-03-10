@@ -108,6 +108,9 @@ ParseScenario::ParseScenario(std::string filename, bool verbose)
 		std::cout << "Note: removed " << duplicates << " duplicates from scenario." << std::endl;
 	}
 	agents = std::vector<Ped::Tagent*>(agentsWithUniquePosition.begin(), agentsWithUniquePosition.end());
+	// for (auto agent : agents){
+	// 	std::cout << "Agent: x: " << agent->getX() << ", y: " << agent->getY() << std::endl;
+	// }
 }
 
 vector<Ped::Tagent*> ParseScenario::getAgents() const

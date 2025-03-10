@@ -10,7 +10,7 @@ LIBPEDCUDAOBJECTS=$(LIBPEDSOURCES:.cu=.co)
 TARGET=demo
 INCPATH=-I../libpedsim
 LIBPATH=-L../libpedsim -L/usr/local/cuda/lib64
-CXXFLAGS=-g -fPIC $(INCPATH) $(LIBPATH) -fopenmp -DNOQT
+CXXFLAGS=-g -fPIC $(INCPATH) $(LIBPATH) -fopenmp -DNOQT -I/usr/local/cuda/include
 LIBS = -lpedsim -ltinyxml2
 LDFLAGS+="-Wl,-rpath,$(PWD)/libpedsim,-rpath,$(PWD)/../libpedsim"
 

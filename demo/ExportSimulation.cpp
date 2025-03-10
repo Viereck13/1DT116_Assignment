@@ -1,6 +1,7 @@
 #include "ExportSimulation.h"
 
 #include <cstdint> // for int16_t and int32_t
+#include <iostream>
 
 using namespace std;
 
@@ -53,6 +54,7 @@ void ExportSimulation::serialize()
 void ExportSimulation::runSimulation()
 {
     for (int i = 0; i < maxSimulationSteps; i++) {
+        // cout << "Tick " << tickCounter << " " << i << endl;
         tickCounter++;
         model.tick();
         serialize();

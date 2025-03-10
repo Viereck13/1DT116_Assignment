@@ -20,6 +20,7 @@
 
 #ifndef NOCDUA
 #include "cuda_tickkernel.h"
+#include <cuda_runtime.h>
 #endif
 
 #include "ped_agent.h"
@@ -171,6 +172,8 @@ namespace Ped{
 
 		void setupHeatmapSeq();
 		void updateHeatmapSeq();
+		void updateHeatmapSeqCUDA();
+		void updateHeatmapSeqCUDAAsync(cudaStream_t stream);
 	};
 }
 #endif

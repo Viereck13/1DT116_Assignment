@@ -7,6 +7,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <cmath>
+#include <chrono>
 using namespace std;
 
 // Memory leak check with msvc++
@@ -38,6 +39,7 @@ void Ped::Model::setupHeatmapSeq()
 // Updates the heatmap according to the agent positions
 void Ped::Model::updateHeatmapSeq()
 {
+	auto start = std::chrono::high_resolution_clock::now();
 	for (int x = 0; x < SIZE; x++)
 	{
 		for (int y = 0; y < SIZE; y++)
@@ -61,6 +63,7 @@ void Ped::Model::updateHeatmapSeq()
 
 		// intensify heat for better color results
 		heatmap[y][x] += 40;
+		// printf("Heatmap[%d][%d]: %d\n", x, y, heatmap[y][x]);
 
 	}
 
@@ -115,6 +118,9 @@ void Ped::Model::updateHeatmapSeq()
 			blurred_heatmap[i][j] = 0x00FF0000 | value << 24;
 		}
 	}
+	auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double, std::milli> elapsed = end - start;
+    printf("Sequential heatmap update time: %f ms\n", elapsed.count());
 }
 
 int Ped::Model::getHeatmapSize() const {

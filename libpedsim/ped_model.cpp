@@ -17,11 +17,18 @@
 
 #include <emmintrin.h>
 #include <immintrin.h>
+#include <cuda_runtime.h>
 
 #ifndef NOCDUA
 #include "cuda_testkernel.h"
 #include "cuda_tickkernel.h"
+#include "heatmap_cuda.h"
+
 #endif
+
+#define SIZE 1024
+#define CELLSIZE 5
+#define SCALED_SIZE (SIZE * CELLSIZE)
 
 #include <stdlib.h>
 
@@ -202,9 +209,38 @@ void Ped::Model::tick_SIMD()
 // 	}
 // }
 
+void Ped::Model::updateHeatmapSeqCUDAAsync(cudaStream_t stream)
+{
+    if (implementation == CUDA || implementation == OMP)
+    {
+        int numAgents = agents.size();
+        int* agentDesiredX = new int[numAgents];
+        int* agentDesiredY = new int[numAgents];
+        for (int i = 0; i < numAgents; i++)
+        {
+            agentDesiredX[i] = agents[i]->getDesiredX();
+            agentDesiredY[i] = agents[i]->getDesiredY();
+            // agentDesiredX[i] = agents[i]->getX();
+            // agentDesiredY[i] = agents[i]->getY();
+        }
+
+        // heatmap[0] points to the contiguous block for the original heatmap.
+        updateHeatmapCUDAAsync(heatmap[0], scaled_heatmap[0], blurred_heatmap[0],
+                          agentDesiredX, agentDesiredY, numAgents, stream);
+
+        delete[] agentDesiredX;
+        delete[] agentDesiredY;
+    }
+    else
+    {
+        // updateHeatmapSeq();
+        printf("Not implemented\n");
+    }
+}
+
+
 void Ped::Model::tick_OMP()
 {
-
     #pragma omp parallel for schedule(dynamic)
     for (int i=0; i<agents.size(); i++)
     {
@@ -213,12 +249,37 @@ void Ped::Model::tick_OMP()
 		// cout << "Desired: " << agents[i]->getDesiredX() << " " << agents[i]->getDesiredY() << endl;
     }
 
-    #pragma omp parallel for schedule(static, 1) num_threads(regions.size())
+    // Perform Heatmap Update on GPU asynchronously by using CUDA streams.
+    cudaStream_t stream;
+    cudaStreamCreate(&stream);
+
+    // Create CUDA events for timing the GPU part.
+    cudaEvent_t startEvent, stopEvent;
+    cudaEventCreate(&startEvent);
+    cudaEventCreate(&stopEvent);
+
+    // Start GPU timing.
+    cudaEventRecord(startEvent, stream);
+    // Start CPU timer.
+    auto cpuStart = std::chrono::high_resolution_clock::now();
+
+    auto asyncStart = std::chrono::high_resolution_clock::now();
+    updateHeatmapSeqCUDAAsync(stream);
+    auto asyncEnd = std::chrono::high_resolution_clock::now();
+    auto asyncTime = std::chrono::duration_cast<std::chrono::milliseconds>(asyncEnd - asyncStart).count();
+    printf("updateHeatmapSeqCUDAAsync call took: %ld ms\n", asyncTime);
+
+    // Perform movement on CPU
+    auto cpuStart2 = std::chrono::high_resolution_clock::now();
+    // #pragma omp parallel for schedule(static, 1) num_threads(regions.size())
+    #pragma omp parallel for schedule(static, 1) num_threads(1)
     for (int r=0; r<regions.size(); r++)
     {
 		// if(omp_get_thread_num() == 0){
 		// 	printf("Number of threads: %d\n", omp_get_num_threads());
 		// }
+        // To avoid issues with agents being transferred during processing,
+        // lock the region and copy its current agent list.
         omp_set_lock(&regions[r]->lock);
         std::vector<Tagent*> localAgents = regions[r]->agents;
         omp_unset_lock(&regions[r]->lock);
@@ -226,10 +287,35 @@ void Ped::Model::tick_OMP()
         // Process each agent in the local copy.
         for (auto agent : localAgents)
         {
+            // The move function will update the agent's position and,
+            // if necessary, transfer the agent from one region to another.
+            // move_OMP(agent, snapshot);
 			move_OMP(agent);
         }
     }
-	
+    auto cpuEnd2 = std::chrono::high_resolution_clock::now();
+    auto cpuTime2 = std::chrono::duration_cast<std::chrono::milliseconds>(cpuEnd2 - cpuStart2).count();
+    printf("OMP movement CPU time: %ld ms\n", cpuTime2);
+	// updateHeatmapSeq();
+    // updateHeatmapSeqCUDA();
+    // cudaStreamSynchronize(stream); // CPU waits for GPU to finish before CPU moves on to the next step.
+
+    // Stop GPU timing.
+    cudaEventRecord(stopEvent, stream);
+    cudaEventSynchronize(stopEvent);
+    float gpuTime = 0;
+    cudaEventElapsedTime(&gpuTime, startEvent, stopEvent);
+    printf("Async Heatmap update GPU time: %f ms\n", gpuTime);
+
+    // Stop CPU timer. -> To prove asynchronous running, GPU and CPU time should be almost the same.
+    auto cpuEnd = std::chrono::high_resolution_clock::now();
+    auto cpuTime = std::chrono::duration_cast<std::chrono::milliseconds>(cpuEnd - cpuStart).count();
+    printf("Total tick_OMP CPU time: %ld ms\n", cpuTime);
+
+    cudaStreamDestroy(stream);
+    cudaEventDestroy(startEvent);
+    cudaEventDestroy(stopEvent);
+    printf("---------------Finished tick_OMP-----------------\n");
 }
 
 void Ped::Model::tick_CTHREADS() {
@@ -293,6 +379,7 @@ void Ped::Model::tick()
 			// agent->setY(agent->getDesiredY());
 			move(agent);
 		}
+        updateHeatmapSeq();
 		break;
 	}
 }
