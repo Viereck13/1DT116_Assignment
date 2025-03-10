@@ -271,8 +271,8 @@ void Ped::Model::tick_OMP()
 
     // Perform movement on CPU
     auto cpuStart2 = std::chrono::high_resolution_clock::now();
-    // #pragma omp parallel for schedule(static, 1) num_threads(regions.size())
-    #pragma omp parallel for schedule(static, 1) num_threads(1)
+    #pragma omp parallel for schedule(static, 1) num_threads(regions.size())
+    // #pragma omp parallel for schedule(static, 1) num_threads(1)
     for (int r=0; r<regions.size(); r++)
     {
 		// if(omp_get_thread_num() == 0){
