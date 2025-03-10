@@ -12,7 +12,7 @@ $(TARGET): $(OBJECTS) $(CUDA_OBJECTS)
 	$(CXX) $(FLAGS) $(CXXFLAGS) $(DEBUGFLAGS) -o $(TARGET) $(OBJECTS) $(CUDA_OBJECTS)
 
 %.co: %.cu
-	nvcc $(CUDA_NVCC_FLAGS) $(DEBUGFLAGS) -c -o $@ $<
+	nvcc $(CUDA_NVCC_FLAGS) $(DEBUGFLAGS) -g -c -o $@ $<
 
 
 clean:

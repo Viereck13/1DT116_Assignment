@@ -17,9 +17,10 @@
 #include <emmintrin.h>
 #include <immintrin.h>
 
-#ifndef NOCDUA
+#ifndef NOCUDA
 #include "cuda_testkernel.h"
 #include "cuda_tickkernel.h"
+// #include "cuda_heatkernel.h"
 #endif
 
 #include <stdlib.h>
@@ -46,7 +47,7 @@ void Ped::Model::setup(std::vector<Ped::Tagent*> agentsInScenario, std::vector<T
 	printf("Mode: %d\n", implementation);
 
 	// Set up heatmap (relevant for Assignment 4)
-	setupHeatmapSeq();
+	// setupHeatmapCUDA(heatmap, heatmap_device, scaled_heatmap, scaled_heatmap_device, blurred_heatmap, blurred_heatmap_device);
 
 	////// Collect all agents and distribute info to vectors
 	if (implementation == CUDA || implementation == VECTOR) {
@@ -99,6 +100,9 @@ void Ped::Model::setup(std::vector<Ped::Tagent*> agentsInScenario, std::vector<T
 			}
 
 			cuda.setup_CUDA(waypoints, agent_waypoints_indices, x, y);
+			setupHeatmapSeq();
+			// setupHeatmapCUDA(heatmap_device, scaled_heatmap_device, blurred_heatmap_device);
+			cuda.setupHeatmap();
 			// printf("%d\t%d\n",(int)waypoints.size(),sizeof(CUDA_Waypoint));
 
 			// cudaError_t err = cudaSuccess;
@@ -279,6 +283,8 @@ void Ped::Model::tick()
 		break;
 	case CUDA:
 		cuda.tick_CUDA();
+		cuda.tickHeatmap();
+		cuda.writeBackHeatmap(heatmap, blurred_heatmap, scaled_heatmap);
 		break;
 	
 	default:
@@ -289,8 +295,16 @@ void Ped::Model::tick()
 		// 	// agent->setY(agent->getDesiredY());
 		// 	//move(agent);
 		// }
+		
+		// cuda.writeBack_CUDA((int32_t*)x.data(), (int32_t*)y.data());
+		this->getAgents();
 		omp_set_num_threads(1);
 		moveRegion();
+        // updateHeatmapSeq();
+		// heatTickCUDA(heatmap_device, scaled_heatmap_device, blurred_heatmap_device, agents.size(), x.data(), y.data());
+		// copyBackHeatmapCUDA(heatmap, heatmap_device, scaled_heatmap, scaled_heatmap_device, blurred_heatmap, blurred_heatmap_device);
+		// heatTickCUDA(heatmap_device, scaled_heatmap_device, blurred_heatmap_device, agents.size(), x.data(), y.data());
+		// copyBackHeatmapCUDA();
 		break;
 	}
 }
@@ -389,6 +403,8 @@ void Ped::Model::moveRegion()
 			moveAgentRegion(regions.at(i).assignedAgents.at(j), i);
 		}
 	}
+    
+    // updateHeatmapSeq();
 
 	#pragma omp parallel for
 	for (size_t i = 0; i < regions.size(); i++)

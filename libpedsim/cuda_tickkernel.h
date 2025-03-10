@@ -38,6 +38,15 @@ public:
 		std::vector<int32_t> &y
 	);
 	void writeBack_CUDA(int32_t *x, int32_t *y) const;
+
+	int32_t* heatmap_device;
+	int32_t* scaled_heatmap_device;
+	int32_t* blurred_heatmap_device;
+	int32_t* desiredX_device;
+	int32_t* desiredY_device;
+	void setupHeatmap();
+	void tickHeatmap();
+	void writeBackHeatmap(int** heatmap, int** scaled_heatmap, int** blurred_heatmap);
 };
 
 

@@ -19,7 +19,7 @@
 #include <mutex>
 #include <atomic>
 
-#ifndef NOCDUA
+#ifndef NOCUDA
 #include "cuda_tickkernel.h"
 #endif
 
@@ -64,11 +64,13 @@ namespace Ped{
 		// Returns the agents of this scenario
 		const std::vector<Tagent*>& getAgents() const { 
 			if (this->implementation == VECTOR || this->implementation == CUDA) {
+				#ifndef NOCUDA
 				if (this->implementation == CUDA) {
 					// cudaMemcpy((void*)x.data(), x_device, agents.size()*sizeof(int32_t), cudaMemcpyDeviceToHost);
 					// cudaMemcpy((void*)y.data(), y_device, agents.size()*sizeof(int32_t), cudaMemcpyDeviceToHost);
 					cuda.writeBack_CUDA((int32_t*)x.data(), (int32_t*)y.data());
 				}
+				#endif
 				#pragma omp parallel for // for performance in exporting
 				for (size_t j = 0; j < this->agents.size(); j++)
 				{
@@ -164,6 +166,10 @@ namespace Ped{
 
 		void setupHeatmapSeq();
 		void updateHeatmapSeq();
+
+		int* heatmap_device;
+		int* scaled_heatmap_device;
+		int* blurred_heatmap_device;
 	};
 }
 #endif
