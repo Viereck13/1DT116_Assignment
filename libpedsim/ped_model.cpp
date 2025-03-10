@@ -14,6 +14,7 @@
 #include <omp.h>
 #include <thread>
 #include <cmath>
+#include <time.h>
 
 #include <emmintrin.h>
 #include <immintrin.h>
@@ -271,27 +272,35 @@ void Ped::Model::tick_OMP()
 
     // Perform movement on CPU
     auto cpuStart2 = std::chrono::high_resolution_clock::now();
-    #pragma omp parallel for schedule(static, 1) num_threads(regions.size())
-    // #pragma omp parallel for schedule(static, 1) num_threads(1)
-    for (int r=0; r<regions.size(); r++)
-    {
-		// if(omp_get_thread_num() == 0){
-		// 	printf("Number of threads: %d\n", omp_get_num_threads());
-		// }
-        // To avoid issues with agents being transferred during processing,
-        // lock the region and copy its current agent list.
-        omp_set_lock(&regions[r]->lock);
-        std::vector<Tagent*> localAgents = regions[r]->agents;
-        omp_unset_lock(&regions[r]->lock);
+    // struct timespec ts;
+    // ts.tv_sec = 0;
+    // ts.tv_nsec = 6000000*2;  // 6,000,000 nanoseconds = 6 milliseconds
+    // nanosleep(&ts, NULL);
+    // #pragma omp parallel for schedule(static, 1) num_threads(regions.size())
+    // // #pragma omp parallel for schedule(static, 1) num_threads(1)
+    // for (int r=0; r<regions.size(); r++)
+    // {
+	// 	// if(omp_get_thread_num() == 0){
+	// 	// 	printf("Number of threads: %d\n", omp_get_num_threads());
+	// 	// }
+    //     // To avoid issues with agents being transferred during processing,
+    //     // lock the region and copy its current agent list.
+    //     omp_set_lock(&regions[r]->lock);
+    //     std::vector<Tagent*> localAgents = regions[r]->agents;
+    //     omp_unset_lock(&regions[r]->lock);
 
-        // Process each agent in the local copy.
-        for (auto agent : localAgents)
-        {
-            // The move function will update the agent's position and,
-            // if necessary, transfer the agent from one region to another.
-            // move_OMP(agent, snapshot);
-			move_OMP(agent);
-        }
+    //     // Process each agent in the local copy.
+    //     for (auto agent : localAgents)
+    //     {
+    //         // The move function will update the agent's position and,
+    //         // if necessary, transfer the agent from one region to another.
+    //         // move_OMP(agent, snapshot);
+	// 		move_OMP(agent);
+    //     }
+    // }
+    for (auto agent : agents)
+    {
+        move_OMP(agent);
     }
     auto cpuEnd2 = std::chrono::high_resolution_clock::now();
     auto cpuTime2 = std::chrono::duration_cast<std::chrono::milliseconds>(cpuEnd2 - cpuStart2).count();
