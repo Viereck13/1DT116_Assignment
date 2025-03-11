@@ -268,7 +268,7 @@ void Ped::Model::tick_OMP()
     updateHeatmapSeqCUDAAsync(stream);
     auto asyncEnd = std::chrono::high_resolution_clock::now();
     auto asyncTime = std::chrono::duration_cast<std::chrono::milliseconds>(asyncEnd - asyncStart).count();
-    printf("updateHeatmapSeqCUDAAsync call took: %ld ms\n", asyncTime); // represents the overhead for issuing the 
+    // printf("updateHeatmapSeqCUDAAsync call took: %ld ms\n", asyncTime); // represents the overhead for issuing the 
     // asynchronous GPU work (i.e. the time spent on the CPU to set up and launch the kernels), not the full 
     // execution of those kernels.
 
@@ -281,7 +281,7 @@ void Ped::Model::tick_OMP()
     }
     auto cpuEnd2 = std::chrono::high_resolution_clock::now();
     auto cpuTime2 = std::chrono::duration_cast<std::chrono::milliseconds>(cpuEnd2 - cpuStart2).count();
-    printf("Movement CPU time: %ld ms\n", cpuTime2);
+    // printf("Movement CPU time: %ld ms\n", cpuTime2);
 	// updateHeatmapSeq();
     // updateHeatmapSeqCUDA();
     // cudaStreamSynchronize(stream); // CPU waits for GPU to finish before CPU moves on to the next step.
@@ -291,13 +291,13 @@ void Ped::Model::tick_OMP()
     cudaEventSynchronize(stopEvent);
     float gpuTime = 0;
     cudaEventElapsedTime(&gpuTime, startEvent, stopEvent);
-    printf("Async Heatmap update GPU time: %f ms\n", gpuTime); // records the actual time the GPU spends executing 
+    // printf("Async Heatmap update GPU time: %f ms\n", gpuTime); // records the actual time the GPU spends executing 
     //the kernels from start to finish.
 
     // Stop CPU timer. -> To prove asynchronous running, GPU and CPU time should be almost the same.
     auto cpuEnd = std::chrono::high_resolution_clock::now();
     auto cpuTime = std::chrono::duration_cast<std::chrono::milliseconds>(cpuEnd - cpuStart).count();
-    printf("Total tick_OMP CPU time: %ld ms\n", cpuTime);
+    // printf("Total tick_OMP CPU time: %ld ms\n", cpuTime);
 
     cudaStreamDestroy(stream);
     cudaEventDestroy(startEvent);

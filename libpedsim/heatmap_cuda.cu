@@ -170,9 +170,9 @@ void updateHeatmapCUDAAsync(int* h_heatmap, int* h_scaledHeatmap, int* h_blurred
     const int* h_agentDesiredX, const int* h_agentDesiredY, int numAgents,
     cudaStream_t stream)
 {
-    int totalPixels = SIZE * SIZE;
+    int totalPixels = SIZE*SIZE;
     size_t heatmapSizeBytes = totalPixels * sizeof(int);
-    size_t scaledTotalPixels = SCALED_SIZE * SCALED_SIZE;
+    size_t scaledTotalPixels = SCALED_SIZE*SCALED_SIZE;
     size_t scaledSizeBytes = scaledTotalPixels * sizeof(int);
 
     // Device pointers
@@ -209,15 +209,58 @@ void updateHeatmapCUDAAsync(int* h_heatmap, int* h_scaledHeatmap, int* h_blurred
     // Multiple kernels added to the stream will be executed in order of their addition.
     // No need of cudaDeviceSynchronize() after each kernel launch.
 
+    float elapsedTime = 0.0f;
+    cudaEvent_t start, stop;
+    cudaEvent_t startAll, stopAll;
+    cudaEventCreate(&start);
+    cudaEventCreate(&stop);
+    cudaEventCreate(&startAll);
+    cudaEventCreate(&stopAll);
+
+    cudaEventRecord(startAll, stream);
+
+    cudaEventRecord(start, stream);
     fadeHeatmapKernel<<<blocksForFade, threadsPerBlock, 0, stream>>>(d_heatmap, totalPixels);
+    cudaEventRecord(stop, stream);
+    cudaEventSynchronize(stop);
+    cudaEventElapsedTime(&elapsedTime, start, stop);
+    printf("Fade Heatmap Kernel Execution Time: %f ms\n", elapsedTime);
+
+    cudaEventRecord(start, stream);
     addAgentHeatKernel<<<blocksForAgents, threadsPerBlock, 0, stream>>>(d_heatmap, SIZE, d_agentDesiredX, d_agentDesiredY, numAgents);
+    cudaEventRecord(stop, stream);
+    cudaEventSynchronize(stop);
+    cudaEventElapsedTime(&elapsedTime, start, stop);
+    printf("Add Agent Heat Kernel Execution Time: %f ms\n", elapsedTime);
+
+    cudaEventRecord(start, stream);
     limitHeatmapValueKernel<<<blocksForFade, threadsPerBlock, 0, stream>>>(d_heatmap, totalPixels);
+    cudaEventRecord(stop, stream);
+    cudaEventSynchronize(stop);
+    cudaEventElapsedTime(&elapsedTime, start, stop);
+    printf("Limit Heatmap Value Kernel Execution Time: %f ms\n", elapsedTime);
+
+    cudaEventRecord(start, stream);
     scaleHeatmapKernel<<<gridDim2D, blockDim2D, 0, stream>>>(d_heatmap, d_scaledHeatmap, SIZE, CELLSIZE);
+    cudaEventRecord(stop, stream);
+    cudaEventSynchronize(stop);
+    cudaEventElapsedTime(&elapsedTime, start, stop);
+    printf("Scale Heatmap Kernel Execution Time: %f ms\n", elapsedTime);
     // dim3 blockDim2D(16, 16) tells CUDA that each block should have 16 threads along the x-dimension, 
     // 16 threads along the y-dimension, and 1 thread along the z-dimension
     // resulting in a total of 256 threads per block. These values are used
     // inside the kernel to determine each thread’s unique indices via threadIdx.x, threadIdx.y, and threadIdx.z.
+    cudaEventRecord(start, stream);
     blurFilterKernel<<<gridDim2D, blockDim2D, sharedMemSize, stream>>>(d_scaledHeatmap, d_blurredHeatmap, SCALED_SIZE);
+    cudaEventRecord(stop, stream);
+    cudaEventSynchronize(stop);
+    cudaEventElapsedTime(&elapsedTime, start, stop);
+    printf("Blur Filter Kernel Execution Time: %f ms\n", elapsedTime);
+
+    cudaEventRecord(stopAll, stream);
+    cudaEventSynchronize(stopAll);
+    cudaEventElapsedTime(&elapsedTime, startAll, stopAll);
+    printf("Total Async Kernel Execution Time: %f ms\n", elapsedTime);
 
     // // Launch Artificial Workload Kernel
     // int numElements = 1024;  // You can adjust this size if needed.
