@@ -224,28 +224,28 @@ void updateHeatmapCUDAAsync(int* h_heatmap, int* h_scaledHeatmap, int* h_blurred
     cudaEventRecord(stop, stream);
     cudaEventSynchronize(stop);
     cudaEventElapsedTime(&elapsedTime, start, stop);
-    printf("Fade Heatmap Kernel Execution Time: %f ms\n", elapsedTime);
+    // printf("Fade Heatmap Kernel Execution Time: %f ms\n", elapsedTime);
 
     cudaEventRecord(start, stream);
     addAgentHeatKernel<<<blocksForAgents, threadsPerBlock, 0, stream>>>(d_heatmap, SIZE, d_agentDesiredX, d_agentDesiredY, numAgents);
     cudaEventRecord(stop, stream);
     cudaEventSynchronize(stop);
     cudaEventElapsedTime(&elapsedTime, start, stop);
-    printf("Add Agent Heat Kernel Execution Time: %f ms\n", elapsedTime);
+    // printf("Add Agent Heat Kernel Execution Time: %f ms\n", elapsedTime);
 
     cudaEventRecord(start, stream);
     limitHeatmapValueKernel<<<blocksForFade, threadsPerBlock, 0, stream>>>(d_heatmap, totalPixels);
     cudaEventRecord(stop, stream);
     cudaEventSynchronize(stop);
     cudaEventElapsedTime(&elapsedTime, start, stop);
-    printf("Limit Heatmap Value Kernel Execution Time: %f ms\n", elapsedTime);
+    // printf("Limit Heatmap Value Kernel Execution Time: %f ms\n", elapsedTime);
 
     cudaEventRecord(start, stream);
     scaleHeatmapKernel<<<gridDim2D, blockDim2D, 0, stream>>>(d_heatmap, d_scaledHeatmap, SIZE, CELLSIZE);
     cudaEventRecord(stop, stream);
     cudaEventSynchronize(stop);
     cudaEventElapsedTime(&elapsedTime, start, stop);
-    printf("Scale Heatmap Kernel Execution Time: %f ms\n", elapsedTime);
+    // printf("Scale Heatmap Kernel Execution Time: %f ms\n", elapsedTime);
     // dim3 blockDim2D(16, 16) tells CUDA that each block should have 16 threads along the x-dimension, 
     // 16 threads along the y-dimension, and 1 thread along the z-dimension
     // resulting in a total of 256 threads per block. These values are used
@@ -255,12 +255,12 @@ void updateHeatmapCUDAAsync(int* h_heatmap, int* h_scaledHeatmap, int* h_blurred
     cudaEventRecord(stop, stream);
     cudaEventSynchronize(stop);
     cudaEventElapsedTime(&elapsedTime, start, stop);
-    printf("Blur Filter Kernel Execution Time: %f ms\n", elapsedTime);
+    // printf("Blur Filter Kernel Execution Time: %f ms\n", elapsedTime);
 
     cudaEventRecord(stopAll, stream);
     cudaEventSynchronize(stopAll);
     cudaEventElapsedTime(&elapsedTime, startAll, stopAll);
-    printf("Total Async Kernel Execution Time: %f ms\n", elapsedTime);
+    // printf("Total Async Kernel Execution Time: %f ms\n", elapsedTime);
 
     // // Launch Artificial Workload Kernel
     // int numElements = 1024;  // You can adjust this size if needed.
