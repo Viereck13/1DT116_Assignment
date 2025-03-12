@@ -1,1010 +1,1009 @@
 Option --export-trace set to: export_trace.bin
 Option --omp activated
-Reducing the maximum number of steps to 200 for the tracing run.
-The trace files can become really large!
-Note: removed 294 duplicates from scenario.
+Option --max-steps set to: 200
+Note: removed 27 duplicates from scenario.
 {1,2,3,4,5} + {10,20,30,40,50} = {11,22,33,44,55}
 Mode: 2
 Running Export Tracer...
-updateHeatmapSeqCUDAAsync call took: 66 ms
-Movement CPU time: 13 ms
-Async Heatmap update GPU time: 79.645248 ms
-Total tick_OMP CPU time: 79 ms
+updateHeatmapSeqCUDAAsync call took: 19 ms
+Movement CPU time: 4 ms
+Async Heatmap update GPU time: 38.325825 ms
+Total tick_OMP CPU time: 41 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 31 ms
-Movement CPU time: 10 ms
-Async Heatmap update GPU time: 42.157055 ms
-Total tick_OMP CPU time: 42 ms
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 29.595200 ms
+Total tick_OMP CPU time: 32 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 32 ms
-Movement CPU time: 10 ms
-Async Heatmap update GPU time: 42.986145 ms
-Total tick_OMP CPU time: 43 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 29.889568 ms
+Total tick_OMP CPU time: 32 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 32 ms
-Movement CPU time: 10 ms
-Async Heatmap update GPU time: 42.358047 ms
-Total tick_OMP CPU time: 42 ms
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 29.679232 ms
+Total tick_OMP CPU time: 32 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 31 ms
-Movement CPU time: 10 ms
-Async Heatmap update GPU time: 41.971745 ms
-Total tick_OMP CPU time: 42 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 29.099968 ms
+Total tick_OMP CPU time: 31 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 32 ms
-Movement CPU time: 10 ms
-Async Heatmap update GPU time: 42.685665 ms
-Total tick_OMP CPU time: 42 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 27.136671 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 31 ms
-Movement CPU time: 10 ms
-Async Heatmap update GPU time: 42.261566 ms
-Total tick_OMP CPU time: 42 ms
+updateHeatmapSeqCUDAAsync call took: 4 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 26.969503 ms
+Total tick_OMP CPU time: 30 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 32 ms
-Movement CPU time: 10 ms
-Async Heatmap update GPU time: 42.212513 ms
-Total tick_OMP CPU time: 42 ms
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.400415 ms
+Total tick_OMP CPU time: 28 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 31 ms
-Movement CPU time: 10 ms
-Async Heatmap update GPU time: 42.093346 ms
-Total tick_OMP CPU time: 42 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.705664 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 31 ms
-Movement CPU time: 10 ms
-Async Heatmap update GPU time: 42.034046 ms
-Total tick_OMP CPU time: 42 ms
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.641344 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 32 ms
-Movement CPU time: 10 ms
-Async Heatmap update GPU time: 42.242016 ms
-Total tick_OMP CPU time: 42 ms
+updateHeatmapSeqCUDAAsync call took: 5 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 27.293184 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 31 ms
-Movement CPU time: 10 ms
-Async Heatmap update GPU time: 42.073025 ms
-Total tick_OMP CPU time: 42 ms
+updateHeatmapSeqCUDAAsync call took: 4 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.816769 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 32 ms
-Movement CPU time: 10 ms
-Async Heatmap update GPU time: 43.304066 ms
-Total tick_OMP CPU time: 43 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 27.426945 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 31 ms
-Movement CPU time: 10 ms
-Async Heatmap update GPU time: 42.384514 ms
-Total tick_OMP CPU time: 42 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.723648 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 32 ms
-Movement CPU time: 10 ms
-Async Heatmap update GPU time: 42.836449 ms
-Total tick_OMP CPU time: 43 ms
+updateHeatmapSeqCUDAAsync call took: 7 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 30.749056 ms
+Total tick_OMP CPU time: 33 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 32 ms
-Movement CPU time: 10 ms
-Async Heatmap update GPU time: 43.587585 ms
-Total tick_OMP CPU time: 43 ms
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 26.497919 ms
+Total tick_OMP CPU time: 28 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 32 ms
-Movement CPU time: 10 ms
-Async Heatmap update GPU time: 43.036194 ms
-Total tick_OMP CPU time: 43 ms
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 27.392609 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 31 ms
-Movement CPU time: 10 ms
-Async Heatmap update GPU time: 42.644066 ms
-Total tick_OMP CPU time: 42 ms
+updateHeatmapSeqCUDAAsync call took: 5 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 27.167328 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 32 ms
-Movement CPU time: 11 ms
-Async Heatmap update GPU time: 43.189537 ms
-Total tick_OMP CPU time: 43 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 26.928097 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 32 ms
-Movement CPU time: 11 ms
-Async Heatmap update GPU time: 43.701889 ms
-Total tick_OMP CPU time: 43 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 38 ms
-Movement CPU time: 11 ms
-Async Heatmap update GPU time: 50.052418 ms
-Total tick_OMP CPU time: 50 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 38 ms
-Movement CPU time: 11 ms
-Async Heatmap update GPU time: 50.935074 ms
-Total tick_OMP CPU time: 51 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 35 ms
-Movement CPU time: 12 ms
-Async Heatmap update GPU time: 48.028000 ms
-Total tick_OMP CPU time: 48 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 34 ms
-Movement CPU time: 12 ms
-Async Heatmap update GPU time: 46.794273 ms
-Total tick_OMP CPU time: 46 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 32 ms
-Movement CPU time: 13 ms
-Async Heatmap update GPU time: 45.212578 ms
-Total tick_OMP CPU time: 45 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 32 ms
-Movement CPU time: 13 ms
-Async Heatmap update GPU time: 45.951809 ms
-Total tick_OMP CPU time: 46 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 35 ms
-Movement CPU time: 14 ms
-Async Heatmap update GPU time: 48.989281 ms
+updateHeatmapSeqCUDAAsync call took: 24 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 47.252224 ms
 Total tick_OMP CPU time: 49 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 35 ms
-Movement CPU time: 14 ms
-Async Heatmap update GPU time: 49.452065 ms
-Total tick_OMP CPU time: 49 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.586592 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 36 ms
-Movement CPU time: 14 ms
-Async Heatmap update GPU time: 51.047073 ms
-Total tick_OMP CPU time: 51 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.619808 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 35 ms
-Movement CPU time: 15 ms
-Async Heatmap update GPU time: 50.493378 ms
-Total tick_OMP CPU time: 50 ms
+updateHeatmapSeqCUDAAsync call took: 5 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 27.659008 ms
+Total tick_OMP CPU time: 30 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 34 ms
-Movement CPU time: 15 ms
-Async Heatmap update GPU time: 50.274143 ms
-Total tick_OMP CPU time: 50 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 26.680096 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 34 ms
-Movement CPU time: 16 ms
-Async Heatmap update GPU time: 51.029633 ms
-Total tick_OMP CPU time: 51 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 26.790815 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 38 ms
-Movement CPU time: 22 ms
-Async Heatmap update GPU time: 60.156353 ms
-Total tick_OMP CPU time: 60 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 26.782976 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 34 ms
-Movement CPU time: 17 ms
-Async Heatmap update GPU time: 52.192638 ms
-Total tick_OMP CPU time: 52 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.517696 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 33 ms
-Movement CPU time: 17 ms
-Async Heatmap update GPU time: 50.543743 ms
-Total tick_OMP CPU time: 50 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 26.550432 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 34 ms
-Movement CPU time: 17 ms
-Async Heatmap update GPU time: 52.049313 ms
-Total tick_OMP CPU time: 52 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.734177 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 32 ms
-Movement CPU time: 18 ms
-Async Heatmap update GPU time: 51.459263 ms
-Total tick_OMP CPU time: 51 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.782688 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 33 ms
-Movement CPU time: 18 ms
-Async Heatmap update GPU time: 51.672352 ms
-Total tick_OMP CPU time: 51 ms
+updateHeatmapSeqCUDAAsync call took: 8 ms
+Movement CPU time: 5 ms
+Async Heatmap update GPU time: 32.274975 ms
+Total tick_OMP CPU time: 34 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 35 ms
-Movement CPU time: 18 ms
-Async Heatmap update GPU time: 53.806015 ms
-Total tick_OMP CPU time: 53 ms
+updateHeatmapSeqCUDAAsync call took: 4 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 27.439552 ms
+Total tick_OMP CPU time: 30 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 34 ms
-Movement CPU time: 18 ms
-Async Heatmap update GPU time: 52.739586 ms
-Total tick_OMP CPU time: 52 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.397793 ms
+Total tick_OMP CPU time: 28 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 32 ms
-Movement CPU time: 17 ms
-Async Heatmap update GPU time: 50.323551 ms
-Total tick_OMP CPU time: 50 ms
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.561920 ms
+Total tick_OMP CPU time: 28 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 40 ms
-Movement CPU time: 18 ms
-Async Heatmap update GPU time: 58.919167 ms
-Total tick_OMP CPU time: 59 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.488577 ms
+Total tick_OMP CPU time: 28 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 31 ms
-Movement CPU time: 17 ms
-Async Heatmap update GPU time: 49.897503 ms
-Total tick_OMP CPU time: 50 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.835487 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 35 ms
-Movement CPU time: 17 ms
-Async Heatmap update GPU time: 53.468544 ms
-Total tick_OMP CPU time: 53 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 26.557152 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 32 ms
-Movement CPU time: 17 ms
-Async Heatmap update GPU time: 50.441601 ms
-Total tick_OMP CPU time: 50 ms
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.382273 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 36 ms
-Movement CPU time: 18 ms
-Async Heatmap update GPU time: 54.810368 ms
-Total tick_OMP CPU time: 54 ms
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.518047 ms
+Total tick_OMP CPU time: 28 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 37 ms
-Movement CPU time: 17 ms
-Async Heatmap update GPU time: 55.042370 ms
-Total tick_OMP CPU time: 55 ms
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.595264 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
-Movement CPU time: 17 ms
-Async Heatmap update GPU time: 47.560928 ms
-Total tick_OMP CPU time: 47 ms
+updateHeatmapSeqCUDAAsync call took: 5 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 27.457600 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
-Movement CPU time: 17 ms
-Async Heatmap update GPU time: 48.328129 ms
-Total tick_OMP CPU time: 48 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 26.606144 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 40 ms
-Movement CPU time: 17 ms
-Async Heatmap update GPU time: 57.787201 ms
-Total tick_OMP CPU time: 58 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.684288 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 33 ms
-Movement CPU time: 17 ms
-Async Heatmap update GPU time: 50.693951 ms
-Total tick_OMP CPU time: 50 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.642624 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
-Movement CPU time: 17 ms
-Async Heatmap update GPU time: 47.464161 ms
-Total tick_OMP CPU time: 47 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 26.662848 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 37 ms
-Movement CPU time: 17 ms
-Async Heatmap update GPU time: 55.052959 ms
-Total tick_OMP CPU time: 55 ms
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 26.424671 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
-Movement CPU time: 16 ms
-Async Heatmap update GPU time: 46.949535 ms
-Total tick_OMP CPU time: 47 ms
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.506945 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 16 ms
-Async Heatmap update GPU time: 46.231617 ms
-Total tick_OMP CPU time: 46 ms
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.394272 ms
+Total tick_OMP CPU time: 28 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 16 ms
-Async Heatmap update GPU time: 46.325825 ms
-Total tick_OMP CPU time: 46 ms
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 26.409439 ms
+Total tick_OMP CPU time: 28 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 36 ms
-Movement CPU time: 16 ms
-Async Heatmap update GPU time: 53.001503 ms
-Total tick_OMP CPU time: 53 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.422655 ms
+Total tick_OMP CPU time: 28 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 37 ms
-Movement CPU time: 16 ms
-Async Heatmap update GPU time: 54.074463 ms
-Total tick_OMP CPU time: 54 ms
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 26.365696 ms
+Total tick_OMP CPU time: 28 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
-Movement CPU time: 16 ms
-Async Heatmap update GPU time: 46.640255 ms
-Total tick_OMP CPU time: 46 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 27.194624 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 36 ms
-Movement CPU time: 16 ms
-Async Heatmap update GPU time: 52.747871 ms
-Total tick_OMP CPU time: 52 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.595648 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 35 ms
-Movement CPU time: 15 ms
-Async Heatmap update GPU time: 51.827263 ms
-Total tick_OMP CPU time: 52 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.668736 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 36 ms
-Movement CPU time: 15 ms
-Async Heatmap update GPU time: 51.844448 ms
-Total tick_OMP CPU time: 51 ms
+updateHeatmapSeqCUDAAsync call took: 4 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 26.503263 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 33 ms
-Movement CPU time: 15 ms
-Async Heatmap update GPU time: 48.684673 ms
-Total tick_OMP CPU time: 48 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.555296 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 15 ms
-Async Heatmap update GPU time: 45.691936 ms
-Total tick_OMP CPU time: 45 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.544607 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 32 ms
-Movement CPU time: 15 ms
-Async Heatmap update GPU time: 47.894047 ms
-Total tick_OMP CPU time: 48 ms
+updateHeatmapSeqCUDAAsync call took: 4 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.932064 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 35 ms
-Movement CPU time: 15 ms
-Async Heatmap update GPU time: 50.875393 ms
-Total tick_OMP CPU time: 51 ms
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.435104 ms
+Total tick_OMP CPU time: 28 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 32 ms
-Movement CPU time: 15 ms
-Async Heatmap update GPU time: 47.304897 ms
-Total tick_OMP CPU time: 47 ms
+updateHeatmapSeqCUDAAsync call took: 4 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 27.048416 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 34 ms
-Movement CPU time: 14 ms
-Async Heatmap update GPU time: 49.077087 ms
-Total tick_OMP CPU time: 49 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 26.497601 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 33 ms
-Movement CPU time: 14 ms
-Async Heatmap update GPU time: 47.447647 ms
-Total tick_OMP CPU time: 47 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.731457 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 33 ms
-Movement CPU time: 14 ms
-Async Heatmap update GPU time: 47.020321 ms
-Total tick_OMP CPU time: 47 ms
+updateHeatmapSeqCUDAAsync call took: 4 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.845312 ms
+Total tick_OMP CPU time: 30 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 34 ms
-Movement CPU time: 13 ms
-Async Heatmap update GPU time: 48.592033 ms
-Total tick_OMP CPU time: 48 ms
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 27.021696 ms
+Total tick_OMP CPU time: 30 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
-Movement CPU time: 13 ms
-Async Heatmap update GPU time: 44.523582 ms
-Total tick_OMP CPU time: 44 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 26.520288 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 32 ms
-Movement CPU time: 13 ms
-Async Heatmap update GPU time: 46.239071 ms
-Total tick_OMP CPU time: 46 ms
+updateHeatmapSeqCUDAAsync call took: 4 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 26.895329 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 34 ms
-Movement CPU time: 13 ms
-Async Heatmap update GPU time: 47.670784 ms
-Total tick_OMP CPU time: 47 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 26.604160 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 41 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 10 ms
+Async Heatmap update GPU time: 26.693377 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
 Movement CPU time: 12 ms
-Async Heatmap update GPU time: 54.417953 ms
-Total tick_OMP CPU time: 54 ms
+Async Heatmap update GPU time: 27.118624 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 32 ms
-Movement CPU time: 12 ms
-Async Heatmap update GPU time: 45.076641 ms
-Total tick_OMP CPU time: 45 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 33 ms
-Movement CPU time: 12 ms
-Async Heatmap update GPU time: 45.417343 ms
-Total tick_OMP CPU time: 45 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 31 ms
-Movement CPU time: 12 ms
-Async Heatmap update GPU time: 43.917152 ms
-Total tick_OMP CPU time: 44 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 31 ms
-Movement CPU time: 12 ms
-Async Heatmap update GPU time: 43.518944 ms
-Total tick_OMP CPU time: 43 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 33 ms
+updateHeatmapSeqCUDAAsync call took: 4 ms
 Movement CPU time: 11 ms
-Async Heatmap update GPU time: 45.178688 ms
-Total tick_OMP CPU time: 45 ms
+Async Heatmap update GPU time: 26.771135 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 32 ms
-Movement CPU time: 12 ms
-Async Heatmap update GPU time: 45.099072 ms
-Total tick_OMP CPU time: 45 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 33 ms
+updateHeatmapSeqCUDAAsync call took: 4 ms
 Movement CPU time: 11 ms
-Async Heatmap update GPU time: 44.317600 ms
-Total tick_OMP CPU time: 44 ms
+Async Heatmap update GPU time: 27.041664 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
-Movement CPU time: 11 ms
-Async Heatmap update GPU time: 40.933346 ms
-Total tick_OMP CPU time: 41 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 26.985249 ms
+Total tick_OMP CPU time: 30 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 26.739872 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 26.750208 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 27.134144 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 26.839552 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 26.930271 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 4 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.741953 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 2 ms
 Movement CPU time: 10 ms
-Async Heatmap update GPU time: 40.932194 ms
-Total tick_OMP CPU time: 41 ms
+Async Heatmap update GPU time: 26.399679 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 10 ms
-Async Heatmap update GPU time: 40.560322 ms
-Total tick_OMP CPU time: 41 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.753088 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 10 ms
-Async Heatmap update GPU time: 40.488194 ms
-Total tick_OMP CPU time: 40 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.654913 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
-Movement CPU time: 11 ms
-Async Heatmap update GPU time: 41.104576 ms
-Total tick_OMP CPU time: 41 ms
+updateHeatmapSeqCUDAAsync call took: 6 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 28.076321 ms
+Total tick_OMP CPU time: 30 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 31 ms
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.344416 ms
+Total tick_OMP CPU time: 28 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 4 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 27.118303 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.734177 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 4 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 27.150433 ms
+Total tick_OMP CPU time: 30 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.544031 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 27.173599 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 4 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 26.934303 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 4 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.886463 ms
+Total tick_OMP CPU time: 30 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 4 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 27.105024 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.604704 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.808928 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 26.693377 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 26.675585 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 4 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 26.952320 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 26.580511 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.685312 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.486689 ms
+Total tick_OMP CPU time: 28 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 26.350016 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 26.626560 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 26.406784 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 26.418720 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 26.690081 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.460512 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 4 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 28.347008 ms
+Total tick_OMP CPU time: 30 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.450815 ms
+Total tick_OMP CPU time: 28 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 26.837791 ms
+Total tick_OMP CPU time: 28 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 26.667809 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 26.621441 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.403296 ms
+Total tick_OMP CPU time: 28 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 26.615776 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 27.183552 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.391487 ms
+Total tick_OMP CPU time: 28 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 26.597055 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.634081 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.685535 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 8 ms
+Movement CPU time: 5 ms
+Async Heatmap update GPU time: 30.969696 ms
+Total tick_OMP CPU time: 33 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 26.636959 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 4 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.746847 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.689983 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.629791 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.587936 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 26.442017 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 27.036736 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.621599 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 4 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 26.922527 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 2 ms
 Movement CPU time: 9 ms
-Async Heatmap update GPU time: 41.692257 ms
-Total tick_OMP CPU time: 41 ms
+Async Heatmap update GPU time: 26.522017 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 31 ms
-Movement CPU time: 9 ms
-Async Heatmap update GPU time: 41.104801 ms
-Total tick_OMP CPU time: 41 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
-Movement CPU time: 9 ms
-Async Heatmap update GPU time: 39.385666 ms
-Total tick_OMP CPU time: 39 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
-Movement CPU time: 9 ms
-Async Heatmap update GPU time: 39.856415 ms
-Total tick_OMP CPU time: 40 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 9 ms
-Async Heatmap update GPU time: 39.252575 ms
-Total tick_OMP CPU time: 39 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 9 ms
-Async Heatmap update GPU time: 38.861824 ms
-Total tick_OMP CPU time: 39 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
 Movement CPU time: 8 ms
-Async Heatmap update GPU time: 38.593025 ms
-Total tick_OMP CPU time: 38 ms
+Async Heatmap update GPU time: 26.526079 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 9 ms
-Async Heatmap update GPU time: 39.601406 ms
-Total tick_OMP CPU time: 39 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
 Movement CPU time: 8 ms
-Async Heatmap update GPU time: 39.221375 ms
-Total tick_OMP CPU time: 39 ms
+Async Heatmap update GPU time: 26.862305 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
 Movement CPU time: 8 ms
-Async Heatmap update GPU time: 38.373249 ms
-Total tick_OMP CPU time: 38 ms
+Async Heatmap update GPU time: 26.768480 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
+updateHeatmapSeqCUDAAsync call took: 2 ms
 Movement CPU time: 8 ms
-Async Heatmap update GPU time: 38.877281 ms
-Total tick_OMP CPU time: 39 ms
+Async Heatmap update GPU time: 26.547808 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
+updateHeatmapSeqCUDAAsync call took: 2 ms
 Movement CPU time: 8 ms
-Async Heatmap update GPU time: 38.485313 ms
-Total tick_OMP CPU time: 38 ms
+Async Heatmap update GPU time: 26.503937 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
-Movement CPU time: 9 ms
-Async Heatmap update GPU time: 39.268703 ms
-Total tick_OMP CPU time: 39 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
 Movement CPU time: 8 ms
-Async Heatmap update GPU time: 38.244064 ms
-Total tick_OMP CPU time: 38 ms
+Async Heatmap update GPU time: 26.595104 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
 Movement CPU time: 8 ms
-Async Heatmap update GPU time: 38.695137 ms
-Total tick_OMP CPU time: 38 ms
+Async Heatmap update GPU time: 26.688543 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
+updateHeatmapSeqCUDAAsync call took: 2 ms
 Movement CPU time: 8 ms
-Async Heatmap update GPU time: 38.203232 ms
-Total tick_OMP CPU time: 38 ms
+Async Heatmap update GPU time: 26.504831 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
+updateHeatmapSeqCUDAAsync call took: 4 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.883039 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 4 ms
 Movement CPU time: 8 ms
-Async Heatmap update GPU time: 38.892960 ms
-Total tick_OMP CPU time: 39 ms
+Async Heatmap update GPU time: 27.244896 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
+updateHeatmapSeqCUDAAsync call took: 4 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.735712 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
 Movement CPU time: 8 ms
-Async Heatmap update GPU time: 38.575520 ms
-Total tick_OMP CPU time: 38 ms
+Async Heatmap update GPU time: 26.394527 ms
+Total tick_OMP CPU time: 28 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
 Movement CPU time: 8 ms
-Async Heatmap update GPU time: 38.155327 ms
-Total tick_OMP CPU time: 38 ms
+Async Heatmap update GPU time: 26.923937 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
+updateHeatmapSeqCUDAAsync call took: 4 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.892960 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.360128 ms
+Total tick_OMP CPU time: 28 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.734016 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 2 ms
 Movement CPU time: 8 ms
-Async Heatmap update GPU time: 38.457825 ms
-Total tick_OMP CPU time: 38 ms
+Async Heatmap update GPU time: 26.951967 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
 Movement CPU time: 8 ms
-Async Heatmap update GPU time: 38.521599 ms
-Total tick_OMP CPU time: 38 ms
+Async Heatmap update GPU time: 26.505665 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
 Movement CPU time: 8 ms
-Async Heatmap update GPU time: 38.679775 ms
-Total tick_OMP CPU time: 38 ms
+Async Heatmap update GPU time: 26.651392 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
 Movement CPU time: 8 ms
-Async Heatmap update GPU time: 38.056767 ms
-Total tick_OMP CPU time: 38 ms
+Async Heatmap update GPU time: 27.387104 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.776287 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.843136 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.676767 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.462496 ms
+Total tick_OMP CPU time: 28 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 27.561056 ms
+Total tick_OMP CPU time: 30 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 4 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 26.696640 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 27.534912 ms
+Total tick_OMP CPU time: 30 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.565536 ms
+Total tick_OMP CPU time: 28 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.796160 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.495457 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 26.711617 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 4 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 27.067968 ms
+Total tick_OMP CPU time: 30 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 27.060640 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 26.832993 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 26.624512 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.416479 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 26.547808 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 4 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 26.663616 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.464705 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 26.413055 ms
+Total tick_OMP CPU time: 28 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.436768 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.692703 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 26.644993 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 26.817760 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.413952 ms
+Total tick_OMP CPU time: 28 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 26.659489 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.363008 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.421888 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.453312 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.735840 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.690176 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.529408 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.424383 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 2 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.546305 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
 Movement CPU time: 8 ms
-Async Heatmap update GPU time: 38.321983 ms
-Total tick_OMP CPU time: 38 ms
+Async Heatmap update GPU time: 26.653696 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.673441 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 5 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 28.707359 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.563871 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
 Movement CPU time: 8 ms
-Async Heatmap update GPU time: 38.736992 ms
-Total tick_OMP CPU time: 38 ms
+Async Heatmap update GPU time: 26.541727 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
+updateHeatmapSeqCUDAAsync call took: 2 ms
 Movement CPU time: 8 ms
-Async Heatmap update GPU time: 38.461567 ms
-Total tick_OMP CPU time: 38 ms
+Async Heatmap update GPU time: 26.577921 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 9 ms
-Async Heatmap update GPU time: 39.438560 ms
-Total tick_OMP CPU time: 39 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.483648 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
+updateHeatmapSeqCUDAAsync call took: 2 ms
 Movement CPU time: 8 ms
-Async Heatmap update GPU time: 39.481537 ms
-Total tick_OMP CPU time: 39 ms
+Async Heatmap update GPU time: 26.455999 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 31 ms
-Movement CPU time: 9 ms
-Async Heatmap update GPU time: 40.474625 ms
-Total tick_OMP CPU time: 40 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.591553 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 33 ms
-Movement CPU time: 9 ms
-Async Heatmap update GPU time: 42.541313 ms
-Total tick_OMP CPU time: 42 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
+updateHeatmapSeqCUDAAsync call took: 3 ms
 Movement CPU time: 8 ms
-Async Heatmap update GPU time: 38.169662 ms
-Total tick_OMP CPU time: 38 ms
+Async Heatmap update GPU time: 26.494335 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 9 ms
-Async Heatmap update GPU time: 38.862240 ms
-Total tick_OMP CPU time: 39 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
-Movement CPU time: 9 ms
-Async Heatmap update GPU time: 40.120255 ms
-Total tick_OMP CPU time: 40 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
+updateHeatmapSeqCUDAAsync call took: 2 ms
 Movement CPU time: 8 ms
-Async Heatmap update GPU time: 38.287712 ms
-Total tick_OMP CPU time: 38 ms
+Async Heatmap update GPU time: 26.451872 ms
+Total tick_OMP CPU time: 29 ms
 ---------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 34 ms
+updateHeatmapSeqCUDAAsync call took: 2 ms
 Movement CPU time: 8 ms
-Async Heatmap update GPU time: 43.447647 ms
-Total tick_OMP CPU time: 43 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 8 ms
-Async Heatmap update GPU time: 38.437729 ms
-Total tick_OMP CPU time: 38 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 9 ms
-Async Heatmap update GPU time: 38.374943 ms
-Total tick_OMP CPU time: 38 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
-Movement CPU time: 9 ms
-Async Heatmap update GPU time: 39.381214 ms
-Total tick_OMP CPU time: 39 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 31 ms
-Movement CPU time: 9 ms
-Async Heatmap update GPU time: 40.956257 ms
-Total tick_OMP CPU time: 41 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 8 ms
-Async Heatmap update GPU time: 38.656673 ms
-Total tick_OMP CPU time: 38 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
-Movement CPU time: 9 ms
-Async Heatmap update GPU time: 39.433151 ms
-Total tick_OMP CPU time: 39 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
-Movement CPU time: 9 ms
-Async Heatmap update GPU time: 39.760288 ms
-Total tick_OMP CPU time: 39 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 9 ms
-Async Heatmap update GPU time: 39.433121 ms
-Total tick_OMP CPU time: 39 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 32 ms
-Movement CPU time: 9 ms
-Async Heatmap update GPU time: 41.648830 ms
-Total tick_OMP CPU time: 41 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 33 ms
-Movement CPU time: 8 ms
-Async Heatmap update GPU time: 42.655006 ms
-Total tick_OMP CPU time: 42 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 34 ms
-Movement CPU time: 9 ms
-Async Heatmap update GPU time: 43.110146 ms
-Total tick_OMP CPU time: 43 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 33 ms
-Movement CPU time: 8 ms
-Async Heatmap update GPU time: 42.456863 ms
-Total tick_OMP CPU time: 42 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 32 ms
-Movement CPU time: 8 ms
-Async Heatmap update GPU time: 41.024513 ms
-Total tick_OMP CPU time: 41 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 34 ms
-Movement CPU time: 8 ms
-Async Heatmap update GPU time: 43.456959 ms
-Total tick_OMP CPU time: 43 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 32 ms
-Movement CPU time: 9 ms
-Async Heatmap update GPU time: 41.634239 ms
-Total tick_OMP CPU time: 41 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 33 ms
-Movement CPU time: 8 ms
-Async Heatmap update GPU time: 42.246368 ms
-Total tick_OMP CPU time: 42 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 32 ms
-Movement CPU time: 8 ms
-Async Heatmap update GPU time: 41.477345 ms
-Total tick_OMP CPU time: 41 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 33 ms
-Movement CPU time: 10 ms
-Async Heatmap update GPU time: 43.862015 ms
-Total tick_OMP CPU time: 44 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 33 ms
-Movement CPU time: 8 ms
-Async Heatmap update GPU time: 42.567329 ms
-Total tick_OMP CPU time: 42 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 34 ms
-Movement CPU time: 8 ms
-Async Heatmap update GPU time: 42.990944 ms
-Total tick_OMP CPU time: 43 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 31 ms
-Movement CPU time: 8 ms
-Async Heatmap update GPU time: 40.596352 ms
-Total tick_OMP CPU time: 40 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 34 ms
-Movement CPU time: 8 ms
-Async Heatmap update GPU time: 42.880417 ms
-Total tick_OMP CPU time: 43 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 32 ms
-Movement CPU time: 8 ms
-Async Heatmap update GPU time: 41.232479 ms
-Total tick_OMP CPU time: 41 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 32 ms
-Movement CPU time: 8 ms
-Async Heatmap update GPU time: 40.996544 ms
-Total tick_OMP CPU time: 41 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 35 ms
-Movement CPU time: 8 ms
-Async Heatmap update GPU time: 43.829376 ms
-Total tick_OMP CPU time: 44 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 32 ms
-Movement CPU time: 8 ms
-Async Heatmap update GPU time: 41.231232 ms
-Total tick_OMP CPU time: 41 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 9 ms
-Async Heatmap update GPU time: 38.883678 ms
-Total tick_OMP CPU time: 39 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 32 ms
-Movement CPU time: 9 ms
-Async Heatmap update GPU time: 41.573601 ms
-Total tick_OMP CPU time: 41 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 34 ms
-Movement CPU time: 9 ms
-Async Heatmap update GPU time: 43.436703 ms
-Total tick_OMP CPU time: 43 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 33 ms
-Movement CPU time: 9 ms
-Async Heatmap update GPU time: 43.251297 ms
-Total tick_OMP CPU time: 43 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 32 ms
-Movement CPU time: 10 ms
-Async Heatmap update GPU time: 42.499519 ms
-Total tick_OMP CPU time: 42 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
-Movement CPU time: 11 ms
-Async Heatmap update GPU time: 42.001984 ms
-Total tick_OMP CPU time: 42 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
-Movement CPU time: 9 ms
-Async Heatmap update GPU time: 40.096001 ms
-Total tick_OMP CPU time: 40 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 31 ms
-Movement CPU time: 9 ms
-Async Heatmap update GPU time: 41.203392 ms
-Total tick_OMP CPU time: 41 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
-Movement CPU time: 10 ms
-Async Heatmap update GPU time: 40.509056 ms
-Total tick_OMP CPU time: 40 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 32 ms
-Movement CPU time: 10 ms
-Async Heatmap update GPU time: 42.411102 ms
-Total tick_OMP CPU time: 42 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 10 ms
-Async Heatmap update GPU time: 40.319874 ms
-Total tick_OMP CPU time: 40 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
-Movement CPU time: 10 ms
-Async Heatmap update GPU time: 40.496990 ms
-Total tick_OMP CPU time: 40 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 10 ms
-Async Heatmap update GPU time: 40.414433 ms
-Total tick_OMP CPU time: 40 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
-Movement CPU time: 10 ms
-Async Heatmap update GPU time: 40.633343 ms
-Total tick_OMP CPU time: 40 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
-Movement CPU time: 10 ms
-Async Heatmap update GPU time: 40.852097 ms
-Total tick_OMP CPU time: 40 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 11 ms
-Async Heatmap update GPU time: 41.936768 ms
-Total tick_OMP CPU time: 42 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 11 ms
-Async Heatmap update GPU time: 40.732128 ms
-Total tick_OMP CPU time: 40 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
-Movement CPU time: 11 ms
-Async Heatmap update GPU time: 42.099808 ms
-Total tick_OMP CPU time: 42 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 11 ms
-Async Heatmap update GPU time: 41.840672 ms
-Total tick_OMP CPU time: 41 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 12 ms
-Async Heatmap update GPU time: 41.826626 ms
-Total tick_OMP CPU time: 41 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
-Movement CPU time: 12 ms
-Async Heatmap update GPU time: 42.498463 ms
-Total tick_OMP CPU time: 42 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
-Movement CPU time: 12 ms
-Async Heatmap update GPU time: 42.786625 ms
-Total tick_OMP CPU time: 42 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 13 ms
-Async Heatmap update GPU time: 42.830624 ms
-Total tick_OMP CPU time: 42 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 28 ms
-Movement CPU time: 12 ms
-Async Heatmap update GPU time: 41.668255 ms
-Total tick_OMP CPU time: 41 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 28 ms
-Movement CPU time: 13 ms
-Async Heatmap update GPU time: 41.982433 ms
-Total tick_OMP CPU time: 42 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 13 ms
-Async Heatmap update GPU time: 43.134079 ms
-Total tick_OMP CPU time: 43 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 13 ms
-Async Heatmap update GPU time: 43.263649 ms
-Total tick_OMP CPU time: 43 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
-Movement CPU time: 15 ms
-Async Heatmap update GPU time: 45.780930 ms
-Total tick_OMP CPU time: 46 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
-Movement CPU time: 13 ms
-Async Heatmap update GPU time: 43.778881 ms
-Total tick_OMP CPU time: 43 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 13 ms
-Async Heatmap update GPU time: 43.469566 ms
-Total tick_OMP CPU time: 43 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
-Movement CPU time: 13 ms
-Async Heatmap update GPU time: 44.116417 ms
-Total tick_OMP CPU time: 44 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 13 ms
-Async Heatmap update GPU time: 43.714272 ms
-Total tick_OMP CPU time: 43 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 13 ms
-Async Heatmap update GPU time: 43.304352 ms
-Total tick_OMP CPU time: 43 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 14 ms
-Async Heatmap update GPU time: 43.848289 ms
-Total tick_OMP CPU time: 43 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
-Movement CPU time: 14 ms
-Async Heatmap update GPU time: 44.310719 ms
-Total tick_OMP CPU time: 44 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 14 ms
-Async Heatmap update GPU time: 43.666592 ms
-Total tick_OMP CPU time: 43 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 14 ms
-Async Heatmap update GPU time: 44.428097 ms
-Total tick_OMP CPU time: 44 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 14 ms
-Async Heatmap update GPU time: 44.202530 ms
-Total tick_OMP CPU time: 44 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 14 ms
-Async Heatmap update GPU time: 43.788994 ms
-Total tick_OMP CPU time: 43 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
-Movement CPU time: 14 ms
-Async Heatmap update GPU time: 44.280769 ms
-Total tick_OMP CPU time: 44 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 14 ms
-Async Heatmap update GPU time: 44.025791 ms
-Total tick_OMP CPU time: 44 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
-Movement CPU time: 13 ms
-Async Heatmap update GPU time: 43.797630 ms
-Total tick_OMP CPU time: 43 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 13 ms
-Async Heatmap update GPU time: 43.178177 ms
-Total tick_OMP CPU time: 43 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 13 ms
-Async Heatmap update GPU time: 43.271423 ms
-Total tick_OMP CPU time: 43 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 35 ms
-Movement CPU time: 13 ms
-Async Heatmap update GPU time: 49.128929 ms
-Total tick_OMP CPU time: 49 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 13 ms
-Async Heatmap update GPU time: 43.378399 ms
-Total tick_OMP CPU time: 43 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 13 ms
-Async Heatmap update GPU time: 43.309090 ms
-Total tick_OMP CPU time: 43 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 13 ms
-Async Heatmap update GPU time: 42.724831 ms
-Total tick_OMP CPU time: 42 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
-Movement CPU time: 13 ms
-Async Heatmap update GPU time: 44.351871 ms
-Total tick_OMP CPU time: 44 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
-Movement CPU time: 13 ms
-Async Heatmap update GPU time: 43.868065 ms
-Total tick_OMP CPU time: 44 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 30 ms
-Movement CPU time: 14 ms
-Async Heatmap update GPU time: 45.103199 ms
-Total tick_OMP CPU time: 45 ms
----------------Finished tick_OMP-----------------
-updateHeatmapSeqCUDAAsync call took: 29 ms
-Movement CPU time: 12 ms
-Async Heatmap update GPU time: 41.686848 ms
-Total tick_OMP CPU time: 41 ms
----------------Finished tick_OMP-----------------
-Time: 13282 milliseconds, 15.058 Frames Per Second.
+Async Heatmap update GPU time: 26.348608 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.515743 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.523041 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.718369 ms
+Total tick_OMP CPU time: 28 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.485151 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 5 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 27.602688 ms
+Total tick_OMP CPU time: 30 ms
+---------------Finished tick_OMP-----------------
+updateHeatmapSeqCUDAAsync call took: 3 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 26.693567 ms
+Total tick_OMP CPU time: 29 ms
+---------------Finished tick_OMP-----------------
+Time: 8634 milliseconds, 23.1642 Frames Per Second.
 Done

@@ -287,7 +287,7 @@ void Ped::Model::tick_OMP()
     {
 		// std::this_thread::sleep_for(std::chrono::milliseconds(1));
         move_OMP(agent);
-		printf("OMP\n");
+		// printf("OMP");
     }
     auto cpuEnd2 = std::chrono::high_resolution_clock::now();
     auto cpuTime2 = std::chrono::duration_cast<std::chrono::milliseconds>(cpuEnd2 - cpuStart2).count();

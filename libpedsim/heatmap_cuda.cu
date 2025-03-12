@@ -8,7 +8,7 @@
 #define WEIGHTSUM 273
 
 __global__ void fadeHeatmapKernel(int* d_heatmap, int totalPixels) {
-    printf("CUDA_Fade ");
+    // printf("CUDA_Fade ");
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
     if (idx<totalPixels) {
         d_heatmap[idx] = (int)(d_heatmap[idx]*0.80f+0.5f); // 0.5f is for rounding. 8.1+0.5=8.6 -> 8, but 8.6+0.5=9
@@ -20,7 +20,7 @@ __global__ void addAgentHeatKernel(int* d_heatmap, int size,
                                    const int* d_agentDesiredX,
                                    const int* d_agentDesiredY,
                                    int numAgents) {
-                                    printf("CUDA_AgentHeat ");
+                                    // printf("CUDA_AgentHeat ");
     int idx = blockIdx.x*blockDim.x + threadIdx.x;
     if (idx < numAgents) {
         int x = d_agentDesiredX[idx];
@@ -34,7 +34,7 @@ __global__ void addAgentHeatKernel(int* d_heatmap, int size,
 }
 
 __global__ void limitHeatmapValueKernel(int* d_heatmap, int totalPixels) {
-    printf("CUDA_Limit ");
+    // printf("CUDA_Limit ");
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
     if (idx < totalPixels && d_heatmap[idx] > 255) {
         d_heatmap[idx]=255;
@@ -43,7 +43,7 @@ __global__ void limitHeatmapValueKernel(int* d_heatmap, int totalPixels) {
 
 __global__ void scaleHeatmapKernel(const int* d_heatmap, int* d_scaledHeatmap,
                                    int size, int cellSize) {
-                                    printf("CUDA_Scale ");
+                                    // printf("CUDA_Scale ");
     int scaledSize = size*cellSize;
     int x = blockIdx.x * blockDim.x + threadIdx.x;
     int y = blockIdx.y * blockDim.y + threadIdx.y;
@@ -57,7 +57,7 @@ __global__ void scaleHeatmapKernel(const int* d_heatmap, int* d_scaledHeatmap,
 
 // Each thread computes one output pixel (except near the borders).
 __global__ void blurFilterKernel(const int* d_scaledHeatmap, int* d_blurredHeatmap, int scaledSize) {
-    printf("CUDA_BLUR ");
+    // printf("CUDA_BLUR ");
     // Allocate shared memory: tileSharedMem dimensions plus a 2-pixel halo (aura) on each side.
     extern __shared__ int tileSharedMem[]; // Know its size at runtime from <<<..., ..., sharedMemSize, ...>>>
     int tileSharedMemWidth = blockDim.x + 4; // extra columns for halo
