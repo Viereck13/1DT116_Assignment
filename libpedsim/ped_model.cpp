@@ -18,7 +18,7 @@
 
 #include <emmintrin.h>
 #include <immintrin.h>
-#include <cuda_runtime.h>
+// #include <cuda_runtime.h>
 
 #ifndef NOCDUA
 #include "cuda_testkernel.h"
@@ -210,7 +210,7 @@ void Ped::Model::tick_SIMD()
 // 	}
 // }
 
-void Ped::Model::updateHeatmapSeqCUDAAsync(cudaStream_t stream)
+void* Ped::Model::updateHeatmapSeqCUDAAsync(void* stream)
 {
     if (implementation == CUDA || implementation == OMP)
     {
@@ -227,7 +227,7 @@ void Ped::Model::updateHeatmapSeqCUDAAsync(cudaStream_t stream)
 
         // heatmap[0] points to the contiguous block for the original heatmap.
         updateHeatmapCUDAAsync(heatmap[0], scaled_heatmap[0], blurred_heatmap[0],
-                          agentDesiredX, agentDesiredY, numAgents, stream);
+                          agentDesiredX, agentDesiredY, numAgents, (cudaStream_t) stream);
 
         delete[] agentDesiredX;
         delete[] agentDesiredY;
@@ -266,18 +266,28 @@ void Ped::Model::tick_OMP()
 
     auto asyncStart = std::chrono::high_resolution_clock::now();
     updateHeatmapSeqCUDAAsync(stream);
+	// pthread_t ptid; 
+    // pthread_create(&ptid, NULL, &updateHeatmapSeqCUDAAsync, NULL); 
     auto asyncEnd = std::chrono::high_resolution_clock::now();
     auto asyncTime = std::chrono::duration_cast<std::chrono::milliseconds>(asyncEnd - asyncStart).count();
     printf("updateHeatmapSeqCUDAAsync call took: %ld ms\n", asyncTime); // represents the overhead for issuing the 
     // asynchronous GPU work (i.e. the time spent on the CPU to set up and launch the kernels), not the full 
     // execution of those kernels.
 
+	// cudaEventRecord(stopEvent, stream); // Will only time the actual GPU run, not run and idle time.
+    // cudaEventSynchronize(stopEvent);
+    // float gpuTime = 0;
+    // cudaEventElapsedTime(&gpuTime, startEvent, stopEvent);
+    // printf("Async Heatmap update GPU time: %f ms\n", gpuTime); // records the actual time the GPU spends executing 
+
     // Perform movement on CPU
     auto cpuStart2 = std::chrono::high_resolution_clock::now();
     
     for (auto agent : agents)
     {
+		// std::this_thread::sleep_for(std::chrono::milliseconds(1));
         move_OMP(agent);
+		printf("OMP\n");
     }
     auto cpuEnd2 = std::chrono::high_resolution_clock::now();
     auto cpuTime2 = std::chrono::duration_cast<std::chrono::milliseconds>(cpuEnd2 - cpuStart2).count();

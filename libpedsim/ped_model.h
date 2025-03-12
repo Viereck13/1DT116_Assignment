@@ -173,7 +173,7 @@ namespace Ped{
 		void setupHeatmapSeq();
 		void updateHeatmapSeq();
 		void updateHeatmapSeqCUDA();
-		void updateHeatmapSeqCUDAAsync(cudaStream_t stream);
+		void* updateHeatmapSeqCUDAAsync(void* stream);
 	};
 }
 #endif

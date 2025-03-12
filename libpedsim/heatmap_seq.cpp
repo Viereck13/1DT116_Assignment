@@ -8,6 +8,7 @@
 #include <iostream>
 #include <cmath>
 #include <chrono>
+#include <cuda_runtime.h>
 using namespace std;
 
 // Memory leak check with msvc++
@@ -16,14 +17,19 @@ using namespace std;
 // Sets up the heatmap
 void Ped::Model::setupHeatmapSeq()
 {
-	int *hm = (int*)calloc(SIZE*SIZE, sizeof(int));
-	int *shm = (int*)malloc(SCALED_SIZE*SCALED_SIZE*sizeof(int));
-	int *bhm = (int*)malloc(SCALED_SIZE*SCALED_SIZE*sizeof(int));
+	int* hm;
+	int *shm;
+	int *bhm;
 
-	heatmap = (int**)malloc(SIZE*sizeof(int*));
+	cudaMallocHost(&hm, SIZE*SIZE*sizeof(int));
+	cudaMemset(hm, 0, SIZE*SIZE);
+	cudaMallocHost(&shm, SCALED_SIZE*SCALED_SIZE*sizeof(int));
+	cudaMallocHost(&bhm, SCALED_SIZE*SCALED_SIZE*sizeof(int));
 
-	scaled_heatmap = (int**)malloc(SCALED_SIZE*sizeof(int*));
-	blurred_heatmap = (int**)malloc(SCALED_SIZE*sizeof(int*));
+	cudaMallocHost(&heatmap, SIZE*sizeof(int*));
+
+	cudaMallocHost(&scaled_heatmap, SCALED_SIZE*sizeof(int*));
+	cudaMallocHost(&blurred_heatmap, SCALED_SIZE*sizeof(int*));
 
 	for (int i = 0; i < SIZE; i++)
 	{
