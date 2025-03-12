@@ -266,6 +266,7 @@ void Ped::Model::tick_OMP()
 
     auto asyncStart = std::chrono::high_resolution_clock::now();
     updateHeatmapSeqCUDAAsync(stream);
+    // cudaDeviceSynchronize();
 	// pthread_t ptid; 
     // pthread_create(&ptid, NULL, &updateHeatmapSeqCUDAAsync, NULL); 
     auto asyncEnd = std::chrono::high_resolution_clock::now();

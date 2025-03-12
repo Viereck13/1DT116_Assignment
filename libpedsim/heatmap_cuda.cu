@@ -251,10 +251,7 @@ void updateHeatmapCUDAAsync(int* h_heatmap, int* h_scaledHeatmap, int* h_blurred
     // cudaEventSynchronize(stop);
     // cudaEventElapsedTime(&elapsedTime, start, stop);
     // printf("Scale Heatmap Kernel Execution Time: %f ms\n", elapsedTime);
-    // dim3 blockDim2D(16, 16) tells CUDA that each block should have 16 threads along the x-dimension, 
-    // 16 threads along the y-dimension, and 1 thread along the z-dimension
-    // resulting in a total of 256 threads per block. These values are used
-    // inside the kernel to determine each thread’s unique indices via threadIdx.x, threadIdx.y, and threadIdx.z.
+    
     // cudaEventRecord(start, stream);
     blurFilterKernel<<<gridDim2D, blockDim2D, sharedMemSize, stream>>>(d_scaledHeatmap, d_blurredHeatmap, SCALED_SIZE);
     // cudaEventRecord(stop, stream);
