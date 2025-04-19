@@ -7,6 +7,8 @@
 #include <cstdlib>
 #include <iostream>
 #include <cmath>
+#include <chrono>
+#include <cuda_runtime.h>
 using namespace std;
 
 // Memory leak check with msvc++
@@ -15,14 +17,19 @@ using namespace std;
 // Sets up the heatmap
 void Ped::Model::setupHeatmapSeq()
 {
-	int *hm = (int*)calloc(SIZE*SIZE, sizeof(int));
-	int *shm = (int*)malloc(SCALED_SIZE*SCALED_SIZE*sizeof(int));
-	int *bhm = (int*)malloc(SCALED_SIZE*SCALED_SIZE*sizeof(int));
+	int* hm;
+	int *shm;
+	int *bhm;
 
-	heatmap = (int**)malloc(SIZE*sizeof(int*));
+	cudaMallocHost(&hm, SIZE*SIZE*sizeof(int));
+	cudaMemset(hm, 0, SIZE*SIZE);
+	cudaMallocHost(&shm, SCALED_SIZE*SCALED_SIZE*sizeof(int));
+	cudaMallocHost(&bhm, SCALED_SIZE*SCALED_SIZE*sizeof(int));
 
-	scaled_heatmap = (int**)malloc(SCALED_SIZE*sizeof(int*));
-	blurred_heatmap = (int**)malloc(SCALED_SIZE*sizeof(int*));
+	cudaMallocHost(&heatmap, SIZE*sizeof(int*));
+
+	cudaMallocHost(&scaled_heatmap, SCALED_SIZE*sizeof(int*));
+	cudaMallocHost(&blurred_heatmap, SCALED_SIZE*sizeof(int*));
 
 	for (int i = 0; i < SIZE; i++)
 	{
@@ -38,6 +45,7 @@ void Ped::Model::setupHeatmapSeq()
 // Updates the heatmap according to the agent positions
 void Ped::Model::updateHeatmapSeq()
 {
+	auto start = std::chrono::high_resolution_clock::now();
 	for (int x = 0; x < SIZE; x++)
 	{
 		for (int y = 0; y < SIZE; y++)
@@ -61,6 +69,7 @@ void Ped::Model::updateHeatmapSeq()
 
 		// intensify heat for better color results
 		heatmap[y][x] += 40;
+		// printf("Heatmap[%d][%d]: %d\n", x, y, heatmap[y][x]);
 
 	}
 
@@ -115,6 +124,9 @@ void Ped::Model::updateHeatmapSeq()
 			blurred_heatmap[i][j] = 0x00FF0000 | value << 24;
 		}
 	}
+	auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double, std::milli> elapsed = end - start;
+    printf("Sequential heatmap update time: %f ms\n", elapsed.count());
 }
 
 int Ped::Model::getHeatmapSize() const {

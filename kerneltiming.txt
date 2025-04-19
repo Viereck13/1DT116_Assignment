@@ -1,0 +1,2209 @@
+Option --export-trace set to: export_trace.bin
+Option --omp activated
+Option --max-steps set to: 200
+Note: removed 27 duplicates from scenario.
+{1,2,3,4,5} + {10,20,30,40,50} = {11,22,33,44,55}
+Mode: 2
+Running Export Tracer...
+Fade Heatmap Kernel Execution Time: 0.226304 ms
+Add Agent Heat Kernel Execution Time: 0.095232 ms
+Limit Heatmap Value Kernel Execution Time: 0.124928 ms
+Scale Heatmap Kernel Execution Time: 0.983040 ms
+Blur Filter Kernel Execution Time: 2.796544 ms
+Total Async Kernel Execution Time: 4.572160 ms
+updateHeatmapSeqCUDAAsync call took: 25 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 40.997025 ms
+Total tick_OMP CPU time: 45 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.032768 ms
+Add Agent Heat Kernel Execution Time: 0.020480 ms
+Limit Heatmap Value Kernel Execution Time: 0.028672 ms
+Scale Heatmap Kernel Execution Time: 0.927744 ms
+Blur Filter Kernel Execution Time: 2.647040 ms
+Total Async Kernel Execution Time: 4.015104 ms
+updateHeatmapSeqCUDAAsync call took: 14 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 30.374048 ms
+Total tick_OMP CPU time: 33 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.033792 ms
+Add Agent Heat Kernel Execution Time: 0.093184 ms
+Limit Heatmap Value Kernel Execution Time: 0.107520 ms
+Scale Heatmap Kernel Execution Time: 0.869376 ms
+Blur Filter Kernel Execution Time: 2.650112 ms
+Total Async Kernel Execution Time: 4.253696 ms
+updateHeatmapSeqCUDAAsync call took: 14 ms
+Movement CPU time: 6 ms
+Async Heatmap update GPU time: 30.613119 ms
+Total tick_OMP CPU time: 34 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.032768 ms
+Add Agent Heat Kernel Execution Time: 0.013504 ms
+Limit Heatmap Value Kernel Execution Time: 0.033792 ms
+Scale Heatmap Kernel Execution Time: 0.872448 ms
+Blur Filter Kernel Execution Time: 2.646016 ms
+Total Async Kernel Execution Time: 4.156416 ms
+updateHeatmapSeqCUDAAsync call took: 13 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 30.173599 ms
+Total tick_OMP CPU time: 34 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.033792 ms
+Add Agent Heat Kernel Execution Time: 0.020480 ms
+Limit Heatmap Value Kernel Execution Time: 0.028672 ms
+Scale Heatmap Kernel Execution Time: 0.867328 ms
+Blur Filter Kernel Execution Time: 2.651136 ms
+Total Async Kernel Execution Time: 4.244480 ms
+updateHeatmapSeqCUDAAsync call took: 14 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 30.552032 ms
+Total tick_OMP CPU time: 34 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.033792 ms
+Add Agent Heat Kernel Execution Time: 0.008192 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.866304 ms
+Blur Filter Kernel Execution Time: 3.352576 ms
+Total Async Kernel Execution Time: 4.758528 ms
+updateHeatmapSeqCUDAAsync call took: 14 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 30.971552 ms
+Total tick_OMP CPU time: 34 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.031744 ms
+Add Agent Heat Kernel Execution Time: 0.015360 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.698368 ms
+Blur Filter Kernel Execution Time: 2.078720 ms
+Total Async Kernel Execution Time: 3.424256 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.633375 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.007168 ms
+Limit Heatmap Value Kernel Execution Time: 0.030720 ms
+Scale Heatmap Kernel Execution Time: 1.027072 ms
+Blur Filter Kernel Execution Time: 2.072576 ms
+Total Async Kernel Execution Time: 3.832832 ms
+updateHeatmapSeqCUDAAsync call took: 27 ms
+Movement CPU time: 12 ms
+Async Heatmap update GPU time: 43.819393 ms
+Total tick_OMP CPU time: 48 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.014336 ms
+Limit Heatmap Value Kernel Execution Time: 0.026624 ms
+Scale Heatmap Kernel Execution Time: 0.931840 ms
+Blur Filter Kernel Execution Time: 2.304000 ms
+Total Async Kernel Execution Time: 5.133312 ms
+updateHeatmapSeqCUDAAsync call took: 16 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 33.172768 ms
+Total tick_OMP CPU time: 36 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.017632 ms
+Limit Heatmap Value Kernel Execution Time: 0.025600 ms
+Scale Heatmap Kernel Execution Time: 0.707584 ms
+Blur Filter Kernel Execution Time: 2.084864 ms
+Total Async Kernel Execution Time: 3.283968 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.959200 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.018464 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.809984 ms
+Blur Filter Kernel Execution Time: 2.068480 ms
+Total Async Kernel Execution Time: 3.689472 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 10 ms
+Async Heatmap update GPU time: 28.839808 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.021504 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.700416 ms
+Blur Filter Kernel Execution Time: 2.063360 ms
+Total Async Kernel Execution Time: 3.259392 ms
+updateHeatmapSeqCUDAAsync call took: 14 ms
+Movement CPU time: 10 ms
+Async Heatmap update GPU time: 30.606720 ms
+Total tick_OMP CPU time: 34 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.031744 ms
+Add Agent Heat Kernel Execution Time: 0.009216 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 1.057792 ms
+Blur Filter Kernel Execution Time: 2.086912 ms
+Total Async Kernel Execution Time: 3.820544 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 29.101408 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.028672 ms
+Add Agent Heat Kernel Execution Time: 0.005120 ms
+Limit Heatmap Value Kernel Execution Time: 0.027648 ms
+Scale Heatmap Kernel Execution Time: 0.693248 ms
+Blur Filter Kernel Execution Time: 2.054144 ms
+Total Async Kernel Execution Time: 3.657728 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.530848 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.020480 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.693248 ms
+Blur Filter Kernel Execution Time: 2.048000 ms
+Total Async Kernel Execution Time: 3.372032 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.300352 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.026592 ms
+Limit Heatmap Value Kernel Execution Time: 0.035840 ms
+Scale Heatmap Kernel Execution Time: 0.693248 ms
+Blur Filter Kernel Execution Time: 2.040832 ms
+Total Async Kernel Execution Time: 3.386368 ms
+updateHeatmapSeqCUDAAsync call took: 13 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 29.269312 ms
+Total tick_OMP CPU time: 33 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.018432 ms
+Limit Heatmap Value Kernel Execution Time: 0.023552 ms
+Scale Heatmap Kernel Execution Time: 0.689152 ms
+Blur Filter Kernel Execution Time: 2.056192 ms
+Total Async Kernel Execution Time: 3.180544 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 10 ms
+Async Heatmap update GPU time: 28.054976 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.025600 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.690176 ms
+Blur Filter Kernel Execution Time: 2.048000 ms
+Total Async Kernel Execution Time: 3.164160 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.613344 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.014336 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.692224 ms
+Blur Filter Kernel Execution Time: 2.042880 ms
+Total Async Kernel Execution Time: 3.437568 ms
+updateHeatmapSeqCUDAAsync call took: 13 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 29.289473 ms
+Total tick_OMP CPU time: 33 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.013504 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.688128 ms
+Blur Filter Kernel Execution Time: 2.039808 ms
+Total Async Kernel Execution Time: 3.208192 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 10 ms
+Async Heatmap update GPU time: 28.091488 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.034816 ms
+Add Agent Heat Kernel Execution Time: 0.007168 ms
+Limit Heatmap Value Kernel Execution Time: 0.023552 ms
+Scale Heatmap Kernel Execution Time: 0.920576 ms
+Blur Filter Kernel Execution Time: 2.050048 ms
+Total Async Kernel Execution Time: 4.616192 ms
+updateHeatmapSeqCUDAAsync call took: 14 ms
+Movement CPU time: 12 ms
+Async Heatmap update GPU time: 30.516800 ms
+Total tick_OMP CPU time: 34 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.022528 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.694272 ms
+Blur Filter Kernel Execution Time: 2.051072 ms
+Total Async Kernel Execution Time: 3.425280 ms
+updateHeatmapSeqCUDAAsync call took: 13 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 29.961760 ms
+Total tick_OMP CPU time: 33 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.011360 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.692224 ms
+Blur Filter Kernel Execution Time: 2.042880 ms
+Total Async Kernel Execution Time: 3.144704 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.416767 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.019680 ms
+Limit Heatmap Value Kernel Execution Time: 0.027648 ms
+Scale Heatmap Kernel Execution Time: 0.688128 ms
+Blur Filter Kernel Execution Time: 2.048000 ms
+Total Async Kernel Execution Time: 3.165184 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.543615 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.016384 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.688128 ms
+Blur Filter Kernel Execution Time: 2.034688 ms
+Total Async Kernel Execution Time: 3.175424 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.312416 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.012288 ms
+Limit Heatmap Value Kernel Execution Time: 0.026624 ms
+Scale Heatmap Kernel Execution Time: 0.692224 ms
+Blur Filter Kernel Execution Time: 2.043904 ms
+Total Async Kernel Execution Time: 3.249152 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.333920 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.006144 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.688128 ms
+Blur Filter Kernel Execution Time: 2.670592 ms
+Total Async Kernel Execution Time: 3.913728 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.694719 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.082944 ms
+Add Agent Heat Kernel Execution Time: 0.022528 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.694272 ms
+Blur Filter Kernel Execution Time: 2.432000 ms
+Total Async Kernel Execution Time: 3.679232 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.579103 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.032768 ms
+Add Agent Heat Kernel Execution Time: 0.015360 ms
+Limit Heatmap Value Kernel Execution Time: 0.025600 ms
+Scale Heatmap Kernel Execution Time: 1.073152 ms
+Blur Filter Kernel Execution Time: 2.043904 ms
+Total Async Kernel Execution Time: 3.706880 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.651903 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.022528 ms
+Limit Heatmap Value Kernel Execution Time: 0.025600 ms
+Scale Heatmap Kernel Execution Time: 0.694272 ms
+Blur Filter Kernel Execution Time: 2.056192 ms
+Total Async Kernel Execution Time: 3.243008 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.664097 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.020480 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.687104 ms
+Blur Filter Kernel Execution Time: 2.043904 ms
+Total Async Kernel Execution Time: 3.496960 ms
+updateHeatmapSeqCUDAAsync call took: 13 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 29.867712 ms
+Total tick_OMP CPU time: 33 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.014336 ms
+Limit Heatmap Value Kernel Execution Time: 0.079872 ms
+Scale Heatmap Kernel Execution Time: 0.689152 ms
+Blur Filter Kernel Execution Time: 2.044928 ms
+Total Async Kernel Execution Time: 3.252224 ms
+updateHeatmapSeqCUDAAsync call took: 13 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 29.571520 ms
+Total tick_OMP CPU time: 33 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.032512 ms
+Add Agent Heat Kernel Execution Time: 0.055296 ms
+Limit Heatmap Value Kernel Execution Time: 0.034816 ms
+Scale Heatmap Kernel Execution Time: 0.703488 ms
+Blur Filter Kernel Execution Time: 2.313216 ms
+Total Async Kernel Execution Time: 3.653632 ms
+updateHeatmapSeqCUDAAsync call took: 13 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 29.644384 ms
+Total tick_OMP CPU time: 33 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.018688 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.690176 ms
+Blur Filter Kernel Execution Time: 2.039808 ms
+Total Async Kernel Execution Time: 3.606528 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 29.237728 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.022528 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.687104 ms
+Blur Filter Kernel Execution Time: 2.052096 ms
+Total Async Kernel Execution Time: 3.534848 ms
+updateHeatmapSeqCUDAAsync call took: 13 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 29.395361 ms
+Total tick_OMP CPU time: 33 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.009216 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.693248 ms
+Blur Filter Kernel Execution Time: 2.035712 ms
+Total Async Kernel Execution Time: 3.397632 ms
+updateHeatmapSeqCUDAAsync call took: 13 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 29.196993 ms
+Total tick_OMP CPU time: 33 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.019456 ms
+Limit Heatmap Value Kernel Execution Time: 0.026624 ms
+Scale Heatmap Kernel Execution Time: 0.689152 ms
+Blur Filter Kernel Execution Time: 2.037760 ms
+Total Async Kernel Execution Time: 3.139584 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 28.420256 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.021504 ms
+Limit Heatmap Value Kernel Execution Time: 0.028672 ms
+Scale Heatmap Kernel Execution Time: 0.691200 ms
+Blur Filter Kernel Execution Time: 2.675712 ms
+Total Async Kernel Execution Time: 3.888128 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 28.809248 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.031744 ms
+Add Agent Heat Kernel Execution Time: 0.010240 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.687104 ms
+Blur Filter Kernel Execution Time: 2.443264 ms
+Total Async Kernel Execution Time: 3.570688 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 28.576576 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.033792 ms
+Add Agent Heat Kernel Execution Time: 0.012288 ms
+Limit Heatmap Value Kernel Execution Time: 0.031744 ms
+Scale Heatmap Kernel Execution Time: 1.075200 ms
+Blur Filter Kernel Execution Time: 2.079744 ms
+Total Async Kernel Execution Time: 3.594240 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 28.597281 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.013312 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.689152 ms
+Blur Filter Kernel Execution Time: 2.049024 ms
+Total Async Kernel Execution Time: 3.156992 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 28.387072 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.009216 ms
+Limit Heatmap Value Kernel Execution Time: 0.056320 ms
+Scale Heatmap Kernel Execution Time: 0.689152 ms
+Blur Filter Kernel Execution Time: 2.051072 ms
+Total Async Kernel Execution Time: 3.283968 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.688801 ms
+Total tick_OMP CPU time: 33 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.020480 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.701440 ms
+Blur Filter Kernel Execution Time: 2.057216 ms
+Total Async Kernel Execution Time: 3.208192 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 28.125759 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.027648 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.698368 ms
+Blur Filter Kernel Execution Time: 2.054144 ms
+Total Async Kernel Execution Time: 3.200000 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.449921 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.022528 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.697344 ms
+Blur Filter Kernel Execution Time: 2.053120 ms
+Total Async Kernel Execution Time: 3.174400 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.667265 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.009216 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.688128 ms
+Blur Filter Kernel Execution Time: 2.040832 ms
+Total Async Kernel Execution Time: 3.247104 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.552511 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.032768 ms
+Add Agent Heat Kernel Execution Time: 0.014336 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.687104 ms
+Blur Filter Kernel Execution Time: 2.054144 ms
+Total Async Kernel Execution Time: 3.223552 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.869505 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.032544 ms
+Add Agent Heat Kernel Execution Time: 0.020480 ms
+Limit Heatmap Value Kernel Execution Time: 0.028672 ms
+Scale Heatmap Kernel Execution Time: 0.689152 ms
+Blur Filter Kernel Execution Time: 2.040832 ms
+Total Async Kernel Execution Time: 3.202048 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.462048 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.080896 ms
+Add Agent Heat Kernel Execution Time: 0.020480 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.692224 ms
+Blur Filter Kernel Execution Time: 2.055168 ms
+Total Async Kernel Execution Time: 3.493888 ms
+updateHeatmapSeqCUDAAsync call took: 13 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 29.699104 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.079872 ms
+Add Agent Heat Kernel Execution Time: 0.011264 ms
+Limit Heatmap Value Kernel Execution Time: 0.028672 ms
+Scale Heatmap Kernel Execution Time: 0.696320 ms
+Blur Filter Kernel Execution Time: 2.050048 ms
+Total Async Kernel Execution Time: 3.219456 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.717152 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.031744 ms
+Add Agent Heat Kernel Execution Time: 0.018624 ms
+Limit Heatmap Value Kernel Execution Time: 0.184320 ms
+Scale Heatmap Kernel Execution Time: 0.784384 ms
+Blur Filter Kernel Execution Time: 2.160640 ms
+Total Async Kernel Execution Time: 3.935232 ms
+updateHeatmapSeqCUDAAsync call took: 13 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 29.380352 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.009216 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.687104 ms
+Blur Filter Kernel Execution Time: 2.038784 ms
+Total Async Kernel Execution Time: 3.364864 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.091616 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.021504 ms
+Limit Heatmap Value Kernel Execution Time: 0.028672 ms
+Scale Heatmap Kernel Execution Time: 0.695296 ms
+Blur Filter Kernel Execution Time: 2.041856 ms
+Total Async Kernel Execution Time: 3.168256 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.263617 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.032768 ms
+Add Agent Heat Kernel Execution Time: 0.009216 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.694272 ms
+Blur Filter Kernel Execution Time: 2.039808 ms
+Total Async Kernel Execution Time: 3.355648 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.178400 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.069632 ms
+Add Agent Heat Kernel Execution Time: 0.077824 ms
+Limit Heatmap Value Kernel Execution Time: 0.074752 ms
+Scale Heatmap Kernel Execution Time: 0.688128 ms
+Blur Filter Kernel Execution Time: 2.041856 ms
+Total Async Kernel Execution Time: 3.425280 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.394400 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.009216 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.688128 ms
+Blur Filter Kernel Execution Time: 2.044928 ms
+Total Async Kernel Execution Time: 3.377152 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.313889 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.021504 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.692224 ms
+Blur Filter Kernel Execution Time: 2.034688 ms
+Total Async Kernel Execution Time: 3.259392 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.097441 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.069632 ms
+Add Agent Heat Kernel Execution Time: 0.021504 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.689152 ms
+Blur Filter Kernel Execution Time: 2.049024 ms
+Total Async Kernel Execution Time: 3.226624 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.380960 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.069632 ms
+Add Agent Heat Kernel Execution Time: 0.021504 ms
+Limit Heatmap Value Kernel Execution Time: 0.028672 ms
+Scale Heatmap Kernel Execution Time: 0.692224 ms
+Blur Filter Kernel Execution Time: 2.041856 ms
+Total Async Kernel Execution Time: 3.239936 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.381281 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.020480 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.692224 ms
+Blur Filter Kernel Execution Time: 2.051072 ms
+Total Async Kernel Execution Time: 3.204096 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.397440 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.020480 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.691200 ms
+Blur Filter Kernel Execution Time: 2.045952 ms
+Total Async Kernel Execution Time: 3.151872 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.736704 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.070656 ms
+Add Agent Heat Kernel Execution Time: 0.021504 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.693248 ms
+Blur Filter Kernel Execution Time: 2.042880 ms
+Total Async Kernel Execution Time: 3.262464 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.407167 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.009216 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.689152 ms
+Blur Filter Kernel Execution Time: 2.045952 ms
+Total Async Kernel Execution Time: 3.139584 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.440416 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.061440 ms
+Add Agent Heat Kernel Execution Time: 0.019456 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.692224 ms
+Blur Filter Kernel Execution Time: 2.032640 ms
+Total Async Kernel Execution Time: 3.321856 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.180767 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.079872 ms
+Limit Heatmap Value Kernel Execution Time: 0.077824 ms
+Scale Heatmap Kernel Execution Time: 0.690176 ms
+Blur Filter Kernel Execution Time: 2.046976 ms
+Total Async Kernel Execution Time: 3.420160 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.093727 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.031744 ms
+Add Agent Heat Kernel Execution Time: 0.019456 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.694272 ms
+Blur Filter Kernel Execution Time: 2.042880 ms
+Total Async Kernel Execution Time: 3.294208 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.536415 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.009216 ms
+Limit Heatmap Value Kernel Execution Time: 0.028672 ms
+Scale Heatmap Kernel Execution Time: 0.689152 ms
+Blur Filter Kernel Execution Time: 2.025472 ms
+Total Async Kernel Execution Time: 3.261440 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.097601 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.032768 ms
+Add Agent Heat Kernel Execution Time: 0.019552 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.691200 ms
+Blur Filter Kernel Execution Time: 2.050048 ms
+Total Async Kernel Execution Time: 3.215360 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 10 ms
+Async Heatmap update GPU time: 28.069344 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.011296 ms
+Limit Heatmap Value Kernel Execution Time: 0.028672 ms
+Scale Heatmap Kernel Execution Time: 0.692224 ms
+Blur Filter Kernel Execution Time: 2.046976 ms
+Total Async Kernel Execution Time: 3.177472 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 10 ms
+Async Heatmap update GPU time: 28.011520 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.071680 ms
+Add Agent Heat Kernel Execution Time: 0.021504 ms
+Limit Heatmap Value Kernel Execution Time: 0.036864 ms
+Scale Heatmap Kernel Execution Time: 0.699392 ms
+Blur Filter Kernel Execution Time: 2.039808 ms
+Total Async Kernel Execution Time: 3.457024 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 10 ms
+Async Heatmap update GPU time: 29.012608 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.032768 ms
+Add Agent Heat Kernel Execution Time: 0.019456 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.695296 ms
+Blur Filter Kernel Execution Time: 2.045952 ms
+Total Async Kernel Execution Time: 3.316736 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 10 ms
+Async Heatmap update GPU time: 28.312384 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.031744 ms
+Add Agent Heat Kernel Execution Time: 0.017664 ms
+Limit Heatmap Value Kernel Execution Time: 0.028672 ms
+Scale Heatmap Kernel Execution Time: 0.694272 ms
+Blur Filter Kernel Execution Time: 2.034688 ms
+Total Async Kernel Execution Time: 3.258368 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 11 ms
+Async Heatmap update GPU time: 28.749281 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.031744 ms
+Add Agent Heat Kernel Execution Time: 0.009440 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.689152 ms
+Blur Filter Kernel Execution Time: 2.040832 ms
+Total Async Kernel Execution Time: 3.211264 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 10 ms
+Async Heatmap update GPU time: 28.366592 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.069632 ms
+Add Agent Heat Kernel Execution Time: 0.021504 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.694272 ms
+Blur Filter Kernel Execution Time: 2.054144 ms
+Total Async Kernel Execution Time: 3.410944 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 10 ms
+Async Heatmap update GPU time: 28.254272 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.021504 ms
+Limit Heatmap Value Kernel Execution Time: 0.028672 ms
+Scale Heatmap Kernel Execution Time: 0.694272 ms
+Blur Filter Kernel Execution Time: 2.065408 ms
+Total Async Kernel Execution Time: 3.293184 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 10 ms
+Async Heatmap update GPU time: 28.146561 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.020480 ms
+Limit Heatmap Value Kernel Execution Time: 0.030720 ms
+Scale Heatmap Kernel Execution Time: 0.693248 ms
+Blur Filter Kernel Execution Time: 2.058240 ms
+Total Async Kernel Execution Time: 3.524608 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 10 ms
+Async Heatmap update GPU time: 28.442560 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.075776 ms
+Add Agent Heat Kernel Execution Time: 0.021504 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.692224 ms
+Blur Filter Kernel Execution Time: 2.051072 ms
+Total Async Kernel Execution Time: 3.236864 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.252129 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.020480 ms
+Limit Heatmap Value Kernel Execution Time: 0.028672 ms
+Scale Heatmap Kernel Execution Time: 0.691200 ms
+Blur Filter Kernel Execution Time: 2.045952 ms
+Total Async Kernel Execution Time: 3.365888 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 10 ms
+Async Heatmap update GPU time: 29.103008 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.021504 ms
+Limit Heatmap Value Kernel Execution Time: 0.035840 ms
+Scale Heatmap Kernel Execution Time: 0.702464 ms
+Blur Filter Kernel Execution Time: 2.044928 ms
+Total Async Kernel Execution Time: 3.212288 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 27.972000 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.069632 ms
+Add Agent Heat Kernel Execution Time: 0.011264 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.742400 ms
+Blur Filter Kernel Execution Time: 2.036736 ms
+Total Async Kernel Execution Time: 3.220480 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 10 ms
+Async Heatmap update GPU time: 28.096672 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.140288 ms
+Limit Heatmap Value Kernel Execution Time: 0.078848 ms
+Scale Heatmap Kernel Execution Time: 0.692224 ms
+Blur Filter Kernel Execution Time: 2.040832 ms
+Total Async Kernel Execution Time: 3.605504 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.699200 ms
+Total tick_OMP CPU time: 33 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.021504 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.692224 ms
+Blur Filter Kernel Execution Time: 2.039808 ms
+Total Async Kernel Execution Time: 3.238912 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.982656 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.032768 ms
+Add Agent Heat Kernel Execution Time: 0.022528 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.692224 ms
+Blur Filter Kernel Execution Time: 2.036736 ms
+Total Async Kernel Execution Time: 3.263488 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.851999 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.082944 ms
+Add Agent Heat Kernel Execution Time: 0.021504 ms
+Limit Heatmap Value Kernel Execution Time: 0.028672 ms
+Scale Heatmap Kernel Execution Time: 0.692224 ms
+Blur Filter Kernel Execution Time: 2.045952 ms
+Total Async Kernel Execution Time: 3.352576 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.247904 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.062464 ms
+Add Agent Heat Kernel Execution Time: 0.009216 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.688128 ms
+Blur Filter Kernel Execution Time: 2.036736 ms
+Total Async Kernel Execution Time: 3.338240 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.108383 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.068608 ms
+Add Agent Heat Kernel Execution Time: 0.021504 ms
+Limit Heatmap Value Kernel Execution Time: 0.030720 ms
+Scale Heatmap Kernel Execution Time: 0.693248 ms
+Blur Filter Kernel Execution Time: 2.037760 ms
+Total Async Kernel Execution Time: 3.318784 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.165760 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.032768 ms
+Add Agent Heat Kernel Execution Time: 0.016384 ms
+Limit Heatmap Value Kernel Execution Time: 0.030720 ms
+Scale Heatmap Kernel Execution Time: 0.691200 ms
+Blur Filter Kernel Execution Time: 2.037760 ms
+Total Async Kernel Execution Time: 3.181568 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.119360 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.008192 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.687104 ms
+Blur Filter Kernel Execution Time: 2.043904 ms
+Total Async Kernel Execution Time: 3.181568 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 27.539871 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.068608 ms
+Add Agent Heat Kernel Execution Time: 0.009216 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.688128 ms
+Blur Filter Kernel Execution Time: 2.044928 ms
+Total Async Kernel Execution Time: 3.315712 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.777920 ms
+Total tick_OMP CPU time: 33 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.031744 ms
+Add Agent Heat Kernel Execution Time: 0.022528 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.693248 ms
+Blur Filter Kernel Execution Time: 2.043904 ms
+Total Async Kernel Execution Time: 3.190784 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.599487 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.005120 ms
+Limit Heatmap Value Kernel Execution Time: 0.034816 ms
+Scale Heatmap Kernel Execution Time: 0.692224 ms
+Blur Filter Kernel Execution Time: 2.348032 ms
+Total Async Kernel Execution Time: 3.623936 ms
+updateHeatmapSeqCUDAAsync call took: 15 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 31.340897 ms
+Total tick_OMP CPU time: 35 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.064512 ms
+Add Agent Heat Kernel Execution Time: 0.020480 ms
+Limit Heatmap Value Kernel Execution Time: 0.028672 ms
+Scale Heatmap Kernel Execution Time: 0.693248 ms
+Blur Filter Kernel Execution Time: 2.043904 ms
+Total Async Kernel Execution Time: 3.297280 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.577856 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.069632 ms
+Add Agent Heat Kernel Execution Time: 0.021504 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.693248 ms
+Blur Filter Kernel Execution Time: 2.034688 ms
+Total Async Kernel Execution Time: 3.466240 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.259232 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.021504 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.692224 ms
+Blur Filter Kernel Execution Time: 2.042880 ms
+Total Async Kernel Execution Time: 3.166208 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 27.844225 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.009216 ms
+Limit Heatmap Value Kernel Execution Time: 0.023552 ms
+Scale Heatmap Kernel Execution Time: 0.686080 ms
+Blur Filter Kernel Execution Time: 2.046976 ms
+Total Async Kernel Execution Time: 3.271680 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.054752 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.031744 ms
+Add Agent Heat Kernel Execution Time: 0.018432 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.695296 ms
+Blur Filter Kernel Execution Time: 2.039808 ms
+Total Async Kernel Execution Time: 3.216384 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 28.636160 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.008192 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.688128 ms
+Blur Filter Kernel Execution Time: 2.037760 ms
+Total Async Kernel Execution Time: 3.160064 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.341951 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.018432 ms
+Limit Heatmap Value Kernel Execution Time: 0.027648 ms
+Scale Heatmap Kernel Execution Time: 0.691200 ms
+Blur Filter Kernel Execution Time: 2.043904 ms
+Total Async Kernel Execution Time: 3.315712 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 28.050528 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.022528 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.692224 ms
+Blur Filter Kernel Execution Time: 2.045952 ms
+Total Async Kernel Execution Time: 3.267584 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.122400 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.031744 ms
+Add Agent Heat Kernel Execution Time: 0.011328 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.689152 ms
+Blur Filter Kernel Execution Time: 2.039808 ms
+Total Async Kernel Execution Time: 3.234816 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 28.040352 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.067584 ms
+Add Agent Heat Kernel Execution Time: 0.017408 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.692224 ms
+Blur Filter Kernel Execution Time: 2.054144 ms
+Total Async Kernel Execution Time: 3.207168 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 28.250751 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.008192 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.688128 ms
+Blur Filter Kernel Execution Time: 2.044928 ms
+Total Async Kernel Execution Time: 3.278848 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 28.170849 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.019456 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.693248 ms
+Blur Filter Kernel Execution Time: 2.050048 ms
+Total Async Kernel Execution Time: 3.323904 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 28.371679 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.009216 ms
+Limit Heatmap Value Kernel Execution Time: 0.030720 ms
+Scale Heatmap Kernel Execution Time: 0.696320 ms
+Blur Filter Kernel Execution Time: 2.046976 ms
+Total Async Kernel Execution Time: 3.209216 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 28.040001 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.007168 ms
+Limit Heatmap Value Kernel Execution Time: 0.030720 ms
+Scale Heatmap Kernel Execution Time: 0.692224 ms
+Blur Filter Kernel Execution Time: 2.050048 ms
+Total Async Kernel Execution Time: 3.433472 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.746401 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.031744 ms
+Add Agent Heat Kernel Execution Time: 0.021504 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.696320 ms
+Blur Filter Kernel Execution Time: 2.040832 ms
+Total Async Kernel Execution Time: 3.225600 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 28.156704 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.068608 ms
+Add Agent Heat Kernel Execution Time: 0.021504 ms
+Limit Heatmap Value Kernel Execution Time: 0.028672 ms
+Scale Heatmap Kernel Execution Time: 0.692224 ms
+Blur Filter Kernel Execution Time: 2.041856 ms
+Total Async Kernel Execution Time: 3.323904 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.160225 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.081920 ms
+Add Agent Heat Kernel Execution Time: 0.021504 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.691200 ms
+Blur Filter Kernel Execution Time: 2.039808 ms
+Total Async Kernel Execution Time: 3.233792 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 28.381569 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.021504 ms
+Limit Heatmap Value Kernel Execution Time: 0.028672 ms
+Scale Heatmap Kernel Execution Time: 0.696320 ms
+Blur Filter Kernel Execution Time: 2.049024 ms
+Total Async Kernel Execution Time: 3.347456 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 27.892864 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.081920 ms
+Add Agent Heat Kernel Execution Time: 0.018432 ms
+Limit Heatmap Value Kernel Execution Time: 0.023552 ms
+Scale Heatmap Kernel Execution Time: 0.705536 ms
+Blur Filter Kernel Execution Time: 2.042880 ms
+Total Async Kernel Execution Time: 3.241984 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 28.313568 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.081920 ms
+Limit Heatmap Value Kernel Execution Time: 0.078848 ms
+Scale Heatmap Kernel Execution Time: 0.687104 ms
+Blur Filter Kernel Execution Time: 2.044928 ms
+Total Async Kernel Execution Time: 3.430400 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 28.457121 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.020480 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.689152 ms
+Blur Filter Kernel Execution Time: 2.044928 ms
+Total Async Kernel Execution Time: 3.175424 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 27.919935 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030496 ms
+Add Agent Heat Kernel Execution Time: 0.009216 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.688128 ms
+Blur Filter Kernel Execution Time: 2.041856 ms
+Total Async Kernel Execution Time: 3.287040 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 28.140673 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.017408 ms
+Limit Heatmap Value Kernel Execution Time: 0.028672 ms
+Scale Heatmap Kernel Execution Time: 0.693248 ms
+Blur Filter Kernel Execution Time: 2.050048 ms
+Total Async Kernel Execution Time: 3.193856 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.256033 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.032768 ms
+Add Agent Heat Kernel Execution Time: 0.114688 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.690176 ms
+Blur Filter Kernel Execution Time: 2.041856 ms
+Total Async Kernel Execution Time: 3.494912 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 29.205376 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030496 ms
+Add Agent Heat Kernel Execution Time: 0.011264 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.694272 ms
+Blur Filter Kernel Execution Time: 2.041856 ms
+Total Async Kernel Execution Time: 3.163136 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 29.311296 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.072704 ms
+Add Agent Heat Kernel Execution Time: 0.021504 ms
+Limit Heatmap Value Kernel Execution Time: 0.028704 ms
+Scale Heatmap Kernel Execution Time: 0.690176 ms
+Blur Filter Kernel Execution Time: 2.040832 ms
+Total Async Kernel Execution Time: 3.219456 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.544064 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.068608 ms
+Add Agent Heat Kernel Execution Time: 0.009216 ms
+Limit Heatmap Value Kernel Execution Time: 0.028672 ms
+Scale Heatmap Kernel Execution Time: 0.689152 ms
+Blur Filter Kernel Execution Time: 2.041856 ms
+Total Async Kernel Execution Time: 3.453952 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.220928 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.070656 ms
+Add Agent Heat Kernel Execution Time: 0.009216 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.695296 ms
+Blur Filter Kernel Execution Time: 2.035712 ms
+Total Async Kernel Execution Time: 3.206144 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.255648 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.015360 ms
+Limit Heatmap Value Kernel Execution Time: 0.030720 ms
+Scale Heatmap Kernel Execution Time: 0.711680 ms
+Blur Filter Kernel Execution Time: 2.029568 ms
+Total Async Kernel Execution Time: 3.198976 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 29.026112 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.068608 ms
+Add Agent Heat Kernel Execution Time: 0.017408 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.692224 ms
+Blur Filter Kernel Execution Time: 2.055168 ms
+Total Async Kernel Execution Time: 3.234816 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.432159 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.013312 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.687104 ms
+Blur Filter Kernel Execution Time: 2.050048 ms
+Total Async Kernel Execution Time: 3.283968 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 10 ms
+Async Heatmap update GPU time: 28.066719 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.082944 ms
+Add Agent Heat Kernel Execution Time: 0.021504 ms
+Limit Heatmap Value Kernel Execution Time: 0.028672 ms
+Scale Heatmap Kernel Execution Time: 0.692224 ms
+Blur Filter Kernel Execution Time: 2.048000 ms
+Total Async Kernel Execution Time: 3.322880 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.368959 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.021504 ms
+Limit Heatmap Value Kernel Execution Time: 0.030720 ms
+Scale Heatmap Kernel Execution Time: 0.692224 ms
+Blur Filter Kernel Execution Time: 2.049024 ms
+Total Async Kernel Execution Time: 3.378176 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 10 ms
+Async Heatmap update GPU time: 28.355232 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.007168 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.692224 ms
+Blur Filter Kernel Execution Time: 2.046976 ms
+Total Async Kernel Execution Time: 3.356672 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.354561 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.088064 ms
+Limit Heatmap Value Kernel Execution Time: 0.051200 ms
+Scale Heatmap Kernel Execution Time: 0.688128 ms
+Blur Filter Kernel Execution Time: 2.041856 ms
+Total Async Kernel Execution Time: 3.408896 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 10 ms
+Async Heatmap update GPU time: 28.280577 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.082944 ms
+Add Agent Heat Kernel Execution Time: 0.017408 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.692224 ms
+Blur Filter Kernel Execution Time: 2.052096 ms
+Total Async Kernel Execution Time: 3.334144 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.365536 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.079872 ms
+Add Agent Heat Kernel Execution Time: 0.022528 ms
+Limit Heatmap Value Kernel Execution Time: 0.030720 ms
+Scale Heatmap Kernel Execution Time: 0.723968 ms
+Blur Filter Kernel Execution Time: 2.046976 ms
+Total Async Kernel Execution Time: 3.267584 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.486273 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.018432 ms
+Limit Heatmap Value Kernel Execution Time: 0.028672 ms
+Scale Heatmap Kernel Execution Time: 0.691200 ms
+Blur Filter Kernel Execution Time: 2.049024 ms
+Total Async Kernel Execution Time: 3.179520 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.173920 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.031744 ms
+Add Agent Heat Kernel Execution Time: 0.021504 ms
+Limit Heatmap Value Kernel Execution Time: 0.028672 ms
+Scale Heatmap Kernel Execution Time: 0.691200 ms
+Blur Filter Kernel Execution Time: 2.045952 ms
+Total Async Kernel Execution Time: 3.186688 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 10 ms
+Async Heatmap update GPU time: 28.455393 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.023552 ms
+Limit Heatmap Value Kernel Execution Time: 0.035840 ms
+Scale Heatmap Kernel Execution Time: 0.695296 ms
+Blur Filter Kernel Execution Time: 2.050048 ms
+Total Async Kernel Execution Time: 3.251200 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 10 ms
+Async Heatmap update GPU time: 28.187807 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.088064 ms
+Add Agent Heat Kernel Execution Time: 0.022528 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.694272 ms
+Blur Filter Kernel Execution Time: 2.043904 ms
+Total Async Kernel Execution Time: 3.306496 ms
+updateHeatmapSeqCUDAAsync call took: 13 ms
+Movement CPU time: 10 ms
+Async Heatmap update GPU time: 29.660416 ms
+Total tick_OMP CPU time: 33 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.032768 ms
+Add Agent Heat Kernel Execution Time: 0.018432 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.726016 ms
+Blur Filter Kernel Execution Time: 2.040832 ms
+Total Async Kernel Execution Time: 3.213312 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 10 ms
+Async Heatmap update GPU time: 28.465183 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.082944 ms
+Add Agent Heat Kernel Execution Time: 0.009472 ms
+Limit Heatmap Value Kernel Execution Time: 0.027648 ms
+Scale Heatmap Kernel Execution Time: 0.687104 ms
+Blur Filter Kernel Execution Time: 2.033664 ms
+Total Async Kernel Execution Time: 3.310592 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.290592 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.081920 ms
+Add Agent Heat Kernel Execution Time: 0.009216 ms
+Limit Heatmap Value Kernel Execution Time: 0.023552 ms
+Scale Heatmap Kernel Execution Time: 0.687104 ms
+Blur Filter Kernel Execution Time: 2.044928 ms
+Total Async Kernel Execution Time: 3.482624 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.523392 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.032768 ms
+Add Agent Heat Kernel Execution Time: 0.082944 ms
+Limit Heatmap Value Kernel Execution Time: 0.079872 ms
+Scale Heatmap Kernel Execution Time: 0.688128 ms
+Blur Filter Kernel Execution Time: 2.033664 ms
+Total Async Kernel Execution Time: 3.406848 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 10 ms
+Async Heatmap update GPU time: 28.351456 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.067584 ms
+Add Agent Heat Kernel Execution Time: 0.020480 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.692224 ms
+Blur Filter Kernel Execution Time: 2.060288 ms
+Total Async Kernel Execution Time: 3.232768 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 10 ms
+Async Heatmap update GPU time: 28.010529 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.019456 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.690176 ms
+Blur Filter Kernel Execution Time: 2.042880 ms
+Total Async Kernel Execution Time: 3.167232 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 10 ms
+Async Heatmap update GPU time: 28.126881 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.022528 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.691200 ms
+Blur Filter Kernel Execution Time: 2.033664 ms
+Total Async Kernel Execution Time: 3.399680 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.765600 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.031744 ms
+Add Agent Heat Kernel Execution Time: 0.019456 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.693248 ms
+Blur Filter Kernel Execution Time: 2.051072 ms
+Total Async Kernel Execution Time: 3.334144 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 12 ms
+Async Heatmap update GPU time: 28.343807 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.083968 ms
+Add Agent Heat Kernel Execution Time: 0.015360 ms
+Limit Heatmap Value Kernel Execution Time: 0.023552 ms
+Scale Heatmap Kernel Execution Time: 0.689152 ms
+Blur Filter Kernel Execution Time: 2.069504 ms
+Total Async Kernel Execution Time: 3.310592 ms
+updateHeatmapSeqCUDAAsync call took: 16 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 33.182335 ms
+Total tick_OMP CPU time: 36 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.032768 ms
+Add Agent Heat Kernel Execution Time: 0.019456 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.690176 ms
+Blur Filter Kernel Execution Time: 2.040832 ms
+Total Async Kernel Execution Time: 3.183616 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.382048 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.020480 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.692224 ms
+Blur Filter Kernel Execution Time: 2.045952 ms
+Total Async Kernel Execution Time: 3.700736 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.585312 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.021504 ms
+Limit Heatmap Value Kernel Execution Time: 0.028672 ms
+Scale Heatmap Kernel Execution Time: 0.790528 ms
+Blur Filter Kernel Execution Time: 2.051072 ms
+Total Async Kernel Execution Time: 3.405824 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.454687 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.082944 ms
+Add Agent Heat Kernel Execution Time: 0.021504 ms
+Limit Heatmap Value Kernel Execution Time: 0.028672 ms
+Scale Heatmap Kernel Execution Time: 0.693248 ms
+Blur Filter Kernel Execution Time: 2.046976 ms
+Total Async Kernel Execution Time: 3.335168 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.671167 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.011264 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.688128 ms
+Blur Filter Kernel Execution Time: 2.049024 ms
+Total Async Kernel Execution Time: 3.181568 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.662464 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.070656 ms
+Add Agent Heat Kernel Execution Time: 0.021504 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.694272 ms
+Blur Filter Kernel Execution Time: 2.036736 ms
+Total Async Kernel Execution Time: 3.321856 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.312832 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.070656 ms
+Add Agent Heat Kernel Execution Time: 0.011264 ms
+Limit Heatmap Value Kernel Execution Time: 0.025600 ms
+Scale Heatmap Kernel Execution Time: 0.689152 ms
+Blur Filter Kernel Execution Time: 2.051072 ms
+Total Async Kernel Execution Time: 3.205120 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 27.960928 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.079872 ms
+Add Agent Heat Kernel Execution Time: 0.007168 ms
+Limit Heatmap Value Kernel Execution Time: 0.031744 ms
+Scale Heatmap Kernel Execution Time: 0.688128 ms
+Blur Filter Kernel Execution Time: 2.043904 ms
+Total Async Kernel Execution Time: 3.202048 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.106527 ms
+Total tick_OMP CPU time: 33 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.007168 ms
+Limit Heatmap Value Kernel Execution Time: 0.025600 ms
+Scale Heatmap Kernel Execution Time: 0.688128 ms
+Blur Filter Kernel Execution Time: 2.052096 ms
+Total Async Kernel Execution Time: 3.336192 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.053663 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.016384 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.693248 ms
+Blur Filter Kernel Execution Time: 2.050048 ms
+Total Async Kernel Execution Time: 3.165184 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.237761 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.031744 ms
+Add Agent Heat Kernel Execution Time: 0.019488 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.693248 ms
+Blur Filter Kernel Execution Time: 2.048000 ms
+Total Async Kernel Execution Time: 3.212288 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.515039 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030464 ms
+Add Agent Heat Kernel Execution Time: 0.021504 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.692224 ms
+Blur Filter Kernel Execution Time: 2.059264 ms
+Total Async Kernel Execution Time: 3.195904 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.543425 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.073728 ms
+Add Agent Heat Kernel Execution Time: 0.007168 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.688128 ms
+Blur Filter Kernel Execution Time: 2.033664 ms
+Total Async Kernel Execution Time: 3.343360 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.074112 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.069632 ms
+Add Agent Heat Kernel Execution Time: 0.009216 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.689152 ms
+Blur Filter Kernel Execution Time: 2.051072 ms
+Total Async Kernel Execution Time: 3.184640 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.513023 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.009216 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.687104 ms
+Blur Filter Kernel Execution Time: 2.040832 ms
+Total Async Kernel Execution Time: 3.256320 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.734049 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.082944 ms
+Add Agent Heat Kernel Execution Time: 0.077824 ms
+Limit Heatmap Value Kernel Execution Time: 0.075776 ms
+Scale Heatmap Kernel Execution Time: 0.689152 ms
+Blur Filter Kernel Execution Time: 2.037760 ms
+Total Async Kernel Execution Time: 3.440640 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 28.292576 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.009312 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.686080 ms
+Blur Filter Kernel Execution Time: 2.037760 ms
+Total Async Kernel Execution Time: 3.310592 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 28.718464 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.074752 ms
+Add Agent Heat Kernel Execution Time: 0.017408 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.688128 ms
+Blur Filter Kernel Execution Time: 2.052096 ms
+Total Async Kernel Execution Time: 3.238912 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.326880 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.031744 ms
+Add Agent Heat Kernel Execution Time: 0.020480 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.693248 ms
+Blur Filter Kernel Execution Time: 2.641920 ms
+Total Async Kernel Execution Time: 4.130816 ms
+updateHeatmapSeqCUDAAsync call took: 13 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 29.562271 ms
+Total tick_OMP CPU time: 33 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.081920 ms
+Add Agent Heat Kernel Execution Time: 0.019456 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.688128 ms
+Blur Filter Kernel Execution Time: 2.040832 ms
+Total Async Kernel Execution Time: 3.319808 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 29.060448 ms
+Total tick_OMP CPU time: 33 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.021504 ms
+Limit Heatmap Value Kernel Execution Time: 0.028672 ms
+Scale Heatmap Kernel Execution Time: 0.691200 ms
+Blur Filter Kernel Execution Time: 2.044928 ms
+Total Async Kernel Execution Time: 3.214336 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 27.491009 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.021504 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.690176 ms
+Blur Filter Kernel Execution Time: 2.037760 ms
+Total Async Kernel Execution Time: 3.145728 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 28.004000 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.011264 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.689152 ms
+Blur Filter Kernel Execution Time: 2.042880 ms
+Total Async Kernel Execution Time: 3.173376 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 27.834145 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.011296 ms
+Limit Heatmap Value Kernel Execution Time: 0.025600 ms
+Scale Heatmap Kernel Execution Time: 0.687104 ms
+Blur Filter Kernel Execution Time: 2.044928 ms
+Total Async Kernel Execution Time: 3.181568 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 27.759329 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.062464 ms
+Add Agent Heat Kernel Execution Time: 0.009216 ms
+Limit Heatmap Value Kernel Execution Time: 0.023552 ms
+Scale Heatmap Kernel Execution Time: 0.687104 ms
+Blur Filter Kernel Execution Time: 2.030592 ms
+Total Async Kernel Execution Time: 3.176448 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 28.185823 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.031744 ms
+Add Agent Heat Kernel Execution Time: 0.084992 ms
+Limit Heatmap Value Kernel Execution Time: 0.076800 ms
+Scale Heatmap Kernel Execution Time: 0.689152 ms
+Blur Filter Kernel Execution Time: 2.035712 ms
+Total Async Kernel Execution Time: 3.444736 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 28.180767 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.019456 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.692224 ms
+Blur Filter Kernel Execution Time: 2.054144 ms
+Total Async Kernel Execution Time: 3.316736 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 28.017759 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.081920 ms
+Add Agent Heat Kernel Execution Time: 0.021504 ms
+Limit Heatmap Value Kernel Execution Time: 0.028672 ms
+Scale Heatmap Kernel Execution Time: 0.691200 ms
+Blur Filter Kernel Execution Time: 2.039808 ms
+Total Async Kernel Execution Time: 3.343360 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 7 ms
+Async Heatmap update GPU time: 28.370943 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.067584 ms
+Add Agent Heat Kernel Execution Time: 0.009216 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.688128 ms
+Blur Filter Kernel Execution Time: 2.056192 ms
+Total Async Kernel Execution Time: 3.315712 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.166689 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.082944 ms
+Add Agent Heat Kernel Execution Time: 0.019456 ms
+Limit Heatmap Value Kernel Execution Time: 0.028672 ms
+Scale Heatmap Kernel Execution Time: 0.691200 ms
+Blur Filter Kernel Execution Time: 2.045952 ms
+Total Async Kernel Execution Time: 3.320832 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.246241 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.021504 ms
+Limit Heatmap Value Kernel Execution Time: 0.028672 ms
+Scale Heatmap Kernel Execution Time: 0.694272 ms
+Blur Filter Kernel Execution Time: 2.041856 ms
+Total Async Kernel Execution Time: 3.178496 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.223488 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.086016 ms
+Add Agent Heat Kernel Execution Time: 0.022656 ms
+Limit Heatmap Value Kernel Execution Time: 0.025600 ms
+Scale Heatmap Kernel Execution Time: 0.691200 ms
+Blur Filter Kernel Execution Time: 2.037760 ms
+Total Async Kernel Execution Time: 3.288064 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.222113 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.032768 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.688128 ms
+Blur Filter Kernel Execution Time: 2.281472 ms
+Total Async Kernel Execution Time: 3.782656 ms
+updateHeatmapSeqCUDAAsync call took: 13 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 30.283072 ms
+Total tick_OMP CPU time: 33 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.019456 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.694272 ms
+Blur Filter Kernel Execution Time: 2.050048 ms
+Total Async Kernel Execution Time: 3.190784 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.079201 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.070656 ms
+Add Agent Heat Kernel Execution Time: 0.018560 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.692224 ms
+Blur Filter Kernel Execution Time: 2.034688 ms
+Total Async Kernel Execution Time: 3.314688 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.268768 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.019520 ms
+Limit Heatmap Value Kernel Execution Time: 0.030720 ms
+Scale Heatmap Kernel Execution Time: 0.712704 ms
+Blur Filter Kernel Execution Time: 2.050048 ms
+Total Async Kernel Execution Time: 3.524608 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.687201 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.082944 ms
+Add Agent Heat Kernel Execution Time: 0.019456 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.692224 ms
+Blur Filter Kernel Execution Time: 2.041856 ms
+Total Async Kernel Execution Time: 3.338240 ms
+updateHeatmapSeqCUDAAsync call took: 13 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 29.385056 ms
+Total tick_OMP CPU time: 33 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.069632 ms
+Add Agent Heat Kernel Execution Time: 0.019456 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.690176 ms
+Blur Filter Kernel Execution Time: 2.054144 ms
+Total Async Kernel Execution Time: 3.495936 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.245983 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.015360 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.688128 ms
+Blur Filter Kernel Execution Time: 2.045952 ms
+Total Async Kernel Execution Time: 3.179520 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 8 ms
+Async Heatmap update GPU time: 28.181536 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.022528 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.693248 ms
+Blur Filter Kernel Execution Time: 2.049024 ms
+Total Async Kernel Execution Time: 3.365888 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.300257 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.082944 ms
+Limit Heatmap Value Kernel Execution Time: 0.078848 ms
+Scale Heatmap Kernel Execution Time: 0.689152 ms
+Blur Filter Kernel Execution Time: 2.055168 ms
+Total Async Kernel Execution Time: 3.423232 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.000671 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.018496 ms
+Limit Heatmap Value Kernel Execution Time: 0.030720 ms
+Scale Heatmap Kernel Execution Time: 0.736256 ms
+Blur Filter Kernel Execution Time: 2.053120 ms
+Total Async Kernel Execution Time: 3.220480 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.045919 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.069632 ms
+Add Agent Heat Kernel Execution Time: 0.009216 ms
+Limit Heatmap Value Kernel Execution Time: 0.023552 ms
+Scale Heatmap Kernel Execution Time: 0.688128 ms
+Blur Filter Kernel Execution Time: 2.036736 ms
+Total Async Kernel Execution Time: 3.322880 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.375999 ms
+Total tick_OMP CPU time: 33 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.008224 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.692224 ms
+Blur Filter Kernel Execution Time: 2.035712 ms
+Total Async Kernel Execution Time: 3.393536 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.210752 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.020480 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.693248 ms
+Blur Filter Kernel Execution Time: 2.046976 ms
+Total Async Kernel Execution Time: 3.178496 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.090689 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.032768 ms
+Add Agent Heat Kernel Execution Time: 0.009312 ms
+Limit Heatmap Value Kernel Execution Time: 0.023552 ms
+Scale Heatmap Kernel Execution Time: 0.688128 ms
+Blur Filter Kernel Execution Time: 2.035712 ms
+Total Async Kernel Execution Time: 3.177472 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 27.922400 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.019456 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.691200 ms
+Blur Filter Kernel Execution Time: 2.045952 ms
+Total Async Kernel Execution Time: 3.184640 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.063072 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.073728 ms
+Add Agent Heat Kernel Execution Time: 0.015360 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.688128 ms
+Blur Filter Kernel Execution Time: 2.049024 ms
+Total Async Kernel Execution Time: 3.351552 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.159103 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.079872 ms
+Limit Heatmap Value Kernel Execution Time: 0.079872 ms
+Scale Heatmap Kernel Execution Time: 0.689152 ms
+Blur Filter Kernel Execution Time: 2.036736 ms
+Total Async Kernel Execution Time: 3.412992 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.320671 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.019456 ms
+Limit Heatmap Value Kernel Execution Time: 0.029696 ms
+Scale Heatmap Kernel Execution Time: 0.690176 ms
+Blur Filter Kernel Execution Time: 2.050048 ms
+Total Async Kernel Execution Time: 3.155968 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 27.697439 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.029696 ms
+Add Agent Heat Kernel Execution Time: 0.008416 ms
+Limit Heatmap Value Kernel Execution Time: 0.023552 ms
+Scale Heatmap Kernel Execution Time: 0.688128 ms
+Blur Filter Kernel Execution Time: 2.054144 ms
+Total Async Kernel Execution Time: 3.206144 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.782463 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.068608 ms
+Add Agent Heat Kernel Execution Time: 0.009344 ms
+Limit Heatmap Value Kernel Execution Time: 0.025600 ms
+Scale Heatmap Kernel Execution Time: 0.689152 ms
+Blur Filter Kernel Execution Time: 2.041856 ms
+Total Async Kernel Execution Time: 3.330048 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.222591 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.082944 ms
+Add Agent Heat Kernel Execution Time: 0.082944 ms
+Limit Heatmap Value Kernel Execution Time: 0.027648 ms
+Scale Heatmap Kernel Execution Time: 0.688128 ms
+Blur Filter Kernel Execution Time: 2.043904 ms
+Total Async Kernel Execution Time: 3.373056 ms
+updateHeatmapSeqCUDAAsync call took: 13 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 29.447359 ms
+Total tick_OMP CPU time: 33 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.067584 ms
+Add Agent Heat Kernel Execution Time: 0.017408 ms
+Limit Heatmap Value Kernel Execution Time: 0.030720 ms
+Scale Heatmap Kernel Execution Time: 0.694272 ms
+Blur Filter Kernel Execution Time: 2.050048 ms
+Total Async Kernel Execution Time: 3.244032 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.220928 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.069632 ms
+Add Agent Heat Kernel Execution Time: 0.009216 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.689152 ms
+Blur Filter Kernel Execution Time: 2.043904 ms
+Total Async Kernel Execution Time: 3.192832 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.030176 ms
+Total tick_OMP CPU time: 31 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.031744 ms
+Add Agent Heat Kernel Execution Time: 0.007168 ms
+Limit Heatmap Value Kernel Execution Time: 0.030720 ms
+Scale Heatmap Kernel Execution Time: 0.687104 ms
+Blur Filter Kernel Execution Time: 2.036736 ms
+Total Async Kernel Execution Time: 3.205120 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.334721 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.065536 ms
+Add Agent Heat Kernel Execution Time: 0.009216 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.687104 ms
+Blur Filter Kernel Execution Time: 2.038784 ms
+Total Async Kernel Execution Time: 3.353600 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.373152 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.012288 ms
+Limit Heatmap Value Kernel Execution Time: 0.024576 ms
+Scale Heatmap Kernel Execution Time: 0.686080 ms
+Blur Filter Kernel Execution Time: 2.037760 ms
+Total Async Kernel Execution Time: 3.178496 ms
+updateHeatmapSeqCUDAAsync call took: 12 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.468992 ms
+Total tick_OMP CPU time: 33 ms
+---------------Finished tick_OMP-----------------
+Fade Heatmap Kernel Execution Time: 0.030720 ms
+Add Agent Heat Kernel Execution Time: 0.011296 ms
+Limit Heatmap Value Kernel Execution Time: 0.025600 ms
+Scale Heatmap Kernel Execution Time: 0.687104 ms
+Blur Filter Kernel Execution Time: 2.046976 ms
+Total Async Kernel Execution Time: 3.299328 ms
+updateHeatmapSeqCUDAAsync call took: 11 ms
+Movement CPU time: 9 ms
+Async Heatmap update GPU time: 28.108641 ms
+Total tick_OMP CPU time: 32 ms
+---------------Finished tick_OMP-----------------
+Time: 10909 milliseconds, 18.3335 Frames Per Second.
+Done

@@ -44,3 +44,5 @@ demo/demo
 */Makefile
 */*.bin
 *.bin
+
+*/.venv

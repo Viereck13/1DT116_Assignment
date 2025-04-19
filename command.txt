@@ -1,0 +1,3 @@
+demo/demo --export-trace --omp --max-steps=200 scenario.xml > kerneltiming.txt
+demo/demo --timing-mode --omp --max-steps=50 scenario.xml > asyncchecktimingmode2.txt
+python visualize_export.py ../export_trace.bin
